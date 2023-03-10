@@ -15,7 +15,7 @@ function App() {
   }
   return (
     <div >
-      <EditProfile />
+      <Register />
     </div>
       //<Login 
       // handleLogin={handleLogin}
