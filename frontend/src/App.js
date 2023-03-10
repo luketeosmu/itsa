@@ -5,6 +5,7 @@ import Validate from './Validate';
 import EditProfile from './EditProfile';
 import MyBank from './MyBank';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 function App() {
   const [user, setUser] = useState('');
   const handleLogin = () => {
@@ -13,14 +14,17 @@ function App() {
     console.log(JSON.parse(localStorage.getItem('User')));
   }
   return (
-    // <Login 
-    // handleLogin={handleLogin}
-    // user={user}
-    // setUser={setUser}/>
-    // <Register />
-    // <Validate />
-    // <EditProfile />
-    <MyBank />
+    <div >
+      <Register />
+    </div>
+      //<Login 
+      // handleLogin={handleLogin}
+      // user={user}
+      // setUser={setUser}/>
+      // <Register />
+      // <Validate />
+      // <EditProfile />
+      // <MyBank />
   )
 }
 
