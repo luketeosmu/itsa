@@ -1,7 +1,7 @@
 name: Build and Deploy React App to Cloudfront
 on:
   push:
-    branches: { main }
+    branches: { master }
   jobs:
     build-and-deploy:
       name: Build and Deploy
