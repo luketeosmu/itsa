@@ -1,5 +1,3 @@
-const { spawn } = require('child_process');
-
 const express = require('express')
 
 const config = require('config')
@@ -11,15 +9,14 @@ const app = express()
 
 const port = 3000
 
+// admin sign in credentials #######################################
+// url link: https://smurnauth-production.fly.dev/users/sign_in
+// username: admin@example.com
+// password: password
+// #################################################################
+
 // http://localhost:3000
-app.get('/', (req, res) => {
-
-  const url = 'https://smurnauth-production.fly.dev/users/sign_in';
-  spawn('open', [url]);
-
-  res.send('bank sso login ...')
-
-})
+app.get('/', (req, res) => { res.send('bank sso login status: success') })
 
 // http://localhost:3000/get-auth-code
 app.get('/get-auth-code', (req, res) => {
@@ -43,5 +40,5 @@ app.get('/get-auth-code', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port http://localhost:${port}`)
 })
