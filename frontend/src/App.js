@@ -1,9 +1,9 @@
-import './App.css';
-import Login from './Login';
-import Register from './Register';
-import Validate from './Validate';
-import EditProfile from './EditProfile';
-import MyBank from './MyBank';
+// import './App.css';
+import Login from './routes/Login';
+import Register from './routes/Register';
+import Validate from './routes/Validate';
+import EditProfile from './routes/EditProfile';
+import MyBank from './routes/MyBank';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 function App() {

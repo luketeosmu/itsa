@@ -1,6 +1,6 @@
 import React from 'react'
-import logo from './ascenda.png';
-import man from './man.jpg';
+import logo from '../ascenda.png';
+import man from '../man.jpg';
 const Register = () => {
     const setFocus = (e) => {
         console.log(e.target.type)
@@ -26,7 +26,7 @@ const Register = () => {
                 <br />
                 <span className='text-xl'>Already have an account?</span>
                 <br />
-                <a class='text-indigo-600 text-xl font-medium' href='#'>Login here!</a>
+                <a class='text-indigo-600 text-xl font-medium' href='/login'>Login here!</a>
               </div>
               <div class='absolute bottom-20 left-1/2'>
                 <img src={man} alt="man" className='w-96'/>

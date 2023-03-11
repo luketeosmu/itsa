@@ -1,5 +1,5 @@
 import React from 'react'
-import man from './man.jpg';
+import man from '../man.jpg';
 import Nav from './Nav';
 import { useState, useEffect } from 'react';
 const Login = ({handleLogin, user, setUser}) => {
@@ -24,7 +24,7 @@ const Login = ({handleLogin, user, setUser}) => {
                 <br />
                 <span className='text-xl'>Don't have an account?</span>
                 <br />
-                <a class='text-indigo-600 text-xl font-medium' href='#'>Register here!</a>
+                <a class='text-indigo-600 text-xl font-medium' href='/register'>Register here!</a>
               </div>
               <div class='absolute bottom-20 left-1/2'>
                 <img src={man} alt="man" className='w-96'/>

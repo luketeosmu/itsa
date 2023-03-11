@@ -1,20 +1,19 @@
 import React from 'react'
-import logo from './ascenda.png';
-const NavBar = ({}) => {
-    // const user = JSON.parse(localStorage.getItem('User'));
+import logo from '../ascenda.png';
+const Nav = () => {
   return (
-    <div class="navbar bg-base-100 mb-10">
+    <div class="navbar bg-base-100 absolute">
         <div class="flex-1 ml-48">
             <img src={logo} alt='ascenda' class='w-28'/>
         </div>
         <div class="flex-none mr-72">
             <ul class="menu menu-horizontal px-1">
-            <li><a>Kang Chin Shen</a></li>
-            <li><a>Logout</a></li>
+            <li><a>Login</a></li>
+            <li><a>Sign up</a></li>
             </ul>
         </div>
     </div>
-  )
+  );
 }
 
-export default NavBar
+export default Nav

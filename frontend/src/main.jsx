@@ -7,10 +7,6 @@ import {
 import "./index.css";
 import App from "./App";
 import EditProfile from "./routes/EditProfile";
-import Login from "./routes/Login";
-import MyBank from "./routes/MyBank";
-import Register from "./routes/Register";
-import Validate from "./routes/Validate";
 
 const router = createBrowserRouter([
   {
@@ -20,22 +16,6 @@ const router = createBrowserRouter([
   {
     path: "editProfile",
     element: <EditProfile />,
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "myBank",
-    element: <MyBank />,
-  },
-  {
-    path: "register",
-    element: <Register />,
-  },
-  {
-    path: "validate",
-    element: <Validate />,
   },
 ]);
 
