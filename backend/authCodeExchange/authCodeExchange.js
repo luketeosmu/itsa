@@ -4,7 +4,8 @@ const request = require('request');
 const config = require('config');
 
 const app = express();
-const port = 3000; // replace with your desired port number
+const port = 5000; // replace with your desired port number
+const redirectPort = 3000; 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
     }
     console.log('BODY:', JSON.parse(body));
     //   redirect to frontend with the access token
-    res.redirect(`http://localhost:5000?access_token=${JSON.parse(body).access_token}`);
+    res.redirect(`http://localhost:${redirectPort}/accessToken?access_token=${JSON.parse(body).access_token}`);
   });
 
 });

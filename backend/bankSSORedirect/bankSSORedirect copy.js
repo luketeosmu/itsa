@@ -7,8 +7,7 @@ const querystring = require('querystring')
 
 const app = express()
 
-const redirectPort = 5000
-const port = 4000
+const port = 3000
 
 // admin sign in credentials #######################################
 // url link: https://smurnauth-production.fly.dev/users/sign_in
@@ -19,14 +18,14 @@ const port = 4000
 // http://localhost:3000
 app.get('/', (req, res) => { res.send('bank sso login status: success') })
 
-// http://localhost:4000/get-auth-code
+// http://localhost:3000/get-auth-code
 app.get('/get-auth-code', (req, res) => {
 
   const client_id = auth_code_request_credentials.get('client_id'); 
 
   const bank_end_point = auth_code_request_credentials.get('bank_end_point');
 
-  const redirect_uri = `http://localhost:${redirectPort}`; 
+  const redirect_uri = `http://localhost:${port}`; 
 
   const params = {
     client_id: client_id, 
@@ -46,7 +45,6 @@ app.get('/get-auth-code', (req, res) => {
   // #################################################################  
   res.redirect(`${bank_end_point}/oauth/authorize?` + stringified_params)
 })
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
