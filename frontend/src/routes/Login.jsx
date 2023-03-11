@@ -41,7 +41,7 @@ const Login = ({handleLogin, user, setUser}) => {
               <br />
               <button class="btn w-full max-w-xs bg-indigo-600 mt-6" onClick={() => handleLogin()}>Login</button>
               <br />
-              <a class='text-sm my-2 ml-20' href='#'>or continue with Bank SSO</a>
+              <a class='text-sm my-2 ml-20' href='http://localhost:4000/get-auth-code'>or continue with Bank SSO</a>
             </div>
           </div>
         </div>
