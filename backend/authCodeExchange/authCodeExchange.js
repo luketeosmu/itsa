@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     if (err) {
       return console.error(err);
     }
-    console.log('Access token:', JSON.parse(body).access_token);
+    console.log('BODY:', JSON.parse(body));
     //   redirect to frontend with the access token
     res.redirect(`http://localhost:5000?access_token=${JSON.parse(body).access_token}`);
   });
