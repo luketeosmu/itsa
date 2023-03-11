@@ -36,6 +36,13 @@ app.get('/get-auth-code', (req, res) => {
 
   const stringified_params = querystring.stringify(params)
 
+  // redirect url #################################################
+  // https://smurnauth-production.fly.dev/oauth/authorize?
+  // client_id=cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws
+  // &redirect_uri=http%3A%2F%2Flocalhost%3A3000
+  // &response_type=code
+  // &scope=openid+profile 
+  // #################################################################  
   res.redirect(`${bank_end_point}/oauth/authorize?` + stringified_params)
 })
 
