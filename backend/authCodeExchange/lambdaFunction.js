@@ -15,6 +15,7 @@ exports.handler = async (event, context, callback) => {
     const redirect_uri = process.env.redirect_uri
     const client_uri = process.env.client_uri
     const encryption_secret = process.env.encryption_secret
+    const public_key = process.env.public_key
 
     const formData = {
         grant_type: 'authorization_code',
@@ -44,7 +45,22 @@ exports.handler = async (event, context, callback) => {
             res.on('end', async () => {
                 const parsedData = JSON.parse(data);
                 const accessCode = parsedData.access_token;
+                // decode accessCode which is a jwt to be readable as well as verify the signature
+                try {
+                    const { payload } = await jose.jwtVerify(jwt, public_key)
+                    const email = payload.user.email;
+                } catch (error) {
+                    reject({
+                        statusCode: 500,
+                        body: JSON.stringify({
+                            message: 'Error verifying access token',
+                            error: error
+                        })
+                    });
+                }
+
                 const secret = jose.base64url.decode(encryption_secret)
+                // TODO role is hardcoded for now, but should use email to query the user's role from the database
                 const jwt = await new jose.EncryptJWT({ role: 'admin-write', accessCode: accessCode })
                     .setProtectedHeader({ alg: 'dir', enc: 'A128CBC-HS256' })
                     .setIssuedAt()
