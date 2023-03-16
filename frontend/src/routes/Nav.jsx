@@ -8,8 +8,8 @@ const Nav = () => {
         </div>
         <div class="flex-none mr-72">
             <ul class="menu menu-horizontal px-1">
-            <li><a>Login</a></li>
-            <li><a>Sign up</a></li>
+            <li><a href='/login'>Login</a></li>
+            <li><a href='/register'>Sign up</a></li>
             </ul>
         </div>
     </div>

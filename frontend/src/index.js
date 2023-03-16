@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "editProfile",
+    path: "editprofile",
     element: <EditProfile />,
   },
   {
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "myBank",
+    path: "mybank",
     element: <MyBank />,
   },
   {

@@ -2,13 +2,16 @@ import React from 'react'
 import man from '../man.jpg';
 import Nav from './Nav';
 import { useState, useEffect } from 'react';
-const Login = ({handleLogin, user, setUser}) => {
-  // const [user, setUser] = useState('');
-  // const handleLogin = () => {
-  //   // console.log(user);
-  //   localStorage.setItem('User', JSON.stringify(user));
-  //   console.log(JSON.parse(localStorage.getItem('User')));
-  // }
+import { useNavigate } from "react-router-dom";
+const Login = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState('');
+  const handleLogin = () => {
+    console.log("hihi");
+    // localStorage.setItem('User', JSON.stringify(user));
+    // console.log(JSON.parse(localStorage.getItem('User')));
+    navigate('/mybank');
+  }
   return (
     <div class="min-h-screen">
       <Nav />
@@ -26,8 +29,8 @@ const Login = ({handleLogin, user, setUser}) => {
                 <br />
                 <a class='text-indigo-600 text-xl font-medium' href='/register'>Register here!</a>
               </div>
-              <div class='absolute bottom-20 left-1/2'>
-                <img src={man} alt="man" className='w-96'/>
+              <div class='absolute left-1/2 bottom-28'>
+                <img src={man} alt="man" className='w-64'/>
               </div>
           </div>
           <div class='w-2/5 h-screen flex items-center'>

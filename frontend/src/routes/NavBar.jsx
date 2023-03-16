@@ -7,10 +7,11 @@ const NavBar = ({}) => {
         <div class="flex-1 ml-48">
             <img src={logo} alt='ascenda' class='w-28'/>
         </div>
-        <div class="flex-none mr-72">
+        <div class="flex-none mr-56">
             <ul class="menu menu-horizontal px-1">
-            <li><a>Kang Chin Shen</a></li>
-            <li><a>Logout</a></li>
+            <li><a href='/editprofile' class='btn btn-ghost'>Kang Chin Shen</a></li>
+            <li><a href='/mybank' class='btn btn-ghost'>My Bank</a></li>
+            <li><a href='/login' class='btn btn-ghost'>Logout</a></li>
             </ul>
         </div>
     </div>
