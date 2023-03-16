@@ -5,8 +5,11 @@
     .btn{
       text-transform: none;
     }
-    .status{
+    .status-active{
       color: green;
+    }
+    .status-inactive{
+      color: red;
     }
     .userId{
       background-color: purple;
