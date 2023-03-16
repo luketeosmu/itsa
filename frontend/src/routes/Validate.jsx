@@ -16,9 +16,9 @@ const Validate = () => {
                 <div class="modal" id="my-modal-2">
                         <div class="modal-box text-center">
                           <h3 class="font-bold text-2xl">OTP Validation Successful!</h3>
-                          <p class="py-4 font-medium">You will be redirected to your profile page.</p>
+                          <p class="py-4 font-medium">You will be redirected to the login page.</p>
                           <div class="modal-action flex justify-center items-center space-x-10">
-                            <a href="#" class="btn w-48 bg-indigo-600">Close</a>
+                            <a href="/login" class="btn w-48 bg-indigo-600">Close</a>
                           </div>
                         </div>
                       </div>

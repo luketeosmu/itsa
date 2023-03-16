@@ -1,7 +1,10 @@
 import React from 'react'
 import logo from '../ascenda.png';
 import man from '../man.jpg';
+import Nav from './Nav';
+import { useNavigate } from 'react-router';
 const Register = () => {
+    const navigate = useNavigate();
     const setFocus = (e) => {
         console.log(e.target.type)
         e.target.type = 'date';
@@ -9,13 +12,18 @@ const Register = () => {
     const setBlur = (e) => {
         e.target.type = 'text';
     }
+    const handleRegister = () => {
+      console.log("handling register");
+      navigate('/login');
+    }
   return (
     <div class="min-h-screen">
+      <Nav />
       <div classname='container mx-auto'>
         <div class='flex'>
-            <div class='absolute top-10 left-48'>
+            {/* <div class='absolute top-10 left-48'>
               <img src={logo} alt='ascenda' class='w-28'/>
-            </div>
+            </div> */}
           <div class='w-3/5 h-screen flex items-center justify-center relative'>
               <div class='text-2xl'>
                 <span class='text-5xl font-bold'>Create an account to</span>
@@ -33,14 +41,14 @@ const Register = () => {
               </div>
           </div>
           <div class='w-2/5 h-screen flex items-center'>
-            <div class='absolute top-10 flex'>
+            {/* <div class='absolute top-10 flex'>
                 <a class='ml-48' href='#'>
                   Login
                 </a>
                 <a class='ml-5 text-black' href='#'>
                   Sign up
                 </a>
-            </div>
+            </div> */}
             <div class="mr-20 grid grid-rows-5 flex-auto">
                 <div>
                     <span class='text-2xl font-medium'>Register New Account</span>
@@ -72,7 +80,7 @@ const Register = () => {
                           <p>Please enter the OTP within 1 min(s) to validate your account</p>
                           <div class="modal-action flex justify-center items-center space-x-10">
                             <a href="#" class="btn bg-indigo-400">Dismiss</a>
-                            <a href="#" class="btn bg-indigo-600">Enter OTP</a>
+                            <a href="/validate" class="btn bg-indigo-600">Enter OTP</a>
                           </div>
                         </div>
                       </div>
