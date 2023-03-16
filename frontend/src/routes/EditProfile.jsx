@@ -48,8 +48,8 @@ const EditProfile = () => {
                                 </div>
                             </div>
                         <button class="btn w-40 bg-indigo-600 mt-6 ml-0 mr-0 xs:ml-8 xs:mr-8" >Change Password</button>
-                        <a href="#my-modal-2" class="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5">Save Changes</a>
-                            <div class="modal" id="my-modal-2">
+                        <a href="#my-modal-3" class="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5">Save Changes</a>
+                            <div class="modal" id="my-modal-3">
                                 <div class="modal-box text-center">
                                 <h3 class="font-bold text-2xl">Changes saved successfully!</h3>
                                 <div class="modal-action flex justify-center items-center space-x-10">
