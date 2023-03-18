@@ -12,6 +12,7 @@ import MyBank from "./routes/MyBank";
 import Register from "./routes/Register";
 import Validate from "./routes/Validate";
 import AccessToken from "./routes/AccessToken";
+import AuthToken from "./routes/AuthToken";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "accessToken",
     element: <AccessToken />,
+  },
+  {
+    path: "authToken",
+    element: <AuthToken />,
   },
 ]);
 

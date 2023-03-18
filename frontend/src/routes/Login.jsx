@@ -3,14 +3,84 @@ import man from '../man.jpg';
 import Nav from './Nav';
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import sha256 from 'crypto-js/sha256'; 
+import Base64 from 'crypto-js/enc-base64';
 const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
-  const handleLogin = () => {
-    console.log("hihi");
-    // localStorage.setItem('User', JSON.stringify(user));
-    // console.log(JSON.parse(localStorage.getItem('User')));
-    navigate('/mybank');
+  const generateCodeVerifier = () => {
+    return generateRandomString(128)
+    // document.getElementById("code_verifier").value = code_verifier
+  }
+  const generateRandomString = (length) => {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+  const generateCodeChallenge = (code_verifier) => {
+    return base64URL(sha256(code_verifier))
+  }
+  const base64URL = (string) => {
+    return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+  }
+  // const handleLogin = () => {
+  //   console.log("hihi");
+  //   let code_verifier = generateCodeVerifier();
+  //   let code_challenge = generateCodeChallenge(code_verifier);
+  //   console.log("code verifier: " + code_verifier);
+  //   console.log("code challenge: " + code_challenge);
+  //   fetch('https:localhost:4000/...', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: JSON.stringify({
+  //       'code_challenge' : code_challenge,
+  //       'code_verifier' : code_verifier,
+  //       'code_challenge_method' : 'S256'
+  //     }),
+  //   }).then((response) => {
+  //     console.log(response.data);
+  //     //response shld be redirect URL link(?) which will be sth like "localhost:3000/authToken?code=..."
+  //     // let link = response.data.link;
+  //     let link = "http://localhost:3000/authToken?code=abcdefg";
+  //     window.location.href=link;
+  //   }
+  //   ).catch((err) => {
+  //     console.log(err.message);
+  //   });
+  //   // navigate('/mybank');
+  // }
+
+  const handleLogin = async () => {
+    let code_verifier = generateCodeVerifier();
+    let code_challenge = generateCodeChallenge(code_verifier);
+    console.log("code verifier: " + code_verifier);
+    console.log("code challenge: " + code_challenge);
+    try {
+      const res = await fetch('https://rg34z2txqcug2obu3463rgquhy0weoha.lambda-url.ap-southeast-1.on.aws/', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'code_challenge' : code_challenge,
+            'code_verifier' : code_verifier,
+            'code_challenge_method' : 'S256'
+          })
+      });
+      const data = await res.json();
+      console.log(data);
+      //response shld be redirect URL link(?) which will be sth like "localhost:3000/authToken?code=..."
+      // let link = response.data.link;
+      let link = "http://localhost:3000/authToken?code=abcdefg";
+      window.location.href=link;
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div class="min-h-screen">
