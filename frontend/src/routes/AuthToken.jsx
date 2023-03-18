@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 const AuthToken = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  // TODO: shift this code to mybank 
   // TODO: save the access token to local storage/cookie/memory
   useEffect(() => {
     // window.location.href='http://localhost:3000/'
@@ -21,7 +22,7 @@ const AuthToken = () => {
             'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
         }),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json',
         },
     }).then(
         (response) => console.log(response.data)
