@@ -22,10 +22,10 @@ exports.handler = async (event) => {
     console.log("password", password);
     console.log("code_challenge", code_challenge);
 
-    const endpoint = 'sarah-rds-main-1.chokqauthwr5.ap-southeast-1.rds.amazonaws.com';
-    const username = 'admin';
-    const rdsPassword = '*xNs#7v4pJ7rAAX';
-    const databaseName = 'CS301';
+    const endpoint = process.env.endpoint;
+    const username = process.env.username;
+    const rdsPassword = process.env.rdsPassword;
+    const databaseName = process.env.databaseName;
 
     const redirectError = {
         statusCode: 500,
