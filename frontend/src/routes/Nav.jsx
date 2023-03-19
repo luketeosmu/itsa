@@ -2,12 +2,12 @@ import React from 'react'
 import logo from '../ascenda.png';
 const Nav = () => {
   return (
-    <div class="navbar bg-base-100 absolute">
-        <div class="flex-1 ml-48">
+    <div className="navbar bg-base-100 absolute">
+        <div className="flex-1 ml-48">
             <img src={logo} alt='ascenda' class='w-28'/>
         </div>
-        <div class="flex-none mr-72">
-            <ul class="menu menu-horizontal px-1">
+        <div className="flex-none mr-72">
+            <ul className="menu menu-horizontal px-1">
             <li><a href='/login'>Login</a></li>
             <li><a href='/register'>Sign up</a></li>
             </ul>
