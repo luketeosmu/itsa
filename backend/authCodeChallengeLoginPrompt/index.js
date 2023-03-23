@@ -21,7 +21,7 @@ exports.handler = async (event) => {
         database: databaseName
     });
 
-    await connection.execute("INSERT INTO auth_code (auth_code, code_challenge, code_challenge_method, redirect_uri) VALUES (?, ?, ?, ?)", [auth_code, code_challenge, code_challenge_method, redirect_uri]);
+    await connection.execute("INSERT INTO auth (auth_code, code_challenge, code_challenge_method, redirect_uri) VALUES (?, ?, ?, ?)", [auth_code, code_challenge, code_challenge_method, redirect_uri]);
     // get the latest id of the auth_code
     const [rows1] = await connection.execute("SELECT LAST_INSERT_ID() as id");
     const auth_code_id = rows1[0].id;

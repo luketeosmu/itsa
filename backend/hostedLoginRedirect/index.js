@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     const {email, password, auth_code_id} = querystring.parse(event.body);
 
     // get auth_code and redirect_uri using auth_code_id
-    const [rows1] = await connection.execute("SELECT auth_code, redirect_uri FROM auth_code where id=?", [auth_code_id]);
+    const [rows1] = await connection.execute("SELECT auth_code, redirect_uri FROM auth where id=?", [auth_code_id]);
     const {auth_code, redirect_uri} = rows1[0];
 
     const params = {
@@ -38,7 +38,7 @@ exports.handler = async (event) => {
         database: databaseName
     });
     
-    const [rows] = await connection.execute("SELECT hash_password, salt, code_challenge FROM users where email=?", [email]);
+    const [rows] = await connection.execute("SELECT id, hash_password, salt, role FROM users where email=?", [email]);
     console.log(rows);
 
     // validate password
@@ -47,13 +47,50 @@ exports.handler = async (event) => {
         return redirectError;
     }
 
-    const {hash_password, salt} = rows[0];
+    const {id, hash_password, salt, role} = rows[0];
     console.log(hash_password, salt);
     const hashedInputPassword = await bcrypt.hash(password, salt);
     if (hashedInputPassword != hash_password) {
         console.log("hash_password error");
         return redirectError;
     }
+
+    // generate access_token and id_token and refresh_token
+    const access_token = jose.SignJWT({ user: { id, email } })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setExpirationTime('2h')
+        .setIssuer('Bank App')
+        .setAudience(redirect_uri)
+        .sign(process.env.g1t4AsymmetricKey);
+
+    // generate id_token
+    const id_token = jose.SignJWT({ role })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setExpirationTime('2h')
+        .setIssuer('Bank App')
+        .setAudience(redirect_uri)
+        .sign(process.env.g1t4AsymmetricKey);
+
+    // generate refresh_token
+    const refresh_token = jose.SignJWT({ refresh: true })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setExpirationTime('30d')
+        .setIssuer('Bank App')
+        .setAudience(redirect_uri)
+        .sign(process.env.g1t4AsymmetricKey);
+
+    const secret = jose.base64url.decode(process.env.g1t4SymmetricKey)
+    const encrypted_access_token = await new jose.EncryptJWT({ role, access_token })
+        .setProtectedHeader({ alg: 'dir', enc: 'A128CBC-HS256' })
+        .setIssuedAt()
+        .setExpirationTime('1h')
+        .encrypt(secret)
+    
+    // update into auth_code table
+    await connection.execute("UPDATE auth SET access_token=?, id_token=?, refresh_token=? where id=?", [encrypted_access_token, id_token, refresh_token, auth_code_id]);
 
     const response = {
         statusCode: 301,
