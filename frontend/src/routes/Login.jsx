@@ -72,6 +72,7 @@ const Login = () => {
                 <input type="hidden" value={process.env.REACT_APP_redirect_uri} name='redirect_uri'/>
                 <input type="hidden" value={process.env.REACT_APP_response_type} name='response_type'/>
                 <input type="hidden" value={process.env.REACT_APP_scope} name='scope'/>
+                <input type="hidden" value="S256" name='code_challenge_method'/>
                 <input type="hidden" value={codeChallenge} name='code_challenge'/>
                 <input className="btn w-full max-w-xs bg-indigo-600 mt-6" type='submit' value='Login'/>
               </form>
