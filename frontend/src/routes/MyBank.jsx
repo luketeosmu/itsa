@@ -99,12 +99,12 @@ const MyBank = () => {
   return (
     <div>
         <NavBar />
-        <h1 class='text-3xl mb-10 ml-56 font-bold'>
+        <h1 className='text-3xl mb-10 ml-56 font-bold'>
             My Bank
         </h1>
         {users.length > 0 ?
-            <div class="overflow-x-auto h-screen ">
-                <table class="table table-compact w-3/4 mx-auto">
+            <div className="overflow-x-auto h-screen ">
+                <table className="table table-compact w-3/4 mx-auto">
                     <thead>
                     <tr>
                         <th>Email</th> 
@@ -121,8 +121,8 @@ const MyBank = () => {
                 </table>
             </div>
             :
-            <div class="flex items-center justify-center text-center text-2xl font-medium">
-                <button class="btn btn-ghost btn-xl loading text-xl">Loading bank users..</button>
+            <div className="flex items-center justify-center text-center text-2xl font-medium">
+                <button className="btn btn-ghost btn-xl loading text-xl">Loading bank users..</button>
             </div>
 
         }

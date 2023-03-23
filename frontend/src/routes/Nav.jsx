@@ -4,7 +4,7 @@ const Nav = () => {
   return (
     <div className="navbar bg-base-100 absolute">
         <div className="flex-1 ml-48">
-            <img src={logo} alt='ascenda' class='w-28'/>
+            <img src={logo} alt='ascenda' className='w-28'/>
         </div>
         <div className="flex-none mr-72">
             <ul className="menu menu-horizontal px-1">

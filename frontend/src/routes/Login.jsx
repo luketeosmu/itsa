@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import man from '../man.jpg';
 import Nav from './Nav';
-import { useState} from 'react';
 import sha256 from 'crypto-js/sha256'; 
 import Base64 from 'crypto-js/enc-base64';
-import axios from 'axios';
+
 const Login = () => {
   const [codeChallenge, setCodeChallenge] = useState('');
-  const [codeVerifier, setCodeVerifier] = useState('');
   const [user, setUser] = useState('');
+
+  useEffect(() => {
+    console.log(process.env.REACT_APP_client_id);
+    const newCodeVerifier = generateCodeVerifier()
+    const newCodeChallenge = generateCodeChallenge(newCodeVerifier)
+    // maybe can encrypt with client secret before storing in local storage
+    localStorage.setItem('codeVerifier', newCodeVerifier);
+    localStorage.setItem('codeChallenge', newCodeChallenge);
+    setCodeChallenge(newCodeChallenge);
+  }, [])
+  
   const generateCodeVerifier = () => {
     return generateRandomString(128)
     // document.getElementById("code_verifier").value = code_verifier
@@ -26,15 +35,6 @@ const Login = () => {
   }
   const base64URL = (string) => {
     return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
-  }
-  const handleLogin = () => {
-    console.log("handling hosted login");
-    setCodeVerifier(generateCodeVerifier());
-    setCodeChallenge(generateCodeChallenge(codeVerifier));
-    localStorage.set('codeVerifier', codeVerifier);
-    localStorage.set('codeChallenge', codeChallenge);
-    console.log("code verifier: " + codeVerifier);
-    console.log("code challenge: " + codeChallenge);
   }
 
   return (
@@ -63,13 +63,17 @@ const Login = () => {
               <span className='text-2xl font-medium'>Login</span>
               <br />
               <input type="text" onChange={(e) => setUser(e.target.value)} placeholder="Enter email" className="input input-bordered w-full max-w-xs my-5 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
-              <input type="password" placeholder="Password" class="input input-bordered w-full max-w-xs my-2 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
+              <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs my-2 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
               <br />
-              <a className='text-xs ml-56' href='#'>Forgot password?</a>
+              <button className='text-xs ml-56'>Forgot password?</button>
               <br />
               <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/auth_code_challenge_login_prompt" method='post'>
+                <input type="hidden" value={process.env.REACT_APP_client_id} name='client_id'/>
+                <input type="hidden" value={process.env.REACT_APP_redirect_uri} name='redirect_uri'/>
+                <input type="hidden" value={process.env.REACT_APP_response_type} name='response_type'/>
+                <input type="hidden" value={process.env.REACT_APP_scope} name='scope'/>
                 <input type="hidden" value={codeChallenge} name='code_challenge'/>
-                <input className="btn w-full max-w-xs bg-indigo-600 mt-6" type='submit' value='Login' onClick={handleLogin}/>
+                <input className="btn w-full max-w-xs bg-indigo-600 mt-6" type='submit' value='Login'/>
               </form>
               <br />
               <a className='text-sm my-2 ml-20' href='http://localhost:4000/get-auth-code'>or continue with Bank SSO</a>
