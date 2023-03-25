@@ -75,7 +75,7 @@ const MyBank = () => {
 
             }).then(
                 (response) => {
-                    console.log(response.data);
+                    console.log(response);
                 }
             ).catch((err) => {
                 console.log(err.message);
