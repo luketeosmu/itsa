@@ -57,16 +57,16 @@ const MyBank = () => {
         //         })
         // };
 
-        // const getFromAuthApp = () => {
-        //     axios.get(url)
-        //         .then((response) => {
-        //             console.log(response.data);
-        //             // should return list of users
-        //             setUsers(response.data.users);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         }) 
-        // };
+        const getFromAuthApp = () => {
+            axios.get(url)
+                .then((response) => {
+                    console.log(response.data);
+                    // should return list of users
+                    setUsers(response.data.users);
+                }).catch((err) => {
+                    console.log(err);
+                }) 
+        };
 
         
         // USING FETCH METHOD 
