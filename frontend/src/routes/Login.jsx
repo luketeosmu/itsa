@@ -68,10 +68,11 @@ const Login = () => {
               <button className='text-xs ml-56'>Forgot password?</button>
               <br />
               <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/auth_code_challenge_login_prompt" method='post'>
-                <input type="hidden" value={process.env.REACT_APP_client_id} name='client_id'/>
-                <input type="hidden" value={process.env.REACT_APP_redirect_uri} name='redirect_uri'/>
-                <input type="hidden" value={process.env.REACT_APP_response_type} name='response_type'/>
-                <input type="hidden" value={process.env.REACT_APP_scope} name='scope'/>
+                {/* TODO: add to environment variable */}
+                <input type="hidden" value="cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws" name='client_id'/>
+                <input type="hidden" value="http://project-2022-23t2-g1-t4-s3.s3-website-us-east-1.amazonaws.com" name='redirect_uri'/>
+                <input type="hidden" value="code" name='response_type'/>
+                <input type="hidden" value="openid+profile" name='scope'/>
                 <input type="hidden" value="S256" name='code_challenge_method'/>
                 <input type="hidden" value={codeChallenge} name='code_challenge'/>
                 <input className="btn w-full max-w-xs bg-indigo-600 mt-6" type='submit' value='Login'/>
