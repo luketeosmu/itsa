@@ -31,9 +31,10 @@ const MyBank = () => {
         console.log(localStorage.getItem('code_verifier'));
         console.log(searchParams.get('code'));
 
-        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
         //USING AXIOS METHOD
         const postToAuthApp = () => {
+            console.log('posting to auth app');
             let body = {
                 'auth_code' : searchParams.get('code'),
                 'code_verifier' : localStorage.getItem('code_verifier'),
@@ -42,6 +43,7 @@ const MyBank = () => {
             };
             axios.post(url, body)
                 .then((response) => {
+                    console.log(response);
                     if(response.status === 200) {
                         console.log(response.data)
                         getFromAuthApp();
