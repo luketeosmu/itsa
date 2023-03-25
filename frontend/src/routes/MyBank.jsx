@@ -57,54 +57,56 @@ const MyBank = () => {
         //         })
         // };
 
-        const getFromAuthApp = () => {
-            axios.get(url)
-                .then((response) => {
-                    console.log(response.data);
-                    // should return list of users
-                    setUsers(response.data.users);
-                }).catch((err) => {
-                    console.log(err);
-                }) 
-        };
+        // const getFromAuthApp = () => {
+        //     axios.get(url)
+        //         .then((response) => {
+        //             console.log(response.data);
+        //             // should return list of users
+        //             setUsers(response.data.users);
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         }) 
+        // };
 
         
         // USING FETCH METHOD 
-        const postToAuthApp = () => {
-            fetch(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    'auth_code' : searchParams.get('code'),
-                    'code_verifier' : localStorage.getItem('code_verifier'),
-                    'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-                    'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-                }),
-                headers: {
-                    'Content-type': 'application/json',
-                },
+        const getFromAuthApp = () => {
+            fetch('https://www.example.com/endpoint', {
+
             }).then(
-                (response => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        getFromAuthApp();
-                    }
-                })
+                (response) => {
+                    setUsers(response.data.users);
+                }
             ).catch((err) => {
                 console.log(err.message);
-            });
-        }
-        postToAuthApp();
-        // const getFromAuthApp = () => {
-        //     fetch('https:localhost:4000/oauth/token', {
-
+            })
+        };
+        getFromAuthApp();
+        // const postToAuthApp = () => {
+        //     fetch(url, {
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             'auth_code' : searchParams.get('code'),
+        //             'code_verifier' : localStorage.getItem('code_verifier'),
+        //             'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
+        //             'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
+        //         }),
+        //         headers: {
+        //             'Content-type': 'application/json',
+        //         },
         //     }).then(
-        //         (response) => {
-        //             setUsers(response.data.users);
-        //         }
+        //         (response => {
+        //             console.log(response);
+        //             if (response.status === 200) {
+        //                 getFromAuthApp();
+        //             }
+        //         })
         //     ).catch((err) => {
         //         console.log(err.message);
-        //     })
-        // };
+        //     });
+        // }
+        // postToAuthApp();
+        
     }, [users])
 
   return (
