@@ -13,8 +13,8 @@ const Login = () => {
     const newCodeVerifier = generateCodeVerifier()
     const newCodeChallenge = generateCodeChallenge(newCodeVerifier)
     // maybe can encrypt with client secret before storing in local storage
-    localStorage.setItem('codeVerifier', newCodeVerifier);
-    localStorage.setItem('codeChallenge', newCodeChallenge);
+    localStorage.setItem('code_verifier', newCodeVerifier);
+    localStorage.setItem('code_challenge', newCodeChallenge);
     setCodeChallenge(newCodeChallenge);
   }, [])
   

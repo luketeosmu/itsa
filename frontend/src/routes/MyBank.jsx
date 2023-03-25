@@ -7,31 +7,31 @@ import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [users, setUsers] = useState([
-        // {
-        //     'email' : "kangchinshen@gmail.com",
-        //     'uid' : "123456789zxc",
-        //     'status' : "inactive",
-        //     'actions' : "read/write"
-        // },
-        // {
-        //     'email' : "chinshenkang@gmail.com",
-        //     'uid' : "987654321abc",
-        //     'status' : "active",
-        //     'actions' : "read/write"
-        // },
-        // {
-        //     'email' : "shenchinkang@gmail.com",
-        //     'uid' : "0101010101jkl",
-        //     'status' : "active",
-        //     'actions' : "read/write"
-        // },
+        {
+            'email' : "kangchinshen@gmail.com",
+            'uid' : "123456789zxc",
+            'status' : "inactive",
+            'actions' : "read/write"
+        },
+        {
+            'email' : "chinshenkang@gmail.com",
+            'uid' : "987654321abc",
+            'status' : "active",
+            'actions' : "read/write"
+        },
+        {
+            'email' : "shenchinkang@gmail.com",
+            'uid' : "0101010101jkl",
+            'status' : "active",
+            'actions' : "read/write"
+        },
     ]);
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
         console.log(localStorage.getItem('code_verifier'));
         console.log(searchParams.get('code'));
 
-        const url = "https:localhost:4000/oauth/token";
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
         //USING AXIOS METHOD
         const postToAuthApp = () => {
             let body = {
@@ -43,6 +43,7 @@ const MyBank = () => {
             axios.post(url, body)
                 .then((response) => {
                     if(response.status === 200) {
+                        console.log(response.data)
                         getFromAuthApp();
                     }
                 })
