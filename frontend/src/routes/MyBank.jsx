@@ -37,7 +37,7 @@ const MyBank = () => {
         console.log(localStorage.getItem('code_verifier'));
         console.log(searchParams.get('code'));
 
-        const url = "/default/hosted_login_oauth_token";
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
         //USING AXIOS METHOD
         // const postToAuthApp = () => {
         //     console.log('posting to auth app');
@@ -70,44 +70,41 @@ const MyBank = () => {
 
         
         // USING FETCH METHOD 
-        const getFromAuthApp = () => {
-            fetch('https://api.openweathermap.org/data/2.5/weather?lat=1.431630&lon=103.785591&appid=3f0b9743df8cd6169d5a696a8fd7e0b6', {
-
-            }).then(
-                (response) => {
-                    console.log(response);
-                }
-            ).catch((err) => {
-                console.log(err.message);
-            })
-        };
-        getFromAuthApp();
-        // const postToAuthApp = () => {
+        // const getFromAuthApp = () => {
         //     fetch(url, {
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             'auth_code' : searchParams.get('code'),
-        //             'code_verifier' : localStorage.getItem('code_verifier'),
-        //             'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-        //             'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-        //         }),
-        //         headers: {
-        //             'Content-type': 'application/json',
-        //         },
-        //     }).then(
-        //         (response => {
-        //             console.log(response);
-        //             if (response.status === 200) {
-        //                 getFromAuthApp();
-        //             }
-        //         })
-        //     ).catch((err) => {
+
+        //     }).then(response => response.json())
+        //     .then((data) => {
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
         //         console.log(err.message);
-        //     });
-        // }
-        // postToAuthApp();
+        //     })
+        // };
+        // getFromAuthApp();
+        const postToAuthApp = () => {
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    'auth_code' : searchParams.get('code'),
+                    'code_verifier' : localStorage.getItem('code_verifier'),
+                    'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
+                    'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
+                }),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        }
+        postToAuthApp();
         
-    }, [users])
+    }, [searchParams])
 
   return (
     <div>
