@@ -71,11 +71,11 @@ const MyBank = () => {
         
         // USING FETCH METHOD 
         const getFromAuthApp = () => {
-            fetch('https://www.example.com/endpoint', {
+            fetch('https://api.openweathermap.org/data/2.5/weather?lat=1.431630&lon=103.785591&appid=3f0b9743df8cd6169d5a696a8fd7e0b6', {
 
             }).then(
                 (response) => {
-                    setUsers(response.data.users);
+                    setUsers(response.data);
                 }
             ).catch((err) => {
                 console.log(err.message);
