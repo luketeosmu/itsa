@@ -37,7 +37,7 @@ const MyBank = () => {
         console.log(localStorage.getItem('code_verifier'));
         console.log(searchParams.get('code'));
 
-        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
+        const url = "/default/hosted_login/oauth/token";
         //USING AXIOS METHOD
         const postToAuthApp = () => {
             let body = {
