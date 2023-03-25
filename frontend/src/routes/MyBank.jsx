@@ -37,7 +37,7 @@ const MyBank = () => {
         console.log(localStorage.getItem('code_verifier'));
         console.log(searchParams.get('code'));
 
-        const url = "/default/hosted_login/oauth/token";
+        const url = "/default/hosted_login_oauth_token";
         //USING AXIOS METHOD
         // const postToAuthApp = () => {
         //     console.log('posting to auth app');
@@ -84,6 +84,7 @@ const MyBank = () => {
                 },
             }).then(
                 (response => {
+                    console.log(response);
                     if (response.status === 200) {
                         getFromAuthApp();
                     }
