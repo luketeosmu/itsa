@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../ascenda.png';
-const NavBar = ({}) => {
+const NavBar = () => {
     // const user = JSON.parse(localStorage.getItem('User'));
   return (
     <div className="navbar bg-base-100 mb-10">

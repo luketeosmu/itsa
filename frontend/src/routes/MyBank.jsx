@@ -7,24 +7,30 @@ import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [users, setUsers] = useState([
-        // {
-        //     'email' : "kangchinshen@gmail.com",
-        //     'uid' : "123456789zxc",
-        //     'status' : "inactive",
-        //     'actions' : "read/write"
-        // },
-        // {
-        //     'email' : "chinshenkang@gmail.com",
-        //     'uid' : "987654321abc",
-        //     'status' : "active",
-        //     'actions' : "read/write"
-        // },
-        // {
-        //     'email' : "shenchinkang@gmail.com",
-        //     'uid' : "0101010101jkl",
-        //     'status' : "active",
-        //     'actions' : "read/write"
-        // },
+        {
+            'email' : "kangchinshen@gmail.com",
+            'firstName' : 'kang',
+            'lastName' : 'chin shen',
+            'uid' : "123456789zxc",
+            'status' : "inactive",
+            'actions' : "read/write"
+        },
+        {
+            'email' : "chinshenkang@gmail.com",
+            'firstName' : 'chin',
+            'lastName' : 'shen kang',
+            'uid' : "987654321abc",
+            'status' : "active",
+            'actions' : "read/write"
+        },
+        {
+            'email' : "shenchinkang@gmail.com",
+            'firstName' : 'shen',
+            'lastName' : 'chin kang',
+            'uid' : "0101010101jkl",
+            'status' : "active",
+            'actions' : "read/write"
+        },
     ]);
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
@@ -94,7 +100,7 @@ const MyBank = () => {
         //         console.log(err.message);
         //     })
         // };
-    }, [searchParams])
+    }, [users])
 
   return (
     <div>
@@ -108,6 +114,8 @@ const MyBank = () => {
                     <thead>
                     <tr>
                         <th>Email</th> 
+                        <th>First Name</th> 
+                        <th>Last Name</th> 
                         <th>User ID</th> 
                         <th>Status</th> 
                         <th>Actions</th> 
@@ -115,7 +123,7 @@ const MyBank = () => {
                     </thead> 
                     <tbody>
                         {users.map(function(user, i){
-                            return <BankUsers user={user} key={user.uid} />;
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid}/>;
                         })}
                     </tbody>
                 </table>

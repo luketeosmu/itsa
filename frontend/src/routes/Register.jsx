@@ -1,10 +1,7 @@
 import React from 'react'
-import logo from '../ascenda.png';
 import man from '../man.jpg';
 import Nav from './Nav';
-import { useNavigate } from 'react-router';
 const Register = () => {
-    const navigate = useNavigate();
     const setFocus = (e) => {
         console.log(e.target.type)
         e.target.type = 'date';
@@ -12,10 +9,10 @@ const Register = () => {
     const setBlur = (e) => {
         e.target.type = 'text';
     }
-    const handleRegister = () => {
-      console.log("handling register");
-      navigate('/login');
-    }
+    // const handleRegister = () => {
+    //   console.log("handling register");
+    //   navigate('/login');
+    // }
   return (
     <div className="min-h-screen">
       <Nav />
