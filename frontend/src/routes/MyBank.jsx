@@ -40,6 +40,7 @@ const MyBank = () => {
         const url = "/default/hosted_login/oauth/token";
         //USING AXIOS METHOD
         const postToAuthApp = () => {
+            console.log('posting to auth app');
             let body = {
                 'auth_code' : searchParams.get('code'),
                 'code_verifier' : localStorage.getItem('code_verifier'),
@@ -48,6 +49,7 @@ const MyBank = () => {
             };
             axios.post(url, body)
                 .then((response) => {
+                    console.log(response);
                     if(response.status === 200) {
                         console.log(response.data)
                         getFromAuthApp();
