@@ -56,25 +56,13 @@ exports.handler = async (event) => {
     }
 
     // generate access_token and id_token and refresh_token
-    // const access_token = jose.SignJWT({ user: { id, email } })
-    //     .setProtectedHeader({ alg: 'HS256' })
-    //     .setIssuedAt()
-    //     .setExpirationTime('2h')
-    //     .setIssuer('Bank App')
-    //     .setAudience(redirect_uri)
-    //     .sign(process.env.g1t4AsymmetricKey);
-
-    // generating access token
-    const signJwt = async (id, email, redirect_uri) => {
-    	return new jose.SignJWT({ user: { id, email } })
-    		.setProtectedHeader({ alg: "HS256" })
-    		.setIssuedAt()
-    		.setIssuer("Bank app")
-    		.setAudience(redirect_uri)
-    		.setExpirationTime("2h")
-    		.sign(decoded_key)
-    };
-    const access_token = await (id, email, redirect_uri);
+    const access_token = jose.SignJWT({ user: { id, email } })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setExpirationTime('2h')
+        .setIssuer('Bank App')
+        .setAudience(redirect_uri)
+        .sign(process.env.g1t4AsymmetricKey);
 
     // generate id_token
     const id_token = jose.SignJWT({ role })
