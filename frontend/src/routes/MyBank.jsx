@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [role, setRole] = useState('user');
     const [users, setUsers] = useState([
         {
             'email' : "kangchinshen@gmail.com",
@@ -70,18 +71,10 @@ const MyBank = () => {
 
         
         // USING FETCH METHOD 
-        // const getFromAuthApp = () => {
-        //     fetch(url, {
+        
 
-        //     }).then(response => response.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message);
-        //     })
-        // };
-        // getFromAuthApp();
+        
+        // console.log(signature);
         const postToAuthApp = () => {
             fetch(url, {
                 method: 'POST',
@@ -96,7 +89,49 @@ const MyBank = () => {
                 },
             }).then(response => response.json())
             .then(data => {
+                //access token + refresh token
                 console.log(data)
+                // replace with data.token or something idk whats the variable name
+                let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ";
+                let parts = token.split(".");
+                let header = JSON.parse(atob(parts[0]));
+                let payload = JSON.parse(atob(parts[1]));
+                let signature = atob(parts[2]); //this token signature doesnt work idky
+                console.log(header);
+                console.log(payload);
+                //idk whats the role variable name in the token 
+                setRole("admin");
+                if(role === "user") {
+                    //GET own user details and setUsers() -> will be array of len 1 
+                } else {
+                    //GET all user details and setUsers()
+                    //example:
+                    setUsers(
+                        [{
+                            'email' : "kangchinshen@gmail.com",
+                            'firstName' : 'kang',
+                            'lastName' : 'chin shen',
+                            'uid' : "123456789zxc",
+                            'status' : "inactive",
+                            'actions' : "read/write"
+                        },
+                        {
+                            'email' : "chinshenkang@gmail.com",
+                            'firstName' : 'chin',
+                            'lastName' : 'shen kang',
+                            'uid' : "987654321abc",
+                            'status' : "active",
+                            'actions' : "read/write"
+                        },
+                        {
+                            'email' : "shenchinkang@gmail.com",
+                            'firstName' : 'shen',
+                            'lastName' : 'chin kang',
+                            'uid' : "0101010101jkl",
+                            'status' : "active",
+                            'actions' : "read/write"
+                        }])
+                    }
             })
             .catch((err) => {
                 console.log(err.message);
@@ -122,12 +157,16 @@ const MyBank = () => {
                         <th>Last Name</th> 
                         <th>User ID</th> 
                         <th>Status</th> 
-                        <th>Actions</th> 
+                        {
+                            role != "user" 
+                            ?<th>Actions</th>
+                            :<th></th>
+                        } 
                     </tr>
                     </thead> 
                     <tbody>
                         {users.map(function(user, i){
-                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid}/>;
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role}/>;
                         })}
                     </tbody>
                 </table>
