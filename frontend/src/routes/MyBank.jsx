@@ -162,7 +162,9 @@ const MyBank = () => {
         } else {
             let id_token = localStorage.getItem("id_token");
             console.log("id_token from local storage: " + id_token);
-            let role = JSON.parse(atob(id_token.split(".")[1]));
+            let parts = id_token.split('.');
+            let payload = JSON.parse(atob(parts[1]));
+            let role = payload.role;
             console.log("role: " + role);
             setRole(role);
         }
