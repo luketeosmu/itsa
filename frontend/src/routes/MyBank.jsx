@@ -33,6 +33,23 @@ const MyBank = () => {
             'actions' : "read/write"
         },
     ]);
+    const callKang = () => {
+        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
+        fetch(url)
+          .then(response => response.json())
+        // fetch(url, {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         // 'auth_code' : searchParams.get('code'),
+        //         // 'code_verifier' : localStorage.getItem('code_verifier'),
+        //         // 'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
+        //         // 'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
+        //     }),
+        //     headers: {
+        //         'Content-type': 'application/json',
+        //     },
+        // }).then(response => response.json())
+      }
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
         console.log("code verifier: " + localStorage.getItem('code_verifier'));
@@ -89,6 +106,8 @@ const MyBank = () => {
         // }
         
         // console.log(signature);
+        
+
         const postToAuthApp = () => {
             fetch(url, {
                 method: 'POST',
@@ -206,6 +225,7 @@ const MyBank = () => {
                         })}
                     </tbody>
                 </table>
+                <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
             </div>
             :
             <div className="flex items-center justify-center text-center text-2xl font-medium">
