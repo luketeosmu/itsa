@@ -87,7 +87,7 @@ const Login = () => {
                 <input className="btn w-80 bg-indigo-600 mt-6" type='submit' value='Hosted Login'/>
               </form>
               <br />
-              <a className="btn w-full bg-black-600 mt-6" href='http://localhost:4000/get-auth-code'>Bank SSO Login </a>
+              <a className="btn w-full bg-black-600 mt-6" href='https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/redirect'>Bank SSO Login </a>
               {/* <a className='text-sm my-2 ml-20' href='http://localhost:4000/get-auth-code'>or continue with Bank SSO</a> */}
             </div>
           </div>
