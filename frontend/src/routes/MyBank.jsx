@@ -113,7 +113,7 @@ const MyBank = () => {
                 console.log(header);
                 console.log(payload.role);
                 //idk whats the role variable name in the token 
-                setRole("admin");
+                setRole(payload.role);
                 if(role === "user") {
                     //GET own user details and setUsers() -> will be array of len 1 
                 } else {
