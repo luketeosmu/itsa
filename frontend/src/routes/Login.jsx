@@ -40,13 +40,9 @@ const Login = () => {
   }
 
   const callKang = () => {
-    // let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/test";
     fetch(url)
       .then(response => response.json())
-      .then(data => {
-          console.log(data);
-      })
   }
 
   return (
