@@ -46,8 +46,8 @@ const Login = () => {
     fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-            'auth_code' : "123456",
-            'code_verifier' : "1234577382",
+            'auth_code' : "$2a$10$BYpuH0dNwkFZ2/t6vQByEukrzJwMAdKJCoezGc5xXK3Eu.cTCC8qG",
+            'code_verifier' : "yPYiil3k82HCrsKJ4PndCFrIBesDnYMf6T0PqCepmWm2dvmE9uQrTCAiKVnI0yKqw6BYbJanVs5RXqMMjgTyLTztrsRlF0MmKaEa5EZX3YLh.4v1_nGEIzwzfqlmEH5l",
             'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
             'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
         }),
@@ -55,6 +55,11 @@ const Login = () => {
             'Content-type': 'application/json',
         },
     }).then(response => response.json())
+  }
+
+  const callWK = () => {
+    let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
+    fetch(url).then((response) => response.json());
   }
 
   return (
@@ -66,6 +71,7 @@ const Login = () => {
               <div className='text-2xl'>
                 <a href="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1">Click link</a>
                 <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
+                <button onClick={callWK} className="btn btn-xs">Chin Shen Kang</button>
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
