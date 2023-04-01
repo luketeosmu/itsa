@@ -48,25 +48,82 @@ const MyBank = () => {
         fetch(url)
           .then(response => response.json())
       }
+
+    const getOneUser = (loginFlow) => {
+        const userInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/${loginFlow}/oauth/userinfo`
+        fetch(userInfoUrl, {
+            method: 'GET',
+            headers: {
+                authorizationToken: localStorage.getItem("access_token"),
+            },
+        }).then(response => response.json())
+        .then(data => {
+            // example data
+            // {
+            //     "email": "nicolas.kihn@dietrich.net",
+            //     "given_name": "Nicolas",
+            //     "family_name": "Kihn",
+            //     "name": "Nicolas Kihn",
+            //     "birthdate": "1975-04-12T00:00:00.000Z",
+            // }
+            console.log(data);
+            setUsers([data]);
+        })
+    }
+
+    const getAllUsers = (loginFlow) => {
+        const allUsersInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/${loginFlow}/oauth/usersinfo`
+        fetch(allUsersInfoUrl, {
+            method: 'GET',
+            headers: {
+                authorizationToken: localStorage.getItem("access_token"),
+            },
+        }).then(response => response.json())
+        .then(data => {
+            // example data
+            // [
+            //     {
+            //         "email": "nicolas.kihn@dietrich.net",
+            //         "given_name": "Nicolas",
+            //         "family_name": "Kihn",
+            //         "name": "Nicolas Kihn",
+            //         "birthdate": "1975-04-12T00:00:00.000Z",
+            //     },
+            //     {
+            //         "email": "nicolas.kihn@dietrich.net",
+            //         "given_name": "Nicolas",
+            //         "family_name": "Kihn",
+            //         "name": "Nicolas Kihn",
+            //         "birthdate": "1975-04-12T00:00:00.000Z",
+            //     },
+            // ]
+            setUsers(data);
+        })
+    }
+
+    const fetchUserInfoBasedOnRoleAndLoginFlow = (role, loginFlow) => {
+            if (role === 'user') {
+                //GET own user details and setUsers() -> will be array of len 1
+                getOneUser(loginFlow);
+            } else {
+                //GET all user details and setUsers()
+                getAllUsers(loginFlow);
+            }
+    }
+
+
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
         if (searchParams.get('bankAccessToken')) {
-            const bankUserInfoUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/bank/oauth/userinfo";
             const bankAccessToken = searchParams.get('bankAccessToken');
             const bankIdToken = searchParams.get('bankIdToken');
             localStorage.setItem("access_token", bankAccessToken);
             localStorage.setItem("id_token", bankIdToken);
-
-            fetch(bankUserInfoUrl, {
-                method: 'GET',
-                headers: {
-                    authorizationToken: bankAccessToken,
-                },
-            }).then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setPersonalInfo(data);
-            })
+            
+            let parts = bankIdToken.split(".");
+            let payload = JSON.parse(atob(parts[1]));
+            fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'bank');
+            setRole(payload.role);
         } else if (searchParams.get('code')) {
             const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
             console.log("code verifier: " + localStorage.getItem('code_verifier'));
@@ -110,37 +167,7 @@ const MyBank = () => {
                     //idk whats the role variable name in the token 
                     setRole(payload.role);
                     // setRole("superadmin");
-                    if(role === "user") {
-                        //GET own user details and setUsers() -> will be array of len 1 
-                    } else {
-                        //GET all user details and setUsers()
-                        //example:
-                        setUsers(
-                            [{
-                                'email' : "kangchinshen@gmail.com",
-                                'firstName' : 'kang',
-                                'lastName' : 'chin shen',
-                                'uid' : "123456789zxc",
-                                'status' : "inactive",
-                                'actions' : "read/write"
-                            },
-                            {
-                                'email' : "chinshenkang@gmail.com",
-                                'firstName' : 'chin',
-                                'lastName' : 'shen kang',
-                                'uid' : "987654321abc",
-                                'status' : "active",
-                                'actions' : "read/write"
-                            },
-                            {
-                                'email' : "shenchinkang@gmail.com",
-                                'firstName' : 'shen',
-                                'lastName' : 'chin kang',
-                                'uid' : "0101010101jkl",
-                                'status' : "active",
-                                'actions' : "read/write"
-                            }])
-                        }
+                    fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'hosted_login');
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -175,6 +202,8 @@ const MyBank = () => {
             let role = payload.role;
             console.log("role: " + role);
             setRole(role);
+            const loginFlow = localStorage.getItem("refresh_token") ? 'hosted_login' : 'bank';
+            fetchUserInfoBasedOnRoleAndLoginFlow(role, loginFlow);
         }
     }, [searchParams])
 
