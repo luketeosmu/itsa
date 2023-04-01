@@ -1,5 +1,7 @@
 const https = require('https');
 const jose = require('jose');
+const mysql = require('mysql2/promise');
+const AWS = require('aws-sdk');
 /**
  * Pass the data to send as `event.data`, and the request options as
  * `event.options`. For more information see the HTTPS module documentation
@@ -9,13 +11,35 @@ const jose = require('jose');
  */
 exports.handler = async (event, context, callback) => {
     const authCode = event.queryStringParameters.code; // extract auth code from request body
-    const client_id = process.env.client_id
-    const client_secret = process.env.client_secret
-    const bank_end_point = process.env.bank_end_point
-    const redirect_uri = process.env.redirect_uri
-    const client_uri = process.env.client_uri
-    const encryption_secret = process.env.encryption_secret
-    const public_key = process.env.public_key
+    console.log(authCode);
+    
+    // get rds credentials
+    let secretName = "prod/rds-client-credentials";
+    const config = { region : "ap-southeast-1" };
+    let secretsManager = new AWS.SecretsManager(config);
+    let secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
+    let secretObject = JSON.parse(secretValue.SecretString);
+    const connection = await mysql.createConnection({
+        host: secretObject.host,
+        user: secretObject.username,
+        password: secretObject.password,
+        database: secretObject.dbname
+    });
+    
+    // get symmetric key for encryption
+    secretName = "prod/keys";
+    secretsManager = new AWS.SecretsManager(config);
+    secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
+    secretObject = JSON.parse(secretValue.SecretString);
+    const g1t4SymmetricKey = secretObject.g1t4SymmetricKey;
+    const bankPublicKey = await jose.importSPKI(secretObject.bankPublicKey, 'RS256');
+    
+    // get bank sso parameters
+    secretName = "prod/banksso";
+    secretsManager = new AWS.SecretsManager(config);
+    secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
+    secretObject = JSON.parse(secretValue.SecretString);
+    const { client_id, client_secret, bank_end_point, redirect_uri, client_uri } = secretObject;
 
     const formData = {
         grant_type: 'authorization_code',
@@ -36,36 +60,27 @@ exports.handler = async (event, context, callback) => {
     };
     
     const promise = new Promise((resolve, reject) => {
-        let data = ''
+        let data = '';
         const req = https.request(options, (res) => {
             res.on('data', (d) => {
-                data += d
+                data += d;
             });
             
             res.on('end', async () => {
                 const parsedData = JSON.parse(data);
                 const accessCode = parsedData.access_token;
-                // decode accessCode which is a jwt to be readable as well as verify the signature
-                try {
-                    const { payload } = await jose.jwtVerify(jwt, public_key)
-                    const email = payload.user.email;
-                } catch (error) {
-                    reject({
-                        statusCode: 500,
-                        body: JSON.stringify({
-                            message: 'Error verifying access token',
-                            error: error
-                        })
-                    });
-                }
+                const { payload } = await jose.jwtVerify(accessCode, bankPublicKey);
+                const userId = payload.user.id;
+                const [rows1] = await connection.execute("SELECT role FROM users where id=?", [userId]);
+                const { role } = rows1[0];
 
-                const secret = jose.base64url.decode(encryption_secret)
-                // TODO role is hardcoded for now, but should use email to query the user's role from the database
-                const jwt = await new jose.EncryptJWT({ role: 'admin-write', accessCode: accessCode })
+                const secret = jose.base64url.decode(g1t4SymmetricKey);
+                const jwt = await new jose.EncryptJWT({ role: role, access_token: accessCode })
                     .setProtectedHeader({ alg: 'dir', enc: 'A128CBC-HS256' })
                     .setIssuedAt()
                     .setExpirationTime('1h')
-                    .encrypt(secret)
+                    .encrypt(secret);
+                
                 const redirectUrl = `${client_uri}?accessToken=${jwt}`;
                 console.log(`Redirecting to ${redirectUrl}`);
                 resolve({
@@ -74,7 +89,7 @@ exports.handler = async (event, context, callback) => {
                         Location: redirectUrl
                     }
                 });
-            })
+            });
         });
 
         req.on('error', (error) => {
@@ -84,7 +99,7 @@ exports.handler = async (event, context, callback) => {
     
         req.write(JSON.stringify(formData));
         req.end();
-    })
+    });
 
     return promise;
 };
