@@ -46,7 +46,7 @@ const MyBank = () => {
         const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
 
         const getFromAuthApp = () => {
-            fetch(url)
+            fetch(postUrl)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
