@@ -39,10 +39,11 @@ const Login = () => {
     return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
-  const callKang = () => {
+  const callWK = () => {
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
     // fetch(url)
     //   .then(response => response.json())
+    console.log("calling POST");
     fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -55,11 +56,13 @@ const Login = () => {
             'Content-type': 'application/json',
         },
     }).then(response => response.json())
+    .then(console.log("hihi"));
   }
 
-  const callWK = () => {
+  const callKang = () => {
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
-    fetch(url).then((response) => response.json());
+    console.log("calling GET");
+    fetch(url).then((response) => response.json()).then("helloo");
   }
 
   return (
@@ -71,7 +74,7 @@ const Login = () => {
               <div className='text-2xl'>
                 <a href="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1">Click link</a>
                 <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
-                <button onClick={callWK} className="btn btn-xs">Chin Shen Kang</button>
+                <button onClick={callWK} className="btn btn-xs">Call WK</button>
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
