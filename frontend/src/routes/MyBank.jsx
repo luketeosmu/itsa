@@ -161,9 +161,10 @@ const MyBank = () => {
             postToAuthApp();
         } else {
             let id_token = localStorage.getItem("id_token");
-            console.log(id_token);
-            // let role = JSON.parse(atob(id_token.split(".")[1]));
-            // setRole(role);
+            console.log("id_token from local storage: " + id_token);
+            let role = JSON.parse(atob(id_token.split(".")[1]));
+            console.log("role: " + role);
+            setRole(role);
         }
         
     }, [searchParams])
