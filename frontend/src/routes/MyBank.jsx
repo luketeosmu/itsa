@@ -157,7 +157,7 @@ const MyBank = () => {
                 console.log(err.message);
             });
         }
-        if(localStorage.getItem("access_token") == null) {
+        if(searchParams.get('code') != null) {
             postToAuthApp();
         } else {
             let id_token = localStorage.getItem("id_token");
@@ -168,7 +168,6 @@ const MyBank = () => {
             console.log("role: " + role);
             setRole(role);
         }
-        
     }, [searchParams])
 
   return (
