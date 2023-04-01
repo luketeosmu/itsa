@@ -39,6 +39,15 @@ const Login = () => {
     return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
+  const callKang = () => {
+    let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+      })
+  }
+
   return (
     <div className="min-h-screen">
       <Nav />
@@ -46,6 +55,7 @@ const Login = () => {
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
               <div className='text-2xl'>
+                <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
