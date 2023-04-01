@@ -41,8 +41,20 @@ const Login = () => {
 
   const callKang = () => {
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/test";
-    fetch(url)
-      .then(response => response.json())
+    // fetch(url)
+    //   .then(response => response.json())
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            'auth_code' : searchParams.get('code'),
+            'code_verifier' : localStorage.getItem('code_verifier'),
+            'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
+            'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    }).then(response => response.json())
   }
 
   return (
