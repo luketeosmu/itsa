@@ -1,6 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const Validate = () => {
+  const [otp, setOtp] = useState('')
+  
+  const handleSubmitOTP = async () => {
+        try {
+          console.log("HELLO")
+            const response = await fetch('https://mbpzjhq32b.execute-api.ap-southeast-1.amazonaws.com/test/otp_validator', {
+            method:'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email : localStorage.getItem("email"),    //This returns the email as an email variable!
+              otp: otp})   //PUT THE OTP HERE 
+          }).then(response => {
+            console.log(response);
+            response.json()
+            //added if responses here
+            if(response.status ===200){
+              console.log("GOOD WORK");
+              window.location.href = "#my-modal-2";
+            }
+            else {
+              console.log("BAD NEVER WORK");
+              window.location.href = "#my-modal-3";
+            }
+          }).then(data => console.log(data))
+          .catch(err => console.log(err));
+            console.log("These nutes");
+            console.log(otp)
+            const data = await response.json();
+            console.log(data);
+            // handle success or error
+        } catch (error) {
+            console.error(error);
+            // handle error
+        }
+      }
   return (
     <div>
         <div className="h-screen flex items-center justify-center ">

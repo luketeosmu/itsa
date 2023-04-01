@@ -10,6 +10,31 @@ const Register = () => {
     const setBlur = (e) => {
         e.target.type = 'text';
     }
+    
+    //handleRegister
+    const handleRegister = async() => {
+      try {
+        console.log("HELLO")
+          const response = await fetch('https://ppzp0z6kh1.execute-api.ap-southeast-1.amazonaws.com/test', {
+          method:'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then(response => {
+          console.log(response);
+          response.json()
+        }).then(data => console.log(data))
+        .catch(err => console.log(err));
+          console.log("These nutes");
+          const data = await response.json();
+          console.log(data);
+          // handle success or error
+      } catch (error) {
+          console.error(error);
+          // handle error
+      }
+    };
+
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
