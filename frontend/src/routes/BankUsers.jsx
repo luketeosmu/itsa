@@ -132,10 +132,44 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                     </div>
                 </td> 
             : role === "admin" ?
-                <td className='flex'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 mr-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
+                <td className='flex justify-center'>
+                    <label for={'modal-read-user' + user.uid}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="cursor-pointer w-6 h-6 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                    </label>
+                    <input type="checkbox" id={'modal-read-user' + user.uid} class="modal-toggle" />
+                    <div class="modal">
+                        <div class="modal-box relative bg-indigo-100">
+                            <label for={'modal-read-user' + user.uid} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
+                            <table className='border-separate border-spacing-y-3 border-inherit bg-indigo-100'>
+                                <tr className='bg-indigo-100 font-medium'>
+                                    <td className=' bg-indigo-100'>
+                                        Email:
+                                    </td>
+                                    <td className='bg-indigo-100'>
+                                        <h1 type="text" class="text-md">{user.email}</h1> 
+                                    </td>
+                                </tr>
+                                <tr className='bg-indigo-100 font-medium'>
+                                    <td className=' bg-indigo-100'>
+                                        First Name:
+                                    </td>
+                                    <td className='bg-indigo-100'>
+                                        <h1 type="text" class="text-md font-medium">{upperCase(user.firstName)}</h1> 
+                                    </td>
+                                </tr>
+                                <tr className='bg-indigo-100 font-medium'>
+                                    <td className=' bg-indigo-100'>
+                                        Last Name:
+                                    </td>
+                                    <td className='bg-indigo-100'>
+                                        <h1 type="text" class="text-md font-medium">{upperCase(user.lastName)}</h1> 
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </td> 
             : <td></td>
             }

@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const [role, setRole] = useState('user');
+    const [role, setRole] = useState('');
     const [users, setUsers] = useState([
         {
             'email' : "kangchinshen@gmail.com",
@@ -114,6 +114,7 @@ const MyBank = () => {
                 console.log(payload.role);
                 //idk whats the role variable name in the token 
                 setRole(payload.role);
+                // setRole("superadmin");
                 if(role === "user") {
                     //GET own user details and setUsers() -> will be array of len 1 
                 } else {
