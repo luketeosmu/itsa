@@ -16,10 +16,9 @@ const Register = () => {
     const [birthdate, setBirthdate] = useState('');
     const [password, setPassword] = useState('');
     const [retypePassword, setRetypePassword] = useState('');
-    const [errors, setErrors] = useState(false);
     const checkInputs = () => {
       console.log("-----checking inputs------");
-      setErrors(false);
+      let errors = false;
       document.getElementById("emailSpan").style.display = "none";
       document.getElementById("firstNameSpan").style.display = "none";
       document.getElementById("lastNameSpan").style.display = "none";
@@ -30,37 +29,39 @@ const Register = () => {
       if(email.trim().length === 0) {
         // errors.email = "email cannot be empty";
         document.getElementById("emailSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
+        console.log("errors: " + errors);
       }
       if(firstName.trim().length === 0) {
         // errors.firstName = "first name cannot be empty";
         document.getElementById("firstNameSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
       }
       if(lastName.trim().length === 0) {
         // errors.lastName = "last name cannot be empty";
         document.getElementById("lastNameSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
       }
       if(password.trim().length === 0) {
         // errors.password = "password cannot be empty";
         document.getElementById("passwordSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
       }
       if(retypePassword.trim().length === 0) {
         // errors.retypePassword = "retype password cannot be empty";
         document.getElementById("retypePasswordSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
       } else if(retypePassword !== password) {
         document.getElementById("passwordMismatch").style.display = "block";
-        setErrors(true);
+        errors = true;
       }
       if(birthdate === "") {
         document.getElementById("birthdateSpan").style.display = "block";
-        setErrors(true);
+        errors = true;
       }
       console.log("-----finish checking inputs------");
-      if(errors === true) {
+      console.log(errors);
+      if(errors === false) {
         console.log("no errors");
         window.location.href = "#my-modal-2";
       } else {
