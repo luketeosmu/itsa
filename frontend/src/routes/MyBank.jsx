@@ -111,7 +111,7 @@ const MyBank = () => {
                 // console.log(parts[2]);
                 // // let signature = atob(parts[2]); //this token signature doesnt work idky
                 console.log(header);
-                console.log(payload);
+                console.log(payload.role);
                 //idk whats the role variable name in the token 
                 setRole("admin");
                 if(role === "user") {
