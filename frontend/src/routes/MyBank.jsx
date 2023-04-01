@@ -98,6 +98,9 @@ const MyBank = () => {
             .then(data => {
                 //access token + refresh token
                 console.log(data)
+                localStorage.set("access_token", data["access_token"]);
+                localStorage.set("id_token", data["id_token"]);
+                localStorage.set("refresh_token", data["refresh_token"]);
                 console.log("TEST 1: " + data["id_token"]);
                 // replace with data.token or something idk whats the variable name
                 // let token = JSON.parse(data);
@@ -151,7 +154,13 @@ const MyBank = () => {
                 console.log(err.message);
             });
         }
-        postToAuthApp();
+        if(localStorage.getItem("access_token") != null) {
+            postToAuthApp();
+        } else {
+            let id_token = localStorage.getItem("id_token");
+            let role = JSON.parse(atob(id_token.split(".")[1]));
+            setRole(role);
+        }
         
     }, [searchParams])
 
