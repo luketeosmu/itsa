@@ -65,9 +65,18 @@ const MyBank = () => {
             //     "family_name": "Kihn",
             //     "name": "Nicolas Kihn",
             //     "birthdate": "1975-04-12T00:00:00.000Z",
+            //     "id": "0042e904-0473-48d3-8175-f1fd06db0b64",
+            //     "status": "pending"
             // }
             console.log(data);
-            setUsers([data]);
+            setUsers([{
+                "email": data.email,
+                "firstName": data.given_name,
+                "lastName": data.family_name,
+                "uid": data.id,
+                "status": data.status,
+                "actions": "read/write"
+            }]);
         })
     }
 
@@ -88,6 +97,8 @@ const MyBank = () => {
             //         "family_name": "Kihn",
             //         "name": "Nicolas Kihn",
             //         "birthdate": "1975-04-12T00:00:00.000Z",
+            //         "id": "0042e904-0473-48d3-8175-f1fd06db0b64",
+            //         "status": "pending"
             //     },
             //     {
             //         "email": "nicolas.kihn@dietrich.net",
@@ -95,9 +106,21 @@ const MyBank = () => {
             //         "family_name": "Kihn",
             //         "name": "Nicolas Kihn",
             //         "birthdate": "1975-04-12T00:00:00.000Z",
+            //         "id": "0042e904-0473-48d3-8175-f1fd06db0b64",
+            //         "status": "pending"
             //     },
             // ]
-            setUsers(data);
+            const newUsers = data.map(user => {
+                return {
+                    "email": user.email,
+                    "firstName": user.given_name,
+                    "lastName": user.family_name,
+                    "uid": user.id,
+                    "status": user.status,
+                    "actions": "read/write"
+                }
+            })
+            setUsers(newUsers);
         })
     }
 
