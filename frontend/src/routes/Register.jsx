@@ -1,6 +1,7 @@
 import React from 'react'
 import man from '../man.jpg';
 import Nav from './Nav';
+import { useState } from 'react';
 const Register = () => {
     const setFocus = (e) => {
         console.log(e.target.type)
@@ -8,6 +9,16 @@ const Register = () => {
     }
     const setBlur = (e) => {
         e.target.type = 'text';
+    }
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+    const [password, setPassword] = useState('');
+    const [retypePassword, setRetypePassword] = useState('');
+    const [errors, setErrors] = useState([]);
+    const checkInputs = () => {
+
     }
     // const handleRegister = () => {
     //   console.log("handling register");
@@ -69,20 +80,20 @@ const Register = () => {
                     <input type="password" placeholder="Re-enter Password" className="input input-bordered w-full max-w-xs my-2 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
                 </div>
                 <div>
-                    <a href="#my-modal-2" className="btn w-full max-w-xs bg-indigo-600 mt-6">Register</a>
+                    <a href="#my-modal-2" className="btn w-full max-w-xs bg-indigo-600 mt-6" onClick={checkInputs}>Register</a>
                       <div className="modal" id="my-modal-2">
                         <div className="modal-box text-center">
                           <h3 className="font-bold text-2xl">Registration Successful!</h3>
                           <p className="py-4">An OTP has been sent to your email account.</p>
                           <p>Please enter the OTP within 1 min(s) to validate your account</p>
-                          <div className="modal-action flex justify-center items-center space-x-10">
-                            <button className="btn bg-indigo-400">Dismiss</button>
-                            <a href="/validate" className="btn bg-indigo-600">Enter OTP</a>
+                          <div class="modal-action flex justify-center items-center space-x-10">
+                            <a href="#" class="btn bg-indigo-400">Dismiss</a>
+                            <a type="submit" href="/validate" className="btn bg-indigo-600">Enter OTP</a>
                           </div>
                         </div>
                       </div>
                     <br />
-                    <button className='text-sm my-2 ml-20'>or continue with Bank SSO</button>
+                    {/* <button className='text-sm my-2 ml-20'>or continue with Bank SSO</button> */}
                 </div>
             </div>
           </div>

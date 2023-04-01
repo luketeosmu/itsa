@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [role, setRole] = useState('');
     const [users, setUsers] = useState([
         {
             'email' : "kangchinshen@gmail.com",
@@ -32,58 +33,42 @@ const MyBank = () => {
             'actions' : "read/write"
         },
     ]);
+    const callKang = () => {
+        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
+        fetch(url)
+          .then(response => response.json())
+      }
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
-        console.log(localStorage.getItem('code_verifier'));
-        console.log(searchParams.get('code'));
+        console.log("code verifier: " + localStorage.getItem('code_verifier'));
+        console.log("auth_code: " + searchParams.get('code'));
 
-        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
-        //USING AXIOS METHOD
-        // const postToAuthApp = () => {
-        //     console.log('posting to auth app');
-        //     let body = {
-        //         'auth_code' : searchParams.get('code'),
-        //         'code_verifier' : localStorage.getItem('code_verifier'),
-        //         'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-        //         'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-        //     };
-        //     axios.post(url, body)
-        //         .then((response) => {
-        //             console.log(response);
-        //             if(response.status === 200) {
-        //                 console.log(response.data)
-        //                 getFromAuthApp();
-        //             }
-        //         })
-        // };
+        const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
 
-        // const getFromAuthApp = () => {
-        //     axios.get(url)
-        //         .then((response) => {
-        //             console.log(response.data);
-        //             // should return list of users
-        //             setUsers(response.data.users);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         }) 
-        // };
-
+        const getFromAuthApp = () => {
+            fetch(postUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+        }
         
         // USING FETCH METHOD 
-        // const getFromAuthApp = () => {
-        //     fetch(url, {
+        
+        // const parseJwt = (token) => {
+        //     var base64Url = token.split(".")[0];
+        //     var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=> {
+        //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        //     }).join(''));
 
-        //     }).then(response => response.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message);
-        //     })
-        // };
-        // getFromAuthApp();
+        //     return JSON.parse(base64);
+        // }
+        
+        // console.log(signature);
+        
+
         const postToAuthApp = () => {
-            fetch(url, {
+            fetch(postUrl, {
                 method: 'POST',
                 body: JSON.stringify({
                     'auth_code' : searchParams.get('code'),
@@ -96,14 +81,78 @@ const MyBank = () => {
                 },
             }).then(response => response.json())
             .then(data => {
+                //access token + refresh token
                 console.log(data)
+                console.log(data["access_token"]);
+                console.log(data["id_token"]);
+                console.log(data["refresh_token"]);
+                localStorage.setItem("access_token", data["access_token"]);
+                localStorage.setItem("id_token", data["id_token"]);
+                localStorage.setItem("refresh_token", data["refresh_token"]);
+                console.log("TEST 1: " + data["id_token"]);
+                // replace with data.token or something idk whats the variable name
+                // let token = JSON.parse(data);
+                // console.log("TEST 2: " + token);
+                let id_token = data["id_token"];
+                // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+                // console.log(parseJwt(token["id_token"]));
+                let parts = id_token.split(".");
+                let header = JSON.parse(atob(parts[0]));
+                let payload = JSON.parse(atob(parts[1]));
+                // console.log(parts[2]);
+                // // let signature = atob(parts[2]); //this token signature doesnt work idky
+                console.log(header);
+                console.log(payload.role);
+                //idk whats the role variable name in the token 
+                setRole(payload.role);
+                // setRole("superadmin");
+                if(role === "user") {
+                    //GET own user details and setUsers() -> will be array of len 1 
+                } else {
+                    //GET all user details and setUsers()
+                    //example:
+                    setUsers(
+                        [{
+                            'email' : "kangchinshen@gmail.com",
+                            'firstName' : 'kang',
+                            'lastName' : 'chin shen',
+                            'uid' : "123456789zxc",
+                            'status' : "inactive",
+                            'actions' : "read/write"
+                        },
+                        {
+                            'email' : "chinshenkang@gmail.com",
+                            'firstName' : 'chin',
+                            'lastName' : 'shen kang',
+                            'uid' : "987654321abc",
+                            'status' : "active",
+                            'actions' : "read/write"
+                        },
+                        {
+                            'email' : "shenchinkang@gmail.com",
+                            'firstName' : 'shen',
+                            'lastName' : 'chin kang',
+                            'uid' : "0101010101jkl",
+                            'status' : "active",
+                            'actions' : "read/write"
+                        }])
+                    }
             })
             .catch((err) => {
                 console.log(err.message);
             });
         }
-        postToAuthApp();
-        
+        if(searchParams.get('code') != null) {
+            postToAuthApp();
+        } else {
+            let id_token = localStorage.getItem("id_token");
+            console.log("id_token from local storage: " + id_token);
+            let parts = id_token.split('.');
+            let payload = JSON.parse(atob(parts[1]));
+            let role = payload.role;
+            console.log("role: " + role);
+            setRole(role);
+        }
     }, [searchParams])
 
   return (
@@ -122,12 +171,16 @@ const MyBank = () => {
                         <th>Last Name</th> 
                         <th>User ID</th> 
                         <th>Status</th> 
-                        <th>Actions</th> 
+                        {
+                            role !== "user" 
+                            ?<th>Actions</th>
+                            :<th></th>
+                        } 
                     </tr>
                     </thead> 
                     <tbody>
                         {users.map(function(user, i){
-                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid}/>;
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role}/>;
                         })}
                     </tbody>
                 </table>
