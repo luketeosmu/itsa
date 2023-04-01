@@ -37,54 +37,13 @@ const MyBank = () => {
         let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
         fetch(url)
           .then(response => response.json())
-        // fetch(url, {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         // 'auth_code' : searchParams.get('code'),
-        //         // 'code_verifier' : localStorage.getItem('code_verifier'),
-        //         // 'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-        //         // 'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-        //     }),
-        //     headers: {
-        //         'Content-type': 'application/json',
-        //     },
-        // }).then(response => response.json())
       }
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
         console.log("code verifier: " + localStorage.getItem('code_verifier'));
         console.log("auth_code: " + searchParams.get('code'));
 
-        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
-        //USING AXIOS METHOD
-        // const postToAuthApp = () => {
-        //     console.log('posting to auth app');
-        //     let body = {
-        //         'auth_code' : searchParams.get('code'),
-        //         'code_verifier' : localStorage.getItem('code_verifier'),
-        //         'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-        //         'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-        //     };
-        //     axios.post(url, body)
-        //         .then((response) => {
-        //             console.log(response);
-        //             if(response.status === 200) {
-        //                 console.log(response.data)
-        //                 getFromAuthApp();
-        //             }
-        //         })
-        // };
-
-        // const getFromAuthApp = () => {
-        //     axios.get(url)
-        //         .then((response) => {
-        //             console.log(response.data);
-        //             // should return list of users
-        //             setUsers(response.data.users);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         }) 
-        // };
+        const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
 
         const getFromAuthApp = () => {
             fetch(url)
@@ -109,7 +68,7 @@ const MyBank = () => {
         
 
         const postToAuthApp = () => {
-            fetch(url, {
+            fetch(postUrl, {
                 method: 'POST',
                 body: JSON.stringify({
                     'auth_code' : searchParams.get('code'),
@@ -225,7 +184,6 @@ const MyBank = () => {
                         })}
                     </tbody>
                 </table>
-                <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
             </div>
             :
             <div className="flex items-center justify-center text-center text-2xl font-medium">

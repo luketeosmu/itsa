@@ -39,26 +39,6 @@ const Login = () => {
     return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
-  const callWK = () => {
-    let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
-    // fetch(url)
-    //   .then(response => response.json())
-    console.log("calling POST");
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            'auth_code' : "$2a$10$BYpuH0dNwkFZ2/t6vQByEukrzJwMAdKJCoezGc5xXK3Eu.cTCC8qG",
-            'code_verifier' : "yPYiil3k82HCrsKJ4PndCFrIBesDnYMf6T0PqCepmWm2dvmE9uQrTCAiKVnI0yKqw6BYbJanVs5RXqMMjgTyLTztrsRlF0MmKaEa5EZX3YLh.4v1_nGEIzwzfqlmEH5l",
-            'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-            'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-        }),
-        headers: {
-            'Content-type': 'application/json',
-        },
-    }).then(response => response.json())
-    .then(console.log("hihi"));
-  }
-
   const callKang = () => {
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
     console.log("calling GET");
@@ -72,9 +52,7 @@ const Login = () => {
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
               <div className='text-2xl'>
-                <a href="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1">Click link</a>
                 <button onClick={callKang} className="btn btn-xs">Chin Kang Shen</button>
-                <button onClick={callWK} className="btn btn-xs">Call WK</button>
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
