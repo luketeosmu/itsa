@@ -68,7 +68,7 @@ const MyBank = () => {
                 setPersonalInfo(data);
             })
         } else if (searchParams.get('code')) {
-            const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login_oauth_token";
+            const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
             console.log("code verifier: " + localStorage.getItem('code_verifier'));
             console.log("auth_code: " + searchParams.get('code'));
             const postToAuthApp = () => {

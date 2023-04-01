@@ -76,7 +76,7 @@ const Login = () => {
               <br />
               <button className='text-xs ml-56'>Forgot password?</button>
               <br /> */}
-              <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/auth_code_challenge_login_prompt" method='post'>
+              <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/authorize" method='post'>
                 {/* TODO: add to environment variable */}
                 <input type="hidden" value={client_id} name='client_id'/>
                 <input type="hidden" value={redirect_uri} name='redirect_uri'/>
