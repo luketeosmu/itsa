@@ -72,7 +72,14 @@ const MyBank = () => {
         
         // USING FETCH METHOD 
         
+        // const parseJwt = (token) => {
+        //     var base64Url = token.split(".")[0];
+        //     var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=> {
+        //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        //     }).join(''));
 
+        //     return JSON.parse(base64);
+        // }
         
         // console.log(signature);
         const postToAuthApp = () => {
@@ -92,11 +99,15 @@ const MyBank = () => {
                 //access token + refresh token
                 console.log(data)
                 // replace with data.token or something idk whats the variable name
-                let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ";
-                let parts = token.split(".");
+                let token = JSON.parse(data);
+                let id_token = token["id_token"];
+                // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+                // console.log(parseJwt(token["id_token"]));
+                let parts = id_token.split(".");
                 let header = JSON.parse(atob(parts[0]));
                 let payload = JSON.parse(atob(parts[1]));
-                let signature = atob(parts[2]); //this token signature doesnt work idky
+                // console.log(parts[2]);
+                // // let signature = atob(parts[2]); //this token signature doesnt work idky
                 console.log(header);
                 console.log(payload);
                 //idk whats the role variable name in the token 
@@ -158,7 +169,7 @@ const MyBank = () => {
                         <th>User ID</th> 
                         <th>Status</th> 
                         {
-                            role != "user" 
+                            role !== "user" 
                             ?<th>Actions</th>
                             :<th></th>
                         } 
