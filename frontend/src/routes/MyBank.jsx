@@ -98,9 +98,11 @@ const MyBank = () => {
             .then(data => {
                 //access token + refresh token
                 console.log(data)
+                console.log("TEST 1: " + data["id_token"]);
                 // replace with data.token or something idk whats the variable name
                 let token = JSON.parse(data);
-                let id_token = token["id_token"];
+                console.log("TEST 2: " + token);
+                let id_token = data["id_token"];
                 // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
                 // console.log(parseJwt(token["id_token"]));
                 let parts = id_token.split(".");
