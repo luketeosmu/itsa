@@ -7,6 +7,7 @@ import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [role, setRole] = useState('');
+    const [error, setError] = useState(true);
     const [personalInfo, setPersonalInfo] = useState({
         "sub": "0042e904-0473-48d3-8175-f1fd06db0b64",
         "email": "nicolas.kihn@dietrich.net",
@@ -45,9 +46,16 @@ const MyBank = () => {
     ]);
     const callKang = () => {
         let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
-        fetch(url)
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                'refresh_token': localStorage.getItem("refresh_token"),
+                'email' : localStorage.getItem("email"),
+                "id" : localStorage.getItem("id")
+            }),
+        })
           .then(response => response.json())
-      }
+    }
 
     const getOneUser = (loginFlow) => {
         const userInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/${loginFlow}/oauth/userinfo`
@@ -134,99 +142,101 @@ const MyBank = () => {
             }
     }
 
+    const checkExpiry = () => {
+        console.log("--------checking expiry------")
+        let token = "eyJhbGciOiJSUzI1NiJ9.eyJyb2xlIjoidGVzdF9yb2xlIiwiZW1haWwiOiJ0ZXN0X2VtYWlsIiwiaWF0IjoxNjgwNDUxOTA4LCJleHAiOjE2ODA0NTkxMDgsImlzcyI6IkJhbmsgQXBwIiwiYXVkIjoiaHR0cDovL3Byb2plY3QtMjAyMi0yM3QyLWcxLXQ0LXMzLnMzLXdlYnNpdGUtdXMtZWFzdC0xLmFtYXpvbmF3cy5jb20ifQ.Y78lQ4LVxO5-54PX3S5loDVvtKchKX_RVEZmVMq53YSp4BcECIm1TTfhC0bLI7CKkWtWKR2stvVtzAWH3UAp5lN3g4y3ihdNR203vTkD9FsyLqUmBR97AY-e4D7szqvSGsQlfUTIlhsvHdLq6wdToEFyiNae4qBmoLDz_FXRYh7__EaSxsq3MIAgZj2-odiFut3it59PM16qQuKnryhIa4nJQ-hCzQp4QN1rTf8wWQXec8kGpbqZiC0WlJiBIueFLJCcbZnpJI7ZPB7V2MmVNFKSwxFqFyAxv7QRFpqMGWyZ6bygDhTJilJR9h76pdItv6Fz38ozqU0M9UUobJGTpw";
+        let parts = token.split('.');
+        let payload = JSON.parse(atob(parts[1]));
+        console.log(payload);
+        let exp = payload["exp"];
+        console.log(Date.now());
+        if(Date.now() < exp * 1000) {
+            console.log("token expired");
+        }
+        console.log(JSON.parse(atob(parts[0])));
+        console.log(JSON.parse(atob(parts[1]))["exp"]);
+        console.log("----finish checking expiry-----");
+    }
 
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
-        if (searchParams.get('bankAccessToken')) {
-            const bankAccessToken = searchParams.get('bankAccessToken');
-            const bankIdToken = searchParams.get('bankIdToken');
-            localStorage.setItem("access_token", bankAccessToken);
-            localStorage.setItem("id_token", bankIdToken);
-            
-            let parts = bankIdToken.split(".");
-            let payload = JSON.parse(atob(parts[1]));
-            fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'bank');
-            setRole(payload.role);
-        } else if (searchParams.get('code')) {
-            const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
-            console.log("code verifier: " + localStorage.getItem('code_verifier'));
-            console.log("auth_code: " + searchParams.get('code'));
-            const postToAuthApp = () => {
-                fetch(postUrl, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        'auth_code' : searchParams.get('code'),
-                        'code_verifier' : localStorage.getItem('code_verifier'),
-                        'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
-                        'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
-                    }),
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
-                }).then(response => response.json())
-                .then(data => {
-                    //access token + refresh token
-                    console.log(data)
-                    console.log(data["access_token"]);
-                    console.log(data["id_token"]);
-                    console.log(data["refresh_token"]);
-                    localStorage.setItem("access_token", data["access_token"]);
-                    localStorage.setItem("id_token", data["id_token"]);
-                    localStorage.setItem("refresh_token", data["refresh_token"]);
-                    console.log("TEST 1: " + data["id_token"]);
-                    // replace with data.token or something idk whats the variable name
-                    // let token = JSON.parse(data);
-                    // console.log("TEST 2: " + token);
-                    let id_token = data["id_token"];
-                    // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-                    // console.log(parseJwt(token["id_token"]));
-                    let parts = id_token.split(".");
-                    let header = JSON.parse(atob(parts[0]));
-                    let payload = JSON.parse(atob(parts[1]));
-                    // console.log(parts[2]);
-                    // // let signature = atob(parts[2]); //this token signature doesnt work idky
-                    console.log(header);
-                    console.log(payload.role);
-                    //idk whats the role variable name in the token 
-                    setRole(payload.role);
-                    // setRole("superadmin");
-                    fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'hosted_login');
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
+        try {
+            checkExpiry();
+            // console.log(localStorage.getItem('code_verifier: ' + code_verifier));
+            if (searchParams.get('bankAccessToken')) {
+                const bankAccessToken = searchParams.get('bankAccessToken');
+                const bankIdToken = searchParams.get('bankIdToken');
+                localStorage.setItem("access_token", bankAccessToken);
+                localStorage.setItem("id_token", bankIdToken);
+                
+                let parts = bankIdToken.split(".");
+                let payload = JSON.parse(atob(parts[1]));
+                fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'bank');
+                setRole(payload.role);
+                // localStorage.setItem("username", payload.username);
+            } else if (searchParams.get('code')) {
+                const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
+                console.log("code verifier: " + localStorage.getItem('code_verifier'));
+                console.log("auth_code: " + searchParams.get('code'));
+                const postToAuthApp = () => {
+                    fetch(postUrl, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            'auth_code' : searchParams.get('code'),
+                            'code_verifier' : localStorage.getItem('code_verifier'),
+                            'client_id' : 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws',
+                            'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
+                        }),
+                        headers: {
+                            'Content-type': 'application/json',
+                        },
+                    }).then(response => response.json())
+                    .then(data => {
+                        //access token + refresh token
+                        console.log(data)
+                        console.log(data["access_token"]);
+                        console.log(data["id_token"]);
+                        console.log(data["refresh_token"]);
+                        localStorage.setItem("access_token", data["access_token"]);
+                        localStorage.setItem("id_token", data["id_token"]);
+                        localStorage.setItem("refresh_token", data["refresh_token"]);
+                        console.log("TEST 1: " + data["id_token"]);
+                        // replace with data.token or something idk whats the variable name
+                        // let token = JSON.parse(data);
+                        // console.log("TEST 2: " + token);
+                        let id_token = data["id_token"];
+                        // let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+                        // console.log(parseJwt(token["id_token"]));
+                        let parts = id_token.split(".");
+                        let header = JSON.parse(atob(parts[0]));
+                        let payload = JSON.parse(atob(parts[1]));
+                        // console.log(parts[2]);
+                        // // let signature = atob(parts[2]); //this token signature doesnt work idky
+                        console.log(header);
+                        console.log(payload.role);
+                        setRole(payload.role);
+                        fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'hosted_login');
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
+                }
+
+                postToAuthApp();
+            } else {
+                let id_token = localStorage.getItem("id_token");
+                console.log("id_token from local storage: " + id_token);
+                let parts = id_token.split('.');
+                let payload = JSON.parse(atob(parts[1]));
+                let role = payload.role;
+                console.log("role: " + role);
+                setRole(role);
+                const loginFlow = localStorage.getItem("refresh_token") ? 'hosted_login' : 'bank';
+                fetchUserInfoBasedOnRoleAndLoginFlow(role, loginFlow);
             }
-            const getFromAuthApp = () => {
-                fetch(postUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-            }
-            
-            // USING FETCH METHOD 
-            
-            // const parseJwt = (token) => {
-            //     var base64Url = token.split(".")[0];
-            //     var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=> {
-            //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            //     }).join(''));
-    
-            //     return JSON.parse(base64);
-            // }
-            
-            // console.log(signature);
-            postToAuthApp();
-        } else {
-            let id_token = localStorage.getItem("id_token");
-            console.log("id_token from local storage: " + id_token);
-            let parts = id_token.split('.');
-            let payload = JSON.parse(atob(parts[1]));
-            let role = payload.role;
-            console.log("role: " + role);
-            setRole(role);
-            const loginFlow = localStorage.getItem("refresh_token") ? 'hosted_login' : 'bank';
-            fetchUserInfoBasedOnRoleAndLoginFlow(role, loginFlow);
+        } catch (err) {
+            setError(true);
+            console.log(err.message);
         }
     }, [searchParams])
 
@@ -260,11 +270,10 @@ const MyBank = () => {
                     </tbody>
                 </table>
             </div>
-            :
+        :
             <div className="flex items-center justify-center text-center text-2xl font-medium">
                 <button className="btn btn-ghost btn-xl loading text-xl">Loading bank users..</button>
             </div>
-
         }
     </div>
   )

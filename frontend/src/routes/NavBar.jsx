@@ -9,7 +9,7 @@ const NavBar = () => {
         </div>
         <div className="flex-none mr-56">
             <ul className="menu menu-horizontal px-1">
-            <li><a href='/editprofile' className='btn btn-ghost'>Kang Chin Shen</a></li>
+            <li><a href='/editprofile' className='btn btn-ghost'>{localStorage.getItem("username")}</a></li>
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
             <li><a href='/login' className='btn btn-ghost'>Logout</a></li>
             </ul>

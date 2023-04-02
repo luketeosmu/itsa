@@ -14,6 +14,7 @@ const Login = () => {
     console.log(process.env.REACT_APP_client_id);
     const newCodeVerifier = generateCodeVerifier()
     const newCodeChallenge = generateCodeChallenge(newCodeVerifier)
+    console.log("code verifier: " + newCodeVerifier);
     // maybe can encrypt with client secret before storing in local storage
     localStorage.setItem('code_verifier', newCodeVerifier);
     localStorage.setItem('code_challenge', newCodeChallenge);
