@@ -31,6 +31,8 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                 "id" : user.id
             })
         })
+        localStorage.clear();
+        window.location.href="/login";
     }
     const editUser = () => {
         // console.log(id);

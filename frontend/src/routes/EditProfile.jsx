@@ -88,9 +88,9 @@ const EditProfile = () => {
                         <div class="modal">
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">Are you sure you want to delete account?</h3>
-                                <div class="modal-action">
-                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-zinc-400 mr-5">Cancel</label>
-                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-red-600 ml-5" onClick={deleteUser}>Confirm</label>
+                                <div class="modal-action text-center items-center justify-center">
+                                    <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-zinc-400 mr-5">Cancel</label>
+                                    <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-red-600 ml-5" onClick={deleteUser}>Confirm</label>
                                 </div>
                             </div>
                         </div>

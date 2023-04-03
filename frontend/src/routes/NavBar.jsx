@@ -1,7 +1,10 @@
 import React from 'react'
 import logo from '../ascenda.png';
 const NavBar = () => {
-    // const user = JSON.parse(localStorage.getItem('User'));
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
   return (
     <div className="navbar bg-base-100 mb-10">
         <div className="flex-1 ml-48">
@@ -11,7 +14,7 @@ const NavBar = () => {
             <ul className="menu menu-horizontal px-1">
             <li><a href='/editprofile' className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</a></li>
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
-            <li><a href='/login' className='btn btn-ghost'>Logout</a></li>
+            <li><a href='/login' className='btn btn-ghost' onClick={handleLogout}>Logout</a></li>
             </ul>
         </div>
     </div>
