@@ -44,8 +44,10 @@ const Login = () => {
     let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
     console.log("calling POST");
     fetch(url, {
-      method: "POST"
-    }).then((response) => response.json()).then("helloo");
+      method: 'POST'
+    })
+    .then((response) => response.json())
+    .then("helloo");
   }
 
   return (
