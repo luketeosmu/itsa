@@ -60,7 +60,7 @@ const MyBank = () => {
         })
     }
 
-    const getOneUser = (loginFlow) => {
+    const getOneUser = (role, loginFlow) => {
         const userInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/${loginFlow}/oauth/userinfo`
         fetch(userInfoUrl, {
             method: 'GET',
@@ -148,7 +148,7 @@ const MyBank = () => {
     }
 
     const fetchUserInfoBasedOnRoleAndLoginFlow = (role, loginFlow) => {
-        getOneUser(loginFlow);
+        getOneUser(role, loginFlow);
         if(role !== "user") {
             getAllUsers(loginFlow);
         }
