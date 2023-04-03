@@ -8,9 +8,9 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     env:
-      BUCKET: project-2022-23t2-g1-t4-s3
+      BUCKET: itsag1t4.com
       DIST: build
-      REGION: us-east-1
+      REGION: ap-southeast-1
       DIST_ID: E2LCGEZXWMDUCE
 
     steps:
@@ -28,7 +28,7 @@ jobs:
       run: cd frontend && npm install && CI=false npm run build
 
     - name: Deploy app build to S3 bucket
-      run: aws s3 sync ./frontend/build/ s3://project-2022-23t2-g1-t4-s3 --delete
+      run: aws s3 sync ./frontend/build/ s3://itsag1t4.com --delete
 
     - name: Copy files to production website with the AWS CLI
       run:
