@@ -23,6 +23,14 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         console.log("deleting user..");
         const newUsers = users.filter(x => x.id !== uid);
         setUsers(newUsers);
+        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/deleteuser";
+        fetch(url, {
+            method: "DELETE",
+            headers: {authorizationToken:localStorage.getItem("access_token")},
+            body: JSON.stringify({
+                "id" : user.id
+            })
+        })
     }
     const editUser = () => {
         // console.log(id);
@@ -133,38 +141,6 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                     <div class="modal">
                         <div class="modal-box bg-indigo-100 absolute pb-5">
                             <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
-                                {/* <table className='border-separate border-spacing-y-3 border-inherit bg-indigo-100'>
-                                    <tr className='bg-indigo-100'>
-                                        <th className=' bg-indigo-100'>
-                                            Email:
-                                        </th>
-                                        <td className='bg-indigo-100'>
-                                            <input type="text" class="input input-bordered w-full max-w-xs" value={email} onChange={(e) => {
-                                                setEmail(e.target.value)
-                                            }}/>
-                                        </td>
-                                    </tr>
-                                    <tr className='bg-indigo-100'>
-                                        <th className=' bg-indigo-100'>
-                                            First Name:
-                                        </th>
-                                        <td className='bg-indigo-100'>
-                                            <input type="text" class="input input-bordered w-full max-w-xs" value={upperCase(given_name)} onChange={(e) => {
-                                                setGivenName(upperCase(e.target.value))
-                                            }}/>
-                                        </td>
-                                    </tr>
-                                    <tr className='bg-indigo-100'>
-                                        <th className='bg-indigo-100'>
-                                            Last Name:
-                                        </th>
-                                        <td className='bg-indigo-100'>
-                                            <input type="text" class="input input-bordered w-full max-w-xs" value={upperCase(family_name)} onChange={(e) => {
-                                                setFamilyName(upperCase(e.target.value))
-                                            }}/>
-                                        </td>
-                                    </tr>
-                                </table> */}
                                 <div className="grid grid-cols-2 col-gap-4">
                                     <div class="form-control w-full mb-3 col-span-2">
                                         <label class="label">
@@ -186,7 +162,6 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                     </div>
                                 </div>
                                 <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
-                                {/* <button value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' id={'modal-edit-user' + user.id} onClick={editUser}/>  */}
                         </div>
                     </div>
                     <label for={"modal-delete-user" + user.id} >
