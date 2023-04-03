@@ -62,20 +62,29 @@ const EditProfile = () => {
                     </div>
                     <div className='col-span-2 text-center mt-5'>
                         {/* <button className="btn w-40 bg-indigo-600 mt-6 ml-5 mr-8" >Delete Account</button> */}
-                        <a href="#my-modal-2" className="btn w-40 bg-indigo-600 mt-6 ml-5 mr-8">Delete Account</a>
+                        {/* <a href="#my-modal-2" className="btn w-40 bg-indigo-600 mt-6 ml-5 mr-8">Delete Account</a>
                             <div className="modal" id="my-modal-2">
                                 <div className="modal-box text-center">
                                     <h3 className="font-bold text-xl">Are you sure you want to delete account?</h3>
-                                    {/* <p className='mt-2'>Enter password to delete account</p>
-                                    <input type="password" placeholder="Password" className="mt-2 input input-bordered input-primary w-full max-w-xs" /> */}
                                     <div className="modal-action flex justify-center items-center space-x-10">
                                         <a href="/login" className="btn bg-indigo-400">Yes</a>
                                         <button className="btn bg-indigo-600">No</button>
                                     </div>
                                 </div>
+                            </div> */}
+                        <label for="delete-account-modal" class="btn w-40 bg-red-600 mt-6 ml-5 mr-8" >Delete Account</label>
+                        <input type="checkbox" id="delete-account-modal" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box">
+                                <h3 class="font-bold text-lg">Are you sure you want to delete account?</h3>
+                                <div class="modal-action">
+                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-zinc-400 mr-5">Cancel</label>
+                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-red-600 ml-5">Confirm</label>
+                                </div>
                             </div>
-                        {/* <button className="btn w-40 bg-indigo-600 mt-6 ml-0 mr-0 xs:ml-8 xs:mr-8">Change Password</button> */}
-                        <a href="#my-modal-3" className="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5" onClick={editUser}>Save Changes</a>
+                        </div>
+                        {/* <label for="my-modal-3" className="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5" onClick={editUser}>Save Changes</label>
+                        <input type="checkbox" id="my-modal-3" class="modal-toggle" />
                             <div className="modal" id="my-modal-3">
                                 <div className="modal-box text-center">
                                     <h3 className="font-bold text-2xl">Changes saved successfully!</h3>
@@ -83,7 +92,17 @@ const EditProfile = () => {
                                         <label for="my-modal-3" className="btn bg-indigo-600">Close</label>
                                     </div>
                                 </div>
+                            </div> */}
+                        <label for="save-changes-modal" class="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5" onClick={editUser}>Save Changes</label>
+                        <input type="checkbox" id="save-changes-modal" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box">
+                                <h3 class="font-bold text-lg">Changes saved successfully!</h3>
+                                <div class="modal-action">
+                                    <label for="save-changes-modal" class="btn">Close!</label>
+                                </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
