@@ -81,6 +81,7 @@ const MyBank = () => {
             // }
             console.log(data);
             localStorage.setItem("currentUser", data);
+            console.log("user info from local storage: " + localStorage.getItem("currentUser"));
             if(role === "user") {
                 setUsers([{
                     "email": data.email,

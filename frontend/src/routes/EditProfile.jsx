@@ -1,11 +1,16 @@
 import React from 'react'
 import NavBar from './NavBar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 const EditProfile = () => {
     const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser"));
     const [email, setEmail] = useState(localStorage.getItem("currentUser").email);
     const [given_name, setGivenName] = useState(localStorage.getItem("currentUser").given_name);
     const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser").family_name);
+    useEffect = (() => {
+        console.log(given_name);
+        console.log(family_name);
+    }, []);
+    
     const editUser = () => {
         // console.log(id);
         console.log(email);
