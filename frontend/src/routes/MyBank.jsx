@@ -200,6 +200,7 @@ const MyBank = () => {
                 const postToAuthApp = () => {
                     fetch(postUrl, {
                         method: 'POST',
+                        credentials: 'include',
                         body: JSON.stringify({
                             'auth_code' : searchParams.get('code'),
                             'code_verifier' : localStorage.getItem('code_verifier'),
