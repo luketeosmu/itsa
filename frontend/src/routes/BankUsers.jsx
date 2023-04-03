@@ -141,7 +141,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                     <div class="modal">
                         <div class="modal-box bg-indigo-100 absolute pb-5">
                             <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
-                                <div className="grid grid-cols-2 col-gap-8">
+                                <div className="grid grid-cols-2 gap-x-4">
                                     <div class="form-control mb-3 col-span-2">
                                         <label class="label">
                                             <span class="label-text">Email:</span>
