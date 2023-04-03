@@ -81,13 +81,15 @@ const MyBank = () => {
             // }
             console.log(data);
             localStorage.setItem("currentUser", data);
-            setUsers([{
-                "email": data.email,
-                "given_name": data.given_name,
-                "family_name": data.family_name,
-                "id": data.id,
-                "status": data.status,
-            }]);
+            if(role === "user") {
+                setUsers([{
+                    "email": data.email,
+                    "given_name": data.given_name,
+                    "family_name": data.family_name,
+                    "id": data.id,
+                    "status": data.status,
+                }]);
+            }
         })
     }
 
@@ -135,13 +137,17 @@ const MyBank = () => {
     }
 
     const fetchUserInfoBasedOnRoleAndLoginFlow = (role, loginFlow) => {
-            if (role === 'user') {
-                //GET own user details and setUsers() -> will be array of len 1
-                getOneUser(loginFlow);
-            } else {
-                //GET all user details and setUsers()
-                getAllUsers(loginFlow);
-            }
+        getOneUser(loginFlow);
+        if(role !== "user") {
+            getAllUsers(loginFlow);
+        }
+            // if (role === 'user') {
+            //     //GET own user details and setUsers() -> will be array of len 1
+            //     getOneUser(loginFlow);
+            // } else {
+            //     //GET all user details and setUsers()
+            //     getAllUsers(loginFlow);
+            // }
     }
 
     const checkExpiry = () => {
