@@ -104,8 +104,8 @@ const MyBank = () => {
         })
     }
 
-    const getAllUsers = (loginFlow) => {
-        const allUsersInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/${loginFlow}/oauth/usersinfo`
+    const getAllUsers = () => {
+        const allUsersInfoUrl = `https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/usersinfo`
         fetch(allUsersInfoUrl, {
             method: 'GET',
             headers: {
