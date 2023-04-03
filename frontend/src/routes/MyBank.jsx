@@ -82,11 +82,10 @@ const MyBank = () => {
             console.log(data);
             setUsers([{
                 "email": data.email,
-                "firstName": data.given_name,
-                "lastName": data.family_name,
-                "uid": data.id,
+                "given_name": data.given_name,
+                "family_name": data.family_name,
+                "id": data.id,
                 "status": data.status,
-                "actions": "read/write"
             }]);
         })
     }
@@ -124,11 +123,10 @@ const MyBank = () => {
             const newUsers = data.map(user => {
                 return {
                     "email": user.email,
-                    "firstName": user.given_name,
-                    "lastName": user.family_name,
-                    "uid": user.id,
+                    "given_name": user.given_name,
+                    "family_name": user.family_name,
+                    "id": user.id,
                     "status": user.status,
-                    "actions": "read/write"
                 }
             })
             setUsers(newUsers);
