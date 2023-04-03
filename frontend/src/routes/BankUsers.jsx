@@ -197,12 +197,12 @@ const BankUsers = ({ user, setUsers, users, role }) => {
 
                     <input type="checkbox" id={"modal-delete-user" + user.id} class="modal-toggle" />
                     <div class="modal">
-                        <div class="modal-box">
+                        <div class="modal-box w-auto h-auto">
                             <h3 class="font-bold text-lg">Are you sure you want to delet user upperCase({given_name}) upperCase({family_name})?</h3>
                             {/* <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p> */}
                             <div class="modal-action flex">
-                                <label for={"modal-delete-user" + user.id} className="btn bg-zinc-400 mr-5">Cancel</label>
-                                <label for={"modal-delete-user" + user.id} className="btn bg-red-600 ml-5" onClick={deleteUser}>Confirm</label>
+                                <label for={"modal-delete-user" + user.id} className="btn btn-ghost btn-sm bg-zinc-400 mr-5">Cancel</label>
+                                <label for={"modal-delete-user" + user.id} className="btn btn-ghost btn-sm bg-red-600 ml-5" onClick={deleteUser}>Confirm</label>
                             </div>
                         </div>
                     </div>
