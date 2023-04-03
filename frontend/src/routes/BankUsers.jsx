@@ -39,6 +39,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
         fetch(url, {
             method: "PUT",
+            headers: {authorizationToken:localStorage.getItem("access_token")},
             body: JSON.stringify({
                 "id": user.id,
                 "email": email,
