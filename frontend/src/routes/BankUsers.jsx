@@ -1,7 +1,8 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
 const BankUsers = ({ user, setUsers, users, role }) => {
-    const [currentUser, setCurrentUser] = useState(user);
+    // const [currentUser, setCurrentUser] = useState(user);
+    const [currentUser, setCurrentUser] = useState();
     const [email, setEmail] = useState(user.email);
     const [given_name, setGivenName] = useState(user.given_name);
     const [family_name, setFamilyName] = useState(user.family_name);
@@ -22,7 +23,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        setCurrentUser(
+        let editedUser = 
             {
                 'email' : email,
                 'given_name' : given_name,
@@ -30,10 +31,11 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                 'id' : user.id,
                 'status' : user.status
             }
-        )
-        let usersArr = [currentUser];
+        let usersArr = [editedUser];
         console.log(usersArr);
         console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
+        newUsers = users.map(obj => usersArr.find(o => o.id === obj.id) || obj);
+        setUsers(newUsers);
         // confirmChange();
         // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
         // fetch(url, {
