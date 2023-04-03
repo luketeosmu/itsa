@@ -20,7 +20,7 @@ const EditProfile = () => {
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/updateself";
         fetch(url, {
             method: "PUT",
             headers: {authorizationToken:localStorage.getItem("access_token")},
@@ -34,7 +34,7 @@ const EditProfile = () => {
     }
     const deleteUser = () => {
         console.log("deleting user..");
-        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/deleteuser";
+        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/deleteself";
         fetch(url, {
             method: "DELETE",
             headers: {authorizationToken:localStorage.getItem("access_token")},
