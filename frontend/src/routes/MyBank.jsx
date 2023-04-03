@@ -131,7 +131,7 @@ const MyBank = () => {
                     "actions": "read/write"
                 }
             })
-            tUsers(newUsers);
+            setUsers(newUsers);
         })
     }
 
