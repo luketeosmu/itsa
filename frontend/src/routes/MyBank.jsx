@@ -19,30 +19,30 @@ const MyBank = () => {
         "phone_number": "+967 (103) 878-2610"
     });
     const [users, setUsers] = useState([
-        {
-            'email' : "kangchinshen@gmail.com",
-            'firstName' : 'kang',
-            'lastName' : 'chin shen',
-            'uid' : "123456789zxc",
-            'status' : "inactive",
-            'actions' : "read/write"
-        },
-        {
-            'email' : "chinshenkang@gmail.com",
-            'firstName' : 'chin',
-            'lastName' : 'shen kang',
-            'uid' : "987654321abc",
-            'status' : "active",
-            'actions' : "read/write"
-        },
-        {
-            'email' : "shenchinkang@gmail.com",
-            'firstName' : 'shen',
-            'lastName' : 'chin kang',
-            'uid' : "0101010101jkl",
-            'status' : "active",
-            'actions' : "read/write"
-        },
+        // {
+        //     'email' : "kangchinshen@gmail.com",
+        //     'firstName' : 'kang',
+        //     'lastName' : 'chin shen',
+        //     'uid' : "123456789zxc",
+        //     'status' : "inactive",
+        //     'actions' : "read/write"
+        // },
+        // {
+        //     'email' : "chinshenkang@gmail.com",
+        //     'firstName' : 'chin',
+        //     'lastName' : 'shen kang',
+        //     'uid' : "987654321abc",
+        //     'status' : "active",
+        //     'actions' : "read/write"
+        // },
+        // {
+        //     'email' : "shenchinkang@gmail.com",
+        //     'firstName' : 'shen',
+        //     'lastName' : 'chin kang',
+        //     'uid' : "0101010101jkl",
+        //     'status' : "active",
+        //     'actions' : "read/write"
+        // },
     ]);
     const callKang = () => {
         let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
