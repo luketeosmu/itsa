@@ -2,35 +2,26 @@ import React from 'react'
 import NavBar from './NavBar';
 import { useState, useEffect } from 'react';
 const EditProfile = () => {
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser"));
-    const [email, setEmail] = useState(localStorage.getItem("currentUser").email);
-    const [given_name, setGivenName] = useState(localStorage.getItem("currentUser").given_name);
-    const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser").family_name);
+    // const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser"));
+    const [email, setEmail] = useState(localStorage.getItem("currentUser_email"));
+    const [given_name, setGivenName] = useState(localStorage.getItem("currentUser_given_name"));
+    const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     useEffect = (() => {
         console.log(given_name);
         console.log(family_name);
     }, []);
-    
+
     const editUser = () => {
         // console.log(id);
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        let editedUser = 
-            {
-                'email' : email,
-                'given_name' : given_name,
-                'family_name' : family_name,
-                'id' : currentUser.id,
-                'status' : currentUser.status
-            }
-        setCurrentUser(editedUser);
         const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
         fetch(url, {
             method: "PUT",
             headers: {authorizationToken:localStorage.getItem("access_token")},
             body: JSON.stringify({
-                "id": currentUser.id,
+                "id": localStorage.getItem("currentUser_id"),
                 "email": email,
                 "first_name": given_name, 
                 "last_name" : family_name
@@ -71,8 +62,8 @@ const EditProfile = () => {
                             <div className="modal" id="my-modal-2">
                                 <div className="modal-box text-center">
                                     <h3 className="font-bold text-xl">Are you sure you want to delete account?</h3>
-                                    <p className='mt-2'>Enter password to delete account</p>
-                                    <input type="password" placeholder="Password" className="mt-2 input input-bordered input-primary w-full max-w-xs" />
+                                    {/* <p className='mt-2'>Enter password to delete account</p>
+                                    <input type="password" placeholder="Password" className="mt-2 input input-bordered input-primary w-full max-w-xs" /> */}
                                     <div className="modal-action flex justify-center items-center space-x-10">
                                         <a href="/login" className="btn bg-indigo-400">Yes</a>
                                         <button className="btn bg-indigo-600">No</button>

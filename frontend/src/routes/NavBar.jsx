@@ -9,7 +9,7 @@ const NavBar = () => {
         </div>
         <div className="flex-none mr-56">
             <ul className="menu menu-horizontal px-1">
-            <li><a href='/editprofile' className='btn btn-ghost'>{localStorage.getItem("currentUser").given_name} {localStorage.getItem("currentUser").family_name}</a></li>
+            <li><a href='/editprofile' className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</a></li>
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
             <li><a href='/login' className='btn btn-ghost'>Logout</a></li>
             </ul>

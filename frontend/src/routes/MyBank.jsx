@@ -80,15 +80,18 @@ const MyBank = () => {
             //     "status": "pending"
             // }
             console.log(data);
-            let user = {
-                "email": data.email,
-                "given_name": data.given_name,
-                "family_name": data.family_name,
-                "id": data.id,
-                "status": data.status
-            }
-            localStorage.setItem("currentUser", user);
-            console.log("user info from local storage: " + localStorage.getItem("currentUser"));
+            // let user = {
+            //     "email": data.email,
+            //     "given_name": data.given_name,
+            //     "family_name": data.family_name,
+            //     "id": data.id,
+            //     "status": data.status
+            // }
+            localStorage.setItem("currentUser_given_name", data.given_name);
+            localStorage.setItem("currentUser_family_name", data.family_name);
+            localStorage.setItem("currentUser_email", data.email);
+            localStorage.setItem("currentUser_id", data.id);
+            // console.log("user info from local storage: " + localStorage.getItem("currentUser"));
             if(role === "user") {
                 setUsers([{
                     "email": data.email,
