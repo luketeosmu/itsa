@@ -9,7 +9,7 @@ const Login = () => {
   const client_id = 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws';
   // const secret = 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk';
   const scope = 'openid+profile';
-  const redirect_uri = 'http://project-2022-23t2-g1-t4-s3.s3-website-us-east-1.amazonaws.com';
+  const redirect_uri = 'itsag1t4.com';
   useEffect(() => {
     console.log(process.env.REACT_APP_client_id);
     const newCodeVerifier = generateCodeVerifier()
