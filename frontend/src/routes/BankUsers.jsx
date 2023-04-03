@@ -36,20 +36,19 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
         let newUsers = users.map(obj => usersArr.find(o => o.id === obj.id) || obj);
         setUsers(newUsers);
-        // confirmChange();
-        // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
-        // fetch(url, {
-        //     method: "PUT",
-        //     body: JSON.stringify({
-        //         "email": email,
-        //         "id": currentUser.id,
-        //         "given_name": given_name, 
-        //         "family_name" : family_name
-        //     })
-        // }).then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        // })
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
+        fetch(url, {
+            method: "PUT",
+            body: JSON.stringify({
+                "id": currentUser.id,
+                "email": email,
+                "first_name": given_name, 
+                "last_name" : family_name
+            })
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
     }
     const confirmChange = () => {
         console.log("given name in confirm change: " + given_name);
@@ -162,7 +161,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                         </td>
                                     </tr>
                                 </table> */}
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 col-gap-4">
                                     <div class="form-control w-full mb-3 col-span-2">
                                         <label class="label">
                                             <span class="label-text">Email:</span>
