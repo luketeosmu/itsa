@@ -19,7 +19,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         return words.join(" ");
     }
     const editUser = () => {
-        console.log(currentUser.id);
+        // console.log(id);
         console.log(email);
         console.log(given_name);
         console.log(family_name);
