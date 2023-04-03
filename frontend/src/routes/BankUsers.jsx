@@ -22,7 +22,19 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        confirmChange();
+        setCurrentUser(
+            {
+                'email' : email,
+                'given_name' : given_name,
+                'family_name' : family_name,
+                'id' : user.id,
+                'status' : user.status
+            }
+        )
+        let usersArr = [currentUser];
+        console.log(usersArr);
+        console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
+        // confirmChange();
         // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
         // fetch(url, {
         //     method: "PUT",
@@ -38,13 +50,12 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         // })
     }
     const confirmChange = () => {
+        console.log("given name in confirm change: " + given_name);
         setCurrentUser(
             {
                 'email' : email,
                 'given_name' : given_name,
                 'family_name' : family_name,
-                'name' : given_name + " " + family_name,
-                'birthdate' : user.birthdate,
                 'id' : user.id,
                 'status' : user.status
             }
