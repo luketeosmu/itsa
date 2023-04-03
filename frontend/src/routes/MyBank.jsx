@@ -80,6 +80,7 @@ const MyBank = () => {
             //     "status": "pending"
             // }
             console.log(data);
+            localStorage.setItem("currentUser", data);
             setUsers([{
                 "email": data.email,
                 "given_name": data.given_name,

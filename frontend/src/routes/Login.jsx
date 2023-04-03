@@ -78,7 +78,7 @@ const Login = () => {
           </div>
           <div className='w-2/5 h-screen flex items-center'>
             <div className="mr-20">
-              <span className='text-2xl font-medium'>Login</span>
+              {/* <span className='text-2xl font-medium'>Login</span> */}
               {/* <br />
               <input type="text" placeholder="Enter email" className="input input-bordered w-full max-w-xs my-5 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
               <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs my-2 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
