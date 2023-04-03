@@ -160,7 +160,7 @@ const MyBank = () => {
 
   // TODO: save the access token to local storage/cookie/memory
     useEffect(() => {
-        try {
+        // try {
             checkExpiry();
             // console.log(localStorage.getItem('code_verifier: ' + code_verifier));
             if (searchParams.get('bankAccessToken')) {
@@ -234,10 +234,10 @@ const MyBank = () => {
                 const loginFlow = localStorage.getItem("refresh_token") ? 'hosted_login' : 'bank';
                 fetchUserInfoBasedOnRoleAndLoginFlow(role, loginFlow);
             }
-        } catch (err) {
-            setError(true);
-            console.log(err.message);
-        }
+        // } catch (err) {
+        //     setError(true);
+        //     console.log(err.message);
+        // }
     }, [searchParams])
 
   return (
