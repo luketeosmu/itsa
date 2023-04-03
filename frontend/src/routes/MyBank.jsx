@@ -130,11 +130,8 @@ const MyBank = () => {
                     "status": user.status,
                     "actions": "read/write"
                 }
-            }).catch(err => {
-                console.log(err.message);
-            //    callKang();
-            }) 
-            setUsers(newUsers);
+            })
+            tUsers(newUsers);
         })
     }
 
