@@ -118,6 +118,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                     </td>
                                 </tr>
                             </table>
+                            
                         </div>
                     </div>
                     <label for={'modal-edit-user' + user.id}>
@@ -129,7 +130,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                     <div class="modal">
                         <div class="modal-box bg-indigo-100 absolute pb-5">
                             <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
-                                <table className='border-separate border-spacing-y-3 border-inherit bg-indigo-100'>
+                                {/* <table className='border-separate border-spacing-y-3 border-inherit bg-indigo-100'>
                                     <tr className='bg-indigo-100'>
                                         <th className=' bg-indigo-100'>
                                             Email:
@@ -160,7 +161,18 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                             }}/>
                                         </td>
                                     </tr>
-                                </table>
+                                </table> */}
+                                <div class="form-control w-full max-w-xs">
+                                    <label class="label">
+                                        <span class="label-text">Email:</span>
+                                        {/* <span class="label-text-alt">Top Right label</span> */}
+                                    </label>
+                                    <input type="text" value={email} class="input input-bordered w-full max-w-xs" />
+                                    {/* <label class="label">
+                                        <span class="label-text-alt">Bottom Left label</span>
+                                        <span class="label-text-alt">Bottom Right label</span>
+                                    </label> */}
+                                </div>
                                 <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                                 {/* <button value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' id={'modal-edit-user' + user.id} onClick={editUser}/>  */}
                         </div>
