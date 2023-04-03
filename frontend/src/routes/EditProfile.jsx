@@ -13,6 +13,10 @@ const EditProfile = () => {
 
     const editUser = () => {
         // console.log(id);
+        localStorage.setItem("currentUser_email", email);
+        localStorage.setItem("currentUser_given_name", given_name);
+        localStorage.setItem("currentUser_last_name", last_name);
+    
         console.log(email);
         console.log(given_name);
         console.log(family_name);
@@ -74,10 +78,10 @@ const EditProfile = () => {
                         <a href="#my-modal-3" className="btn w-40 bg-indigo-600 mt-6 ml-8 mr-5" onClick={editUser}>Save Changes</a>
                             <div className="modal" id="my-modal-3">
                                 <div className="modal-box text-center">
-                                <h3 className="font-bold text-2xl">Changes saved successfully!</h3>
-                                <div className="modal-action flex justify-center items-center space-x-10">
-                                    <button className="btn bg-indigo-600">Close</button>
-                                </div>
+                                    <h3 className="font-bold text-2xl">Changes saved successfully!</h3>
+                                    <div className="modal-action flex justify-center items-center space-x-10">
+                                        <label for="my-modal-3" className="btn bg-indigo-600">Close</label>
+                                    </div>
                                 </div>
                             </div>
                     </div>
