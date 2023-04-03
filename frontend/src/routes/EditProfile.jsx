@@ -32,6 +32,17 @@ const EditProfile = () => {
             })
         })
     }
+    const deleteUser = () => {
+        console.log("deleting user..");
+        let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/deleteuser";
+        fetch(url, {
+            method: "DELETE",
+            headers: {authorizationToken:localStorage.getItem("access_token")},
+            body: JSON.stringify({
+                "id" : localStorage.getItem("currentUser_id")
+            })
+        })
+    }
   return (
       <div>
         <NavBar />
@@ -79,7 +90,7 @@ const EditProfile = () => {
                                 <h3 class="font-bold text-lg">Are you sure you want to delete account?</h3>
                                 <div class="modal-action">
                                 <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-zinc-400 mr-5">Cancel</label>
-                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-red-600 ml-5">Confirm</label>
+                                <label for="delete-account-modal" className="btn btn-ghost btn-sm bg-red-600 ml-5" onClick={deleteUser}>Confirm</label>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +109,7 @@ const EditProfile = () => {
                         <div class="modal">
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">Changes saved successfully!</h3>
-                                <div class="modal-action">
+                                <div class="modal-action justify-center text-center items-center">
                                     <label for="save-changes-modal" class="btn">Close!</label>
                                 </div>
                             </div>
