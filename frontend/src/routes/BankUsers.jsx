@@ -162,16 +162,25 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                         </td>
                                     </tr>
                                 </table> */}
-                                <div class="form-control w-full max-w-xs">
-                                    <label class="label">
-                                        <span class="label-text">Email:</span>
-                                        {/* <span class="label-text-alt">Top Right label</span> */}
-                                    </label>
-                                    <input type="text" value={email} class="input input-bordered w-full max-w-xs" />
-                                    {/* <label class="label">
-                                        <span class="label-text-alt">Bottom Left label</span>
-                                        <span class="label-text-alt">Bottom Right label</span>
-                                    </label> */}
+                                <div className="grid grid-cols-2">
+                                    <div class="form-control w-full mb-5 col-span-2">
+                                        <label class="label">
+                                            <span class="label-text">Email:</span>
+                                        </label>
+                                        <input type="text" value={email} class="input input-bordered w-full max-w-xs" />
+                                    </div>
+                                    <div class="form-control w-full mb-5 col-span-1">
+                                        <label class="label">
+                                            <span class="label-text">Given Name:</span>
+                                        </label>
+                                        <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" />
+                                    </div>
+                                    <div class="form-control w-full mb-5 col-span-1">
+                                        <label class="label">
+                                            <span class="label-text">Family Name:</span>
+                                        </label>
+                                        <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" />
+                                    </div>
                                 </div>
                                 <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                                 {/* <button value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' id={'modal-edit-user' + user.id} onClick={editUser}/>  */}
