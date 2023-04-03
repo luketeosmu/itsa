@@ -34,7 +34,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         let usersArr = [editedUser];
         console.log(usersArr);
         console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
-        newUsers = users.map(obj => usersArr.find(o => o.id === obj.id) || obj);
+        let newUsers = users.map(obj => usersArr.find(o => o.id === obj.id) || obj);
         setUsers(newUsers);
         // confirmChange();
         // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
