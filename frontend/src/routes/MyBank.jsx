@@ -258,7 +258,7 @@ const MyBank = () => {
                         <th>User ID</th> 
                         <th>Status</th> 
                         {
-                            role !== "user" 
+                            role === "superadmin" 
                             ?<th>Actions</th>
                             :<th></th>
                         } 
