@@ -161,7 +161,8 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                         </td>
                                     </tr>
                                 </table>
-                                <input type="submit" value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' onClick={editUser}/> 
+                                <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
+                                {/* <button value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' id={'modal-edit-user' + user.id} onClick={editUser}/>  */}
                         </div>
                     </div>
                 </td> 
