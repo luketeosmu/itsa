@@ -131,7 +131,8 @@ const MyBank = () => {
                     "actions": "read/write"
                 }
             }).catch(err => {
-               callKang();
+                console.log(err.message);
+            //    callKang();
             }) 
             setUsers(newUsers);
         })

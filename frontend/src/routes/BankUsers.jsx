@@ -22,16 +22,19 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         console.log(email);
         console.log(firstName);
         console.log(lastName);
-        // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
-        // fetch(url, {
-        //     method: "PUT",
-        //     body: {
-        //         "uid": currentUser.uid
-        //     }
-        // }).then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        // })
+        const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
+        fetch(url, {
+            method: "PUT",
+            body: JSON.stringify({
+                "uid": currentUser.uid,
+                "email": email,
+                "firstName": firstName, 
+                "lastName" : lastName
+            })
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
     }
     const confirmChange = () => {
         setCurrentUser(
