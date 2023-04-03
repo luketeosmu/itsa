@@ -12,7 +12,7 @@ jobs:
       DIST: build
       REGION: ap-southeast-1
       DIST_ID: E1RBXZVIS4IO02
-
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v2
