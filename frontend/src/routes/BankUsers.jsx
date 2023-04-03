@@ -17,6 +17,22 @@ const BankUsers = ({ user, setUsers, users, role }) => {
 
         return words.join(" ");
     }
+    const editUser = () => {
+        console.log(currentUser.uid);
+        console.log(email);
+        console.log(firstName);
+        console.log(lastName);
+        // const url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/updateuser";
+        // fetch(url, {
+        //     method: "PUT",
+        //     body: {
+        //         "uid": currentUser.uid
+        //     }
+        // }).then(response => response.json())
+        // .then(data => {
+        //     console.log(data);
+        // })
+    }
     const confirmChange = () => {
         setCurrentUser(
             {
@@ -127,7 +143,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
                                         </td>
                                     </tr>
                                 </table>
-                                <input type="submit" value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' onClick={confirmChange}/> 
+                                <input type="submit" value="Confirm Changes" className='btn bg-indigo-600 mx-auto flex' onClick={editUser}/> 
                         </div>
                     </div>
                 </td> 

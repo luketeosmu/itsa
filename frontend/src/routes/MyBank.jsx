@@ -53,8 +53,11 @@ const MyBank = () => {
                 'email' : localStorage.getItem("email"),
                 "id" : localStorage.getItem("id")
             }),
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            localStorage.setItem("access_token", data.access_token);
         })
-          .then(response => response.json())
     }
 
     const getOneUser = (loginFlow) => {
@@ -127,7 +130,9 @@ const MyBank = () => {
                     "status": user.status,
                     "actions": "read/write"
                 }
-            })
+            }).catch(err => {
+               callKang();
+            }) 
             setUsers(newUsers);
         })
     }
