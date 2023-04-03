@@ -40,7 +40,7 @@ const BankUsers = ({ user, setUsers, users, role }) => {
         fetch(url, {
             method: "PUT",
             body: JSON.stringify({
-                "id": currentUser.id,
+                "id": user.id,
                 "email": email,
                 "first_name": given_name, 
                 "last_name" : family_name
