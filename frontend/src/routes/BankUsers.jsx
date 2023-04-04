@@ -96,23 +96,23 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
         }
     }
-    const confirmChange = () => {
-        console.log("given name in confirm change: " + given_name);
-        setCurrentUser(
-            {
-                'email' : email,
-                'given_name' : given_name,
-                'family_name' : family_name,
-                'id' : user.id,
-                'status' : user.status
-            }
-        )
-        let usersArr = [currentUser];
-        console.log(usersArr);
-        console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
-        //TODO: POST new users arr to backend 
+    // const confirmChange = () => {
+    //     console.log("given name in confirm change: " + given_name);
+    //     setCurrentUser(
+    //         {
+    //             'email' : email,
+    //             'given_name' : given_name,
+    //             'family_name' : family_name,
+    //             'id' : user.id,
+    //             'status' : user.status
+    //         }
+    //     )
+    //     let usersArr = [currentUser];
+    //     console.log(usersArr);
+    //     console.log(users.map(obj => usersArr.find(o => o.id === obj.id) || obj));
+    //     //TODO: POST new users arr to backend 
         
-    }
+    // }
     return (
         <tr>
             <td>{user.email}</td> 
@@ -192,13 +192,16 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                     <input type="checkbox" id={'modal-edit-user' + user.id} class="modal-toggle" />
                     <div class="modal">
                         <div class="modal-box bg-indigo-100 absolute pb-5">
-                            <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
+                            <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500" onClick={revertChanges}>✕</label>
                                 <div className="grid grid-cols-2 gap-x-4">
                                     <div class="form-control mb-3 col-span-2">
                                         <label class="label">
                                             <span class="label-text">Email:</span>
                                         </label>
-                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {setEmail(e.target.value)}}/>
+                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {
+                                            setEmail(e.target.value);
+                                            checkEmail(email);}}/>
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"emailSpan" + user.id}>Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
                                         <label class="label">
@@ -213,7 +216,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setFamilyName(e.target.value)}} />
                                     </div>
                                 </div>
-                                <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
+                                <label for={'modal-edit-user' + user.id} id={"confirmChange" + user.id } className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                         </div>
                     </div>
                     <label for={"modal-delete-user" + user.id} >
