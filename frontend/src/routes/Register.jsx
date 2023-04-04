@@ -170,7 +170,7 @@ const Register = () => {
                   <button className="btn w-full bg-indigo-600 mt-6" onClick={checkInputs}>Register</button>
                   <div className="modal" id="my-modal-2">
                     <div className="modal-box text-center">
-                      <h3 className="font-bold text-2xl">Registration Successful!</h3>
+                      <h3 className="font-bold text-2xl">Checking validity of account details..</h3>
                       <p className="py-4">An OTP has been sent to your email account.</p>
                       <p>Please enter the OTP within 1 min(s) to validate your account</p>
                       <div class="modal-action flex justify-center items-center space-x-10">
