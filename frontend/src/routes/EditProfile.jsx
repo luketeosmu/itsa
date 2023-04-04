@@ -43,6 +43,10 @@ const EditProfile = () => {
             })
         })
     }
+
+    const reloadPage = () => {
+        window.location.reload(false);
+    }
   return (
       <div>
         <NavBar />
@@ -110,7 +114,7 @@ const EditProfile = () => {
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">Changes saved successfully!</h3>
                                 <div class="modal-action justify-center text-center items-center">
-                                    <label for="save-changes-modal" class="btn" onClick={window.location.reload(true)}>Close!</label>
+                                    <label for="save-changes-modal" class="btn" onClick={reloadPage}>Close!</label>
                                 </div>
                             </div>
                         </div>
