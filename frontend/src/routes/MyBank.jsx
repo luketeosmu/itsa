@@ -296,8 +296,8 @@ const MyBank = () => {
             </svg>
         </div>
         {users.length > 0 && loginFlow === "bank" && role === "user"?
-            <div className="overflow-x-auto h-screen ">
-                <table className="table table-compact w-3/4 mx-auto relative">
+            <div className="overflow-x-auto h-screen relative">
+                <table className="table table-compact w-3/4 mx-auto">
                     <thead>
                     <tr>
                         <th classname="sticky">Email</th> 
@@ -318,8 +318,8 @@ const MyBank = () => {
                 </table>
             </div>
         : users.length > 0 ?
-            <div className="overflow-x-auto h-screen ">
-                <table className="table table-compact w-3/4 mx-auto relative">
+            <div className="overflow-x-auto h-screen relative">
+                <table className="table table-compact w-3/4 mx-auto">
                     <thead>
                     <tr>
                         <th classname="sticky top-0 absolute">Email</th> 
