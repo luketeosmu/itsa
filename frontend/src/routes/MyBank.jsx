@@ -230,6 +230,7 @@ const MyBank = () => {
                             'client_secret' : 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk'
                         }),
                         headers: {
+                            'credentials': 'include',
                             'Content-type': 'application/json',
                         },
                     }).then(response => response.json())
