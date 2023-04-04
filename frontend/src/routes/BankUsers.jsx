@@ -72,12 +72,15 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         })
     }
     const checkEmail = (email) => {
-        setEmail(email);
+        // setEmail(email);
         var re = /\S+@\S+\.\S+/;
+        console.log("checking email");
         if(re.test(email) === false) {
+            console.log("invalid email");
             document.getElementById("emailSpan").style.display = "block";
             document.getElementById("confirmChanges").setAttribute("disabled", "disabled");
         } else {
+            console.log("valid email");
             document.getElementById("emailSpan").style.display = "none";
             document.getElementById("confirmChanges").removeAttribute("disabled");
         }
@@ -128,7 +131,10 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <label class="label">
                                             <span class="label-text">Email:</span>
                                         </label>
-                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {checkEmail(e.target.value)}}/>
+                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {
+                                            setEmail(e.target.value);
+                                            checkEmail(email);
+                                            }}/>
                                         <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id="emailSpan">Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
