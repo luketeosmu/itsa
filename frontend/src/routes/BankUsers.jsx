@@ -77,12 +77,12 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         console.log("checking email");
         if(re.test(email) === false) {
             console.log("invalid email");
-            document.getElementById("emailSpan").style.display = "block";
-            document.getElementById("confirmChange").setAttribute("disabled", "disabled");
+            document.getElementById("emailSpan" + user.id).style.display = "block";
+            document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
         } else {
             console.log("valid email");
-            document.getElementById("emailSpan").style.display = "none";
-            document.getElementById("confirmChange").removeAttribute("disabled");
+            document.getElementById("emailSpan" + user.id).style.display = "none";
+            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
         }
     }
     const confirmChange = () => {
@@ -135,7 +135,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                             setEmail(e.target.value);
                                             checkEmail(email);
                                             }}/>
-                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id="emailSpan">Invalid Email</span>
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"emailSpan" + user.id}>Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
                                         <label class="label">
@@ -150,7 +150,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setFamilyName(e.target.value)}} />
                                     </div>
                                 </div>
-                                <label for={'modal-edit-user' + user.id} id="confirmChange" className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
+                                <label for={'modal-edit-user' + user.id} id={"confirmChange" + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                         </div>
                     </div>
                     <label for={"modal-delete-user" + user.id} >
