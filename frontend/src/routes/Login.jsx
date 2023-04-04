@@ -47,10 +47,9 @@ const Login = () => {
     console.log("calling POST");
     fetch(url, {
       method: 'POST',
-      // headers: "Access-Control-Allow-Origin",
-      body: JSON.stringify(
-        {"refresh-token" : cookies.refresh_token}
-      )
+      headers: {
+        cookie: cookies.refresh_token,
+      },
     })
     .then((response) => response.json())
     .then("helloo");
