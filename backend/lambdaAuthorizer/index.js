@@ -1,139 +1,170 @@
-const util = require('util');
-const AWS = require('aws-sdk');
-const jose = require('jose');
+import {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+} from "@aws-sdk/client-secrets-manager";
+import * as jose from 'jose';
 
-// const secretsmanager = new AWS.SecretsManager();
-const JWKS = jose.createLocalJWKSet({
-    "keys": [
-        {
-            "kty":"RSA",
-            "e":"AQAB",
-            "kid":"20b5133f-8f01-4220-8544-f843ea72be64",
-            "n":"tbrn2Yer9wEduoEcLzZpWjYUJY0a5rdk03z98G8fiQVveV9_OR62DaVPLV6JDFLkESWVet_R0ZfCHsi-rR74y69dMOrn3wvmBR30YyOfffwRkyOMnf7Zat3NoG-F_vUlPyJxSg8SvY9TTpTPivfVNCQX8GkBwDQGq_DxAo8qM0Wty3dCoVewFz3QafDBcOAlAKzD7FAidl5fzRZHeFMJkyefOOy7MS6Rr6jkUzTnZuYdsrnwnAm5cAf1k0KVXmCOubxPNuAVCvL0Vr7yqGcqPYXJgIIauhzIgo6p_sdfGpxIXmbdYZd2g32QK1CZLtxV_p7TnyYzfnMLUlADz4bPzw"
-        },
-    ]
-});
-
-
-const arn = `arn:aws:execute-api:${process.env.AWS_REGION}:${process.env.ACCOUNT_ID_1}:${process.env.API_ID}` // NOTE: Replace with your API Gateway API ARN
-const apiPermissions = [
-    {
-        "arn": arn,
-        "resource": "customers", // NOTE: Replace with your API Gateway Resource
-        "stage": "test", // NOTE: Replace with your API Gateway Stage
-        "httpVerb": "GET", // NOTE: Replcae with the HTTP Verbs you want to allow access your REST Resource
-        "scope": "profile" // NOTE: Replace with the proper OAuth scopes that can access your REST Resource
-    }
-];
-
-const defaultDenyAllPolicy = {
-    "principalId": "user",
-    "policyDocument": {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Action": "execute-api:Invoke",
-                "Effect": "Deny",
-                "Resource": "*"
-            }
-        ]
-    }
-};
-
-function generatePolicyStatement(apiName, apiStage, apiVerb, apiResource, action) {
-    // Generate an IAM policy statement
-    const statement = {};
-    statement.Action = 'execute-api:Invoke';
-    statement.Effect = action;
-    const methodArn = apiName + "/" + apiStage + "/" + apiVerb + "/" + apiResource;
-    statement.Resource = methodArn;
-    return statement;
-};
-
-function generatePolicy(principalId, policyStatements, decodedAccessToken) {
-    // Generate a fully formed IAM policy
-    const authResponse = {};
-    authResponse.principalId = principalId;
-    const policyDocument = {};
-    policyDocument.Version = '2012-10-17';
-    policyDocument.Statement = policyStatements;
-    authResponse.policyDocument = policyDocument;
-    authResponse.context = {
-        "decodedAccessToken": JSON.stringify(decodedAccessToken),
-    };
-    return authResponse;
-};
-
-async function verifyAccessToken(accessToken) {
-    /*
-    * Verify the access token with your Identity Provider here (check if your
-    * Identity Provider provides an SDK).
-    *
-    * This example assumes this method returns a Promise that resolves to
-    * the decoded token, you may need to modify your code according to how
-    * your token is verified and what your Identity Provider returns.
-    * 
-    * Fetch the KID attribute from your JWKS Endpoint to verify its integrity
-    * You can either use a Environment Variable containing the KID or call AWS Secrets Manager with KID already securely stored.
-    */
-
-    const decryptedJwtWithPermissions = await decryptJWT(accessToken);
-    const decodedAccessToken = await verifyTokenWithJWKS(decryptedJwtWithPermissions.accessToken);
-    const permissions = decryptedJwtWithPermissions.permissions
-    return { decodedAccessToken, permissions }
-};
-
-async function decryptJWT(encryptedToken) {
-    const { payload } = await jose.jwtDecrypt(encryptedToken, process.env.g1t4SymmetricKey)
-    return payload;
-}
-
-async function verifyTokenWithJWKS(decryptedJwt) {
-    const decoded = await jose.jwtVerify(decryptedJwt, JWKS)
-    return decoded;
-}
-
-function generateIAMPolicy(scopeClaims, decodedAccessToken) {
-    // Declare empty policy statements array
-    const policyStatements = [];
-    // Iterate over API Permissions
-    for (let i = 0; i < apiPermissions.length; i++) {
-        // Check if token scopes exist in API Permission
-        if (scopeClaims.indexOf(apiPermissions[i].scope) > -1) {
-            // User token has appropriate scope, add API permission to policy statements
-            policyStatements.push(generatePolicyStatement(apiPermissions[i].arn, apiPermissions[i].stage,
-                apiPermissions[i].httpVerb, apiPermissions[i].resource, "Allow"));
-        }
-    }
-    // Check if no policy statements are generated, if so, create default deny all policy statement
-    if (policyStatements.length === 0) {
-        return defaultDenyAllPolicy;
-    } else {
-        return generatePolicy('user', policyStatements, decodedAccessToken);
-    }
-};
-
-exports.handler = async (event, context) => {
-    // Declare Policy
+export const handler = async(event) => {
+    // Declare policy variable to store the IAM policy returned
     let iamPolicy = null;
-    // Capture raw token and trim 'Bearer ' string, if present
-    const token = event.authorizationToken.replace("Bearer ", "");
-    console.log('JWT Token', token)
-    // Validate token
-    await verifyAccessToken(token).then(data => {
-        // Retrieve token scopes
-        const { decodedAccessToken, permissions } = data;
-        console.log('Decoded JWT Token', JSON.stringify(decodedAccessToken))
-        // For testing purposes using a ID token without scopes. If you have an access token with scopes, 
-        // uncomment 'data.claims.scp' and pass the array of scopes present in the scp attribute instead.
-        const scopeClaims = ['email']// data.claims.scp;
-        // Generate IAM Policy
-        iamPolicy = generateIAMPolicy(scopeClaims, decodedAccessToken);
-    })
-        .catch(err => {
-            console.log(err);
-            iamPolicy = defaultDenyAllPolicy;
-        });
-    console.log('IAM Policy', JSON.stringify(iamPolicy));
+    
+    // Get the keys for decryption and verification
+    const keySecret = await getSecret("prod/keys");
+    const keys = await getKeys(keySecret);
+
+    // Get available api permissions to generate the IAM Policy later
+    const apiSecret = await getSecret("prod/api_permissions");
+    const apiPermissions = JSON.parse(apiSecret["api_permissions_v2"]);
+
+    // Obtain the token(role, access_token) within the header
+    //const authToken = event["access_token"]; // for testing in lambda
+    const authToken = event.authorizationToken; // for testing with api gateway
+    
+    // Decrypt the token(role, access_token)
+    const decryptedToken = await jose.jwtDecrypt(authToken, keys.symmetricKey);
+    
+    // Extract the access token from the decrypted token
+    const payload = decryptedToken["payload"];
+    const accessToken = payload["access_token"];
+    const role = payload["role"];
+    
+    // Verify the JWT access token and get the user id. 
+    // An error will be thrown by the method if verification fails.
+    const id = await verifyJwt(keys, accessToken);
+    
+    // Generate the policy for that role
+    iamPolicy = await generatePolicy(id, role, apiPermissions, accessToken);
+    console.log(iamPolicy);
+    // iamPolicy.policyDocument.Statement = [{
+    //     Resource: [],
+    //     Effect: "Allow",
+    //     Action: "execute-api:Invoke"
+    // }];
+    iamPolicy.context.id = id;
+    // iamPolicy.context.methodArn = event.methodArn;
     return iamPolicy;
 };
+
+// ************************************************************** // 
+// ********************** FUNCTIONS ***************************** //
+// ************************************************************** //
+async function getSecret(secretName) {
+    // Create a client for connecting to the secrets manager
+    const client = new SecretsManagerClient({
+        region: "ap-southeast-1"
+    });
+
+    let response;
+    // Send a request to the Secrets Manager
+    try {
+        response = await client.send(
+            new GetSecretValueCommand({
+                SecretId: secretName,
+                VersionStage: "AWSCURRENT" // VersionStage defaults to AWSCURRENT if unspecified
+            })
+        );
+    } catch (error) {
+      const response = {
+          statusCode: 500,
+          body: JSON.stringify('Failed to retrieve secret.'),
+      };
+        return response;
+    }
+    // Return the secret as a JSON.
+    return JSON.parse(response.SecretString);
+}
+
+async function getKeys(secret) {
+    const keys = {
+        symmetricKey: "",
+        publicKey: [],
+    };
+    keys.symmetricKey = jose.base64url.decode(secret["g1t4SymmetricKey"]);
+    keys.publicKey.push(secret["g1t4AsymmetricPubKey"]);
+    keys.publicKey.push(secret["bankPublicKey"]);
+    return keys;
+}
+
+async function verifyJwt(keys, decrypAccessToken) {
+    // GENERATE PUBLIC KEY
+    const alg = 'RS256';
+    let id;
+    for (const spki of keys.publicKey) {
+        const publicKey = await jose.importSPKI(spki, alg);
+        // Verify the token, then identify the user id
+        try {
+            const payload = await jose.jwtVerify(decrypAccessToken, publicKey);
+            console.log("payload after verfiying", payload);
+            id = payload["payload"]["user"]["id"];
+            break;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    return id;
+}
+
+async function returnDenyAllPolicy(id) {
+    return {
+        "principalId": id,
+        "policyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Action": "execute-api:Invoke",
+                    "Effect": "Deny",
+                    "Resource": "*"
+                }
+            ]
+        }
+    };
+}
+
+async function generatePolicy(principalId, role, apiPermissions, accessToken) {
+    // Check if the user role is valid (isn't empty and matches the name of a valid role)
+    const roleValid = await validateRole(role);
+    
+    // If the role is invalid, deny all access to resources
+    if (!roleValid) {
+        const iamPolicy = await returnDenyAllPolicy(principalId);
+        return iamPolicy;
+    }
+    
+    // Else the user's role is valid. Generate a fully formed IAM policy
+    // Contain the whole response.
+    const authResponse = {};
+
+    // Principal ID
+    authResponse.principalId = principalId;
+
+    // Policy Document
+    const policyDocument = {};
+    policyDocument.Version = '2012-10-17';
+    // policyDocument.Statement = await generatePolicyStatements(apiPermissions, role);
+    policyDocument.Statement = apiPermissions[role];
+    authResponse.policyDocument = policyDocument;
+    authResponse.context = {
+        "AccessToken": accessToken,
+    };
+    return authResponse;
+}
+
+async function validateRole(userRole) {
+    const roleSecret = await getSecret("prod/roles");
+    const roles = JSON.parse(roleSecret["roles"]);
+    
+    // If the role is null, it is invalid.
+    if (userRole == null) {
+        return false;
+    }
+    
+    // The role is not empty, check if its valid. Return true if it is.
+    for (var role of roles) {
+        if (userRole == role) {
+            return true;
+        }
+    }
+
+    // The rolename is not valid.
+    return false;
+}
