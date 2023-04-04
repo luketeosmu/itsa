@@ -40,7 +40,6 @@ exports.handler = async (event) => {
     
     
     const [rows] = await connection.execute("SELECT id, hash_password, salt, role FROM users where email=?", [email]);
-    console.log(rows);
 
     // validate password
     if (rows.length == 0) {
@@ -49,7 +48,6 @@ exports.handler = async (event) => {
     }
 
     const {id, hash_password, salt, role} = rows[0];
-    console.log(hash_password, salt);
     const hashedInputPassword = await bcrypt.hash(password, salt);
     if (hashedInputPassword != hash_password) {
         console.log("hash_password error");
@@ -62,7 +60,6 @@ exports.handler = async (event) => {
     secretsManager = new AWS.SecretsManager(config);
     secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
     secretObject = JSON.parse(secretValue.SecretString)
-    console.log("Hello2")
 
     // generate access_token and id_token and refresh_token
     const alg = 'RS256'
