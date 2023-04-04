@@ -34,11 +34,13 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         localStorage.clear();
         window.location.href="/login";
     }
+
     const editUser = () => {
         // console.log(id);
         console.log(email);
         console.log(given_name);
         console.log(family_name);
+        
         if(localStorage.getItem("currentUser_id") === user.id) {
             localStorage.setItem("currentUser_email", email);
             localStorage.setItem("currentUser_given_name", given_name);
@@ -68,6 +70,17 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                 "last_name" : family_name
             })
         })
+    }
+    const checkEmail = (email) => {
+        setEmail(email);
+        var re = /\S+@\S+\.\S+/;
+        if(re.test(email) === false) {
+            document.getElementById("emailSpan").style.display = "block";
+            document.getElementById("confirmChanges").setAttribute("disabled", "disabled");
+        } else {
+            document.getElementById("emailSpan").style.display = "none";
+            document.getElementById("confirmChanges").removeAttribute("disabled");
+        }
     }
     const confirmChange = () => {
         console.log("given name in confirm change: " + given_name);
@@ -115,7 +128,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <label class="label">
                                             <span class="label-text">Email:</span>
                                         </label>
-                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {setEmail(e.target.value)}}/>
+                                        <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {checkEmail(e.target.value)}}/>
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id="emailSpan">Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
                                         <label class="label">
@@ -130,7 +144,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setFamilyName(e.target.value)}} />
                                     </div>
                                 </div>
-                                <label for={'modal-edit-user' + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
+                                <label for={'modal-edit-user' + user.id} id="confirmChange" className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                         </div>
                     </div>
                     <label for={"modal-delete-user" + user.id} >
