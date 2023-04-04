@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {useState, useEffect} from 'react';
 const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     // const [currentUser, setCurrentUser] = useState(user);
@@ -149,15 +149,11 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             : 
                 loginFlow === "bank"
             ?   
-            <td>{user.gender} </td>
-            : 
-                loginFlow === "bank"
-            ?   
-            <td>{user.birthdate} </td>
-            : 
-                loginFlow === "bank"
-            ?   
-            <td>{user.phone_number} </td>
+            <Fragment>
+                <td>{user.gender}</td>
+                <td>{user.birthdate} </td>
+                <td>{user.phone_number} </td>
+            </Fragment>
             :<td></td>
             }
         </tr>
