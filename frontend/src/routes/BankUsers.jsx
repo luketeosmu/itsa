@@ -8,8 +8,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     const [family_name, setFamilyName] = useState(user.family_name);
     useEffect (() => {
         // setCurrentUser(user);
-        if(role === "superadmin" && loginFlow === "bank" && user.id !== localStorage.getItem("currentUser_id")) {
-            console.log(user.first_name);
+        if(role === "superadmin" && loginFlow === "bank" && user.id === localStorage.getItem("currentUser_id")) {
+            console.log(user.given_name);
         }
     }, [])
     // const upperCase = (name) => {
