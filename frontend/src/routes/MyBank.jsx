@@ -92,8 +92,12 @@ const MyBank = () => {
             localStorage.setItem("currentUser_family_name", data.family_name);
             localStorage.setItem("currentUser_email", data.email);
             // console.log("user info from local storage: " + localStorage.getItem("currentUser"));
-            if(role === "user" && loginFlow === "hosted_login") {
+            if(loginFlow === "hosted_login") {
                 localStorage.setItem("currentUser_id", data.id);
+            } else {
+                localStorage.setItem("currentUser_id", data.sub);
+            }
+            if(role === "user" && loginFlow === "hosted_login") {
                 setUsers([{
                     "email": data.email,
                     "given_name": data.given_name,
@@ -102,7 +106,6 @@ const MyBank = () => {
                     "status": data.status,
                 }]);
             } else if(role === "user" && loginFlow === "bank") {
-                localStorage.setItem("currentUser_id", data.sub);
                 setUsers([{
                     "email": data.email,
                     "given_name": data.given_name,

@@ -6,12 +6,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     const [email, setEmail] = useState(user.email);
     const [given_name, setGivenName] = useState(user.given_name);
     const [family_name, setFamilyName] = useState(user.family_name);
-    useEffect (() => {
-        // setCurrentUser(user);
-        if(role === "superadmin" && loginFlow === "bank" && user.id === localStorage.getItem("currentUser_id")) {
-            console.log(user.given_name);
-        }
-    }, [])
+    // useEffect (() => {
+    // }, [])
     // const upperCase = (name) => {
     //     name = name.trim();
     //     const words = name.split(" ");
