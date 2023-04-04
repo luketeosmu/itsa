@@ -34,12 +34,6 @@ export const handler = async(event) => {
     
     // Generate the policy for that role
     iamPolicy = await generatePolicy(id, role, apiPermissions, accessToken);
-    console.log(iamPolicy);
-    // iamPolicy.policyDocument.Statement = [{
-    //     Resource: [],
-    //     Effect: "Allow",
-    //     Action: "execute-api:Invoke"
-    // }];
     iamPolicy.context.id = id;
     // iamPolicy.context.methodArn = event.methodArn;
     return iamPolicy;
@@ -140,7 +134,6 @@ async function generatePolicy(principalId, role, apiPermissions, accessToken) {
     // Policy Document
     const policyDocument = {};
     policyDocument.Version = '2012-10-17';
-    // policyDocument.Statement = await generatePolicyStatements(apiPermissions, role);
     policyDocument.Statement = apiPermissions[role];
     authResponse.policyDocument = policyDocument;
     authResponse.context = {
