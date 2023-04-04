@@ -251,7 +251,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         </label>
                                         <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {
                                             setEmail(e.target.value);
-                                            checkEmail(email);}}/>
+                                            checkEmail(e.target.value);}}/>
                                         <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"emailSpan" + user.id}>Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
