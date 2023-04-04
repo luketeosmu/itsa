@@ -298,7 +298,7 @@ const MyBank = () => {
         {users.length > 0 && loginFlow === "bank" && role === "user"?
             <div className="overflow-x-auto h-screen relative">
                 <table className="table table-compact w-3/4 mx-auto">
-                    <thead>
+                    <thead className="sticky top-0">
                     <tr>
                         <th classname="sticky">Email</th> 
                         <th classname="sticky">First Name</th> 
@@ -320,7 +320,7 @@ const MyBank = () => {
         : users.length > 0 ?
             <div className="overflow-x-auto h-screen relative">
                 <table className="table table-compact w-3/4 mx-auto">
-                    <thead>
+                    <thead classname="sticky top-0">
                     <tr>
                         <th classname="sticky top-0 absolute">Email</th> 
                         <th classname="sticky top-0 absolute">First Name</th> 
