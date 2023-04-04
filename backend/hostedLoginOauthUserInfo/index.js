@@ -2,7 +2,6 @@ const AWS = require('aws-sdk')
 const mysql = require('mysql2/promise');
 
 exports.handler = async (event) => {
-    console.log(event)
     const id = event.context.id
     let secretName = "prod/rds-client-credentials";
     let config = { region : "ap-southeast-1" }
