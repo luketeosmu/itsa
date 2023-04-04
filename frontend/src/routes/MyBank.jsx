@@ -318,9 +318,9 @@ const MyBank = () => {
                 </table>
             </div>
         : users.length > 0 ?
-            <div className="overflow-x-auto h-screen relative">
-                <table className="table table-compact w-3/4 mx-auto">
-                    <thead classname="sticky top-0">
+            <div className="overflow-x-auto h-screen">
+                <table className="table table-compact w-3/4 mx-auto relative">
+                    <thead classname="sticky top-0 absolute">
                     <tr>
                         <th classname="sticky top-0 absolute">Email</th> 
                         <th classname="sticky top-0 absolute">First Name</th> 
