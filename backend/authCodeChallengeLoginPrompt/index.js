@@ -1,38 +1,48 @@
+// To use the AWS Secret Manager -> For retrieving RDS credentials 
+const AWS = require('aws-sdk');
+
 const mysql = require('mysql2/promise');
-const querystring = require('querystring')
+const querystring = require('querystring');
 const bcrypt = require('bcryptjs');
 
 exports.handler = async (event) => {    
+  
+    const secretName = "prod/rds-client-credentials";
+    const config = { region : "ap-southeast-1" };
+    let secretsManager = new AWS.SecretsManager(config);
+    let secretValue = await secretsManager.getSecretValue({SecretId: secretName}).promise();
+    const secretObject = JSON.parse(secretValue.SecretString);
+    
+    
     const { code_challenge, client_id, redirect_uri, code_challenge_method } = querystring.parse(event.body);
 
     // generate authorization code using code_challenge and code_challenge_method
-    const auth_code = await bcrypt.hash(code_challenge+"."+code_challenge_method, process.env.g1t4SymmetricKey);
+    const salt = await bcrypt.genSalt(10);
+    const auth_code = await bcrypt.hash(code_challenge+"."+code_challenge_method, salt);
 
     // store auth_code in database
-    const endpoint = process.env.endpoint;
-    const username = process.env.username;
-    const rdsPassword = process.env.rdsPassword;
-    const databaseName = process.env.databaseName;
-
     const connection = await mysql.createConnection({
-        host: endpoint,
-        user: username,
-        password: rdsPassword,
-        database: databaseName
+        host: secretObject.host,
+        user: secretObject.username,
+        password: secretObject.password,
+        database: secretObject.dbname,
     });
-
+  
     await connection.execute("INSERT INTO auth (auth_code, code_challenge, code_challenge_method, redirect_uri) VALUES (?, ?, ?, ?)", [auth_code, code_challenge, code_challenge_method, redirect_uri]);
     // get the latest id of the auth_code
     const [rows1] = await connection.execute("SELECT LAST_INSERT_ID() as id");
     const auth_code_id = rows1[0].id;
 
     // check if client_id and redirect_uri are the same in the database
-    const [rows2] = await connection.execute("SELECT * FROM client WHERE client_id=? AND redirect_uri=?", [client_id, redirect_uri]);
+    const [rows2] = await connection.execute("SELECT * FROM client WHERE client_id=? AND redirect_uri=?", [client_id, redirect_uri ]);
     if (rows2.length == 0) {
         return {
-            statusCode: 500,
+            statusCode: 301,
+            headers: {
+              Location: `https://${redirect_uri}/invalidlogin`
+            },
             body: "Invalid client_id or redirect_uri"
-        }
+        };
     }
 
     const loginPrompt = 
@@ -54,7 +64,7 @@ exports.handler = async (event) => {
             justify-content: center;
             align-items: center;"
             >
-            <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted-login-redirect" method="post">
+            <form action="https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login" method="post">
               <div class="container">
                 <div style="margin:20px; ">
                   <label for="uname" style="display:block;"><b>Username</b></label>
@@ -67,7 +77,7 @@ exports.handler = async (event) => {
                 </div>
                 
                 <input type="hidden" id="auth_code_id" name="auth_code_id" value="${auth_code_id}"/>
-        
+                
                 <div style="margin:20px"> 
                   <button 
                     type="submit"
@@ -96,7 +106,7 @@ exports.handler = async (event) => {
             
         </body>
     </html>
-    `
+    `;
     
     const response = {
         statusCode: 200,
@@ -108,4 +118,3 @@ exports.handler = async (event) => {
     
     return response;
 };
-
