@@ -168,7 +168,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         </label>
                                         <input type="text" value={email} class="input input-bordered w-full" onChange={(e)=> {
                                             setEmail(e.target.value);
-                                            checkEmail(email);
+                                            checkEmail(e.target.value);
                                             }}/>
                                         <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"emailSpan" + user.id}>Invalid Email</span>
                                     </div>
@@ -178,7 +178,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         </label>
                                         <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
                                             setGivenName(e.target.value);
-                                            checkGivenName(given_name);}} />
+                                            checkGivenName(e.target.value);}} />
                                         <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"givenNameSpan" + user.id}>Invalid Name</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
@@ -187,7 +187,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         </label>
                                         <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
                                             setFamilyName(e.target.value);
-                                            checkFamilyName(family_name);}} />
+                                            checkFamilyName(e.target.value);}} />
                                         <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"familyNameSpan" + user.id}>Invalid Name</span>
                                     </div>
                                 </div>
