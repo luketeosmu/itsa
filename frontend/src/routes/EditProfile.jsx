@@ -82,9 +82,10 @@ const EditProfile = () => {
 
     const editUser = () => {
         // console.log(id);
+        console.log("setting ")
         localStorage.setItem("currentUser_email", email);
         localStorage.setItem("currentUser_given_name", given_name);
-        localStorage.setItem("currentUser_last_name", family_name);
+        localStorage.setItem("currentUser_family_name", family_name);
 
         console.log(email);
         console.log(given_name);
