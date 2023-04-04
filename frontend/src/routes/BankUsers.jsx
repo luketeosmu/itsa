@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     // const [currentUser, setCurrentUser] = useState(user);
     const [currentUser, setCurrentUser] = useState();
+    const [originalEmail, setOriginalEmail] = useState(user.email);
     const [email, setEmail] = useState(user.email);
     const [given_name, setGivenName] = useState(user.given_name);
     const [family_name, setFamilyName] = useState(user.family_name);
@@ -34,13 +35,15 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         localStorage.clear();
         window.location.href="/login";
     }
-
+    const revertChanges = () => {
+        setEmail(originalEmail);
+    }
     const editUser = () => {
         // console.log(id);
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        
+        setOriginalEmail(email);
         if(localStorage.getItem("currentUser_id") === user.id) {
             localStorage.setItem("currentUser_email", email);
             localStorage.setItem("currentUser_given_name", given_name);
@@ -125,7 +128,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                     <input type="checkbox" id={'modal-edit-user' + user.id} class="modal-toggle" />
                     <div class="modal">
                         <div class="modal-box bg-indigo-100 absolute pb-5">
-                            <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500">✕</label>
+                            <label for={'modal-edit-user' + user.id} class="btn btn-sm btn-circle absolute right-2 top-2 bg-black-500" onClick={revertChanges}>✕</label>
                                 <div className="grid grid-cols-2 gap-x-4">
                                     <div class="form-control mb-3 col-span-2">
                                         <label class="label">
