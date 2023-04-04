@@ -92,9 +92,12 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             setValidChanges(false);
             document.getElementById("givenNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
-        } else if(validChanges === true){
+        } else {
             console.log("valid given name");
             document.getElementById("givenNameSpan" + user.id).style.display = "none";
+        }
+        
+        if(validChanges === true) {
             document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
         }
     }
@@ -105,9 +108,11 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             setValidChanges(false);
             document.getElementById("familyNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
-        } else if(validChanges === true) {
+        } else {
             console.log("valid family name");
             document.getElementById("familyNameSpan" + user.id).style.display = "none";
+        }
+        if(validChanges === true) {
             document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
         }
     }
@@ -120,9 +125,11 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             setValidChanges(false);
             document.getElementById("emailSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
-        } else if(validChanges === true) {
+        } else {
             console.log("valid email");
             document.getElementById("emailSpan" + user.id).style.display = "none";
+        }
+        if(validChanges === true) {
             document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
         }
     }
