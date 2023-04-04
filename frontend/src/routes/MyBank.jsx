@@ -287,28 +287,30 @@ const MyBank = () => {
   return (
     <div>
         <NavBar loginFlow={loginFlow}/>
-        <h1 className='text-3xl mb-10 ml-56 font-bold'>
-            My Bank 
-        </h1>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 ml-3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-        </svg>
+        <div className="flex">
+            <h1 className='text-3xl mb-10 ml-56 font-bold'>
+                My Bank 
+            </h1>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 ml-3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+            </svg>
+        </div>
         {users.length > 0 && loginFlow === "bank" && role === "user"?
             <div className="overflow-x-auto h-screen ">
-                <table className="table table-compact w-3/4 mx-auto">
+                <table className="table table-compact w-3/4 mx-auto relative">
                     <thead>
                     <tr>
-                        <th>Email</th> 
-                        <th>First Name</th> 
-                        <th>Last Name</th> 
-                        <th>User ID</th> 
-                        <th>Status</th> 
-                        <th>Gender</th> 
-                        <th>Birthdate</th> 
-                        <th>Phone Number</th> 
+                        <th classname="sticky">Email</th> 
+                        <th classname="sticky">First Name</th> 
+                        <th classname="sticky">Last Name</th> 
+                        <th classname="sticky">User ID</th> 
+                        <th classname="sticky">Status</th> 
+                        <th classname="sticky">Gender</th> 
+                        <th classname="sticky">Birthdate</th> 
+                        <th classname="sticky">Phone Number</th> 
                         {
                             role === "superadmin" 
-                            ?<th>Actions</th>
+                            ?<th classname="sticky">Actions</th>
                             :<th></th>
                         } 
                     </tr>
@@ -325,14 +327,14 @@ const MyBank = () => {
                 <table className="table table-compact w-3/4 mx-auto">
                     <thead>
                     <tr>
-                        <th>Email</th> 
-                        <th>First Name</th> 
-                        <th>Last Name</th> 
-                        <th>User ID</th> 
-                        <th>Status</th> 
+                        <th classname="sticky">Email</th> 
+                        <th classname="sticky">First Name</th> 
+                        <th classname="sticky">Last Name</th> 
+                        <th classname="sticky">User ID</th> 
+                        <th classname="sticky">Status</th> 
                         {
                             role === "superadmin" 
-                            ?<th>Actions</th>
+                            ?<th classname="sticky">Actions</th>
                             :<th></th>
                         } 
                     </tr>
