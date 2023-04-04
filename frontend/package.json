@@ -10,6 +10,7 @@
     "crypto-js": "^4.1.1",
     "daisyui": "^2.51.1",
     "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -20,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy" : "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com",
+  "proxy": "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com",
   "eslintConfig": {
     "extends": [
       "react-app",

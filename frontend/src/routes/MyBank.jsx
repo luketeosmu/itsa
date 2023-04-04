@@ -3,7 +3,10 @@ import NavBar from './NavBar'
 import BankUsers from './BankUsers'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
+
 const MyBank = () => {
+    const [cookies, setCookie] = useCookies(['cookie-name']);
     const [searchParams, setSearchParams] = useSearchParams()
     const [role, setRole] = useState('');
     const [error, setError] = useState(true);
@@ -240,6 +243,7 @@ const MyBank = () => {
                         console.log(data["access_token"]);
                         console.log(data["id_token"]);
                         console.log(data["refresh_token"]);
+                        setCookie('refresh-token', data["refresh_token"]);
                         localStorage.setItem("access_token", data["access_token"]);
                         localStorage.setItem("id_token", data["id_token"]);
                         localStorage.setItem("refresh_token", data["refresh_token"]);
