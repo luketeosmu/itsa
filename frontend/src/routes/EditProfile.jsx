@@ -44,7 +44,7 @@ const EditProfile = () => {
         window.location.reload(false);
     }
     useEffect(() => {
-        console.log(!localStorage.getItem("access_token") && !localStorage("id_token"));
+        console.log(!localStorage.getItem("access_token") && !localStorage.getItem("id_token"));
         if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
             window.location.href="/invalidaccess";
         }
