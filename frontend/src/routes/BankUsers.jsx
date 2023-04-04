@@ -258,16 +258,22 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <label class="label">
                                             <span class="label-text">Given Name:</span>
                                         </label>
-                                        <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setGivenName(e.target.value)}} />
+                                        <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
+                                            setGivenName(e.target.value);
+                                            checkGivenName(e.target.value);}} />
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"givenNameSpan" + user.id}>Invalid Name</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
                                         <label class="label">
                                             <span class="label-text">Family Name:</span>
                                         </label>
-                                        <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setFamilyName(e.target.value)}} />
+                                        <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
+                                            setFamilyName(e.target.value);
+                                            checkFamilyName(e.target.value);}} />
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"familyNameSpan" + user.id}>Invalid Name</span>
                                     </div>
                                 </div>
-                                <label for={'modal-edit-user' + user.id} id={"confirmChange" + user.id } className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
+                                <label for={'modal-edit-user' + user.id} id={"confirmChange" + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
                         </div>
                     </div>
                     <label for={"modal-delete-user" + user.id} >
