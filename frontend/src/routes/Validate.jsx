@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useEffect } from 'react';
 
 const Validate = () => {
   const [otp, setOtp] = useState('')
@@ -13,12 +13,12 @@ const Validate = () => {
 // 403: Email not inside DB
 // 500: Other untold errors 
 //    
-  useEffect(() => {
-    console.log(!localStorage.getItem("access_token") && !localStorage.getItem("id_token"));
-    if(!localStorage.getItem("access_token") && !localStorage.getItem("id_token") ) {
-        window.location.href="/invalidaccess";
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log(!localStorage.getItem("access_token") && !localStorage.getItem("id_token"));
+  //   if(!localStorage.getItem("access_token") && !localStorage.getItem("id_token") ) {
+  //       window.location.href="/invalidaccess";
+  //   }
+  // }, []);
 
 //this is for resendOTP
   const handleResubmitOTP = async () => {
