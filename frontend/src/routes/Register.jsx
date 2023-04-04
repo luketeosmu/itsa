@@ -112,7 +112,7 @@ const Register = () => {
               <img src={logo} alt='ascenda' className='w-28'/>
             </div> */}
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
-            <div className='text-2xl'>
+            <div className='text-2xl absolute z-10'>
               <span className='text-5xl font-bold'>Create an account to</span>
               <br />
               <span className='font-medium'>manage your resources today.</span>
@@ -123,8 +123,8 @@ const Register = () => {
               <br />
               <a className='text-indigo-600 text-xl font-medium' href='/login'>Login here!</a>
             </div>
-            <div className='absolute bottom-20 left-1/2'>
-              <img src={man} alt="man" className='w-96' />
+            <div className='absolute bottom-24 left-1/2 z-0'>
+              <img src={man} alt="man" className='w-64' />
             </div>
           </div>
           <div className='w-2/5 h-screen flex items-center'>
