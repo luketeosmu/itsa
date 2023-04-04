@@ -13,11 +13,12 @@ const Validate = () => {
 // 403: Email not inside DB
 // 500: Other untold errors 
 //    
-  useEffect(() => {
-    if(!localStorage.getItem("email")) {
-      window.location.href="/invalidaccess";
+  useEffect = (() => {
+    if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
+        window.location.href="/invalidaccess";
     }
-  }, [])
+  }, []);
+
 //this is for resendOTP
   const handleResubmitOTP = async () => {
     try {

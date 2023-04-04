@@ -7,7 +7,7 @@ const EditProfile = () => {
     const [given_name, setGivenName] = useState(localStorage.getItem("currentUser_given_name"));
     const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     useEffect = (() => {
-        if(!localStorage.getItem("currentUser_email")) {
+        if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
             window.location.href="/invalidaccess";
         }
     }, []);
