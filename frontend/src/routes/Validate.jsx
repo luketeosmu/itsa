@@ -14,10 +14,12 @@ const Validate = () => {
 // 500: Other untold errors 
 //    
   
+//this is for resendOTP
   const handleResubmitOTP = async () => {
     try {
       console.log("HELLO")
       const email = localStorage.getItem("email");
+      
       const response = await fetch('https://ppzp0z6kh1.execute-api.ap-southeast-1.amazonaws.com/test', {
         method: 'POST',
         headers: {
@@ -40,12 +42,14 @@ const Validate = () => {
       //console.error(error);
       // handle error
     }
+    window.location.href = "#resendOTPMOdal"; 
   };
 
   const handleSubmitOTP = async () => {
     try {
       //console.log("HELLO")
       const email = localStorage.getItem("email");    //This returns the email as an email variable!
+      const password = localStorage.getItem("password");
       const response = await fetch('https://mbpzjhq32b.execute-api.ap-southeast-1.amazonaws.com/val_OTP/otp_validator', {
         method: 'POST',
         headers: {
@@ -53,11 +57,13 @@ const Validate = () => {
         },
         body: JSON.stringify({
           email: email,
-          otp: otp
+          otp: otp,
+          password: password
         })   //PUT THE OTP HERE 
       })
       .then(response => {
         //console.log(response)
+        console.log(password)
         return response.json();
         //console.log("BEfore u enter data")
       }).then(data => {
@@ -144,6 +150,15 @@ const Validate = () => {
               <div className="modal-box text-center">
                 <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
                 <p className="py-4 font-medium">Your OTP has EXPIRED</p>
+                <div className="modal-action flex justify-center items-center space-x-10">
+                  <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
+                </div>
+              </div>
+            </div>
+            <div className="modal" id="resendOTPMOdal">
+              <div className="modal-box text-center">
+                <h3 className="font-bold text-2xl">You have been resent an OTP!</h3>
+                <p className="py-4 font-medium">Check Your Email!</p>
                 <div className="modal-action flex justify-center items-center space-x-10">
                   <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
                 </div>
