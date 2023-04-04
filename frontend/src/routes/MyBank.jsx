@@ -3,24 +3,12 @@ import NavBar from './NavBar'
 import BankUsers from './BankUsers'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
 
 const MyBank = () => {
-    const [cookies, setCookie] = useCookies(['cookie-name']);
     const [searchParams, setSearchParams] = useSearchParams()
     const [role, setRole] = useState('');
     const [error, setError] = useState(true);
     const [loginFlow, setLoginFlow] = useState('');
-    const [personalInfo, setPersonalInfo] = useState({
-        "sub": "0042e904-0473-48d3-8175-f1fd06db0b64",
-        "email": "nicolas.kihn@dietrich.net",
-        "given_name": "Nicolas",
-        "family_name": "Kihn",
-        "name": "Nicolas Kihn",
-        "birthdate": "1975-04-12T00:00:00.000Z",
-        "gender": "Female",
-        "phone_number": "+967 (103) 878-2610"
-    });
     const [users, setUsers] = useState([
         // {
         //     'email' : "kangchinshen@gmail.com",
@@ -243,7 +231,6 @@ const MyBank = () => {
                         console.log(data["access_token"]);
                         console.log(data["id_token"]);
                         console.log(data["refresh_token"]);
-                        setCookie('refresh-token', data["refresh_token"]);
                         localStorage.setItem("access_token", data["access_token"]);
                         localStorage.setItem("id_token", data["id_token"]);
                         localStorage.setItem("refresh_token", data["refresh_token"]);

@@ -3,11 +3,9 @@ import man from '../man.png';
 import Nav from './Nav';
 import sha256 from 'crypto-js/sha256'; 
 import Base64 from 'crypto-js/enc-base64';
-import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const [codeChallenge, setCodeChallenge] = useState('');
-  const [cookies] = useCookies(['cookie-name']);
   const client_id = 'cMZ8riSFzCrLUwDCkd3awhx5pFLURjW5th2aWfm13ws';
   // const secret = 'PLT2bDFO0zU-8j1pADf-VqzZNMJqaQKyy0K-O5XMGPk';
   const scope = 'openid+profile';
@@ -42,19 +40,6 @@ const Login = () => {
     return string.toString(Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
-  const callKang = () => {
-    let url = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/refresh_access_token_1";
-    console.log("calling POST");
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Cookie': `refresh-token=${cookies.refresh_token}`,
-      },
-    })
-    .then((response) => response.json())
-    .then("helloo");
-  }
-
   return (
     <div className="min-h-screen">
       <Nav />
@@ -62,7 +47,6 @@ const Login = () => {
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
               <div className='text-2xl absolute z-10'>
-                <button onClick={callKang} className="btn btn-xs">Chin Shen Kang</button>
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
