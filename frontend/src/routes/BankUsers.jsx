@@ -10,6 +10,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         // setCurrentUser(user);
     }, [])
     const upperCase = (name) => {
+        name = name.trim();
         const words = name.split(" ");
 
         for (let i = 0; i < words.length; i++) {
