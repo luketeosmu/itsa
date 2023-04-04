@@ -78,11 +78,11 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         if(re.test(email) === false) {
             console.log("invalid email");
             document.getElementById("emailSpan").style.display = "block";
-            document.getElementById("confirmChanges").setAttribute("disabled", "disabled");
+            document.getElementById("confirmChange").setAttribute("disabled", "disabled");
         } else {
             console.log("valid email");
             document.getElementById("emailSpan").style.display = "none";
-            document.getElementById("confirmChanges").removeAttribute("disabled");
+            document.getElementById("confirmChange").removeAttribute("disabled");
         }
     }
     const confirmChange = () => {
