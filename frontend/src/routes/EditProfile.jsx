@@ -126,7 +126,7 @@ const EditProfile = () => {
     }, []);
     return (
         <div>
-        <NavBar />
+        <NavBar loginFlow="hosted_login"/>
         <div className='flex relative w-1/2 mx-auto'>
             {/* <div className=''>
                 <h1 className='text-3xl mt-36 ml-64 font-bold'>
