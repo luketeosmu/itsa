@@ -83,8 +83,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         })
     }
     const checkGivenName = (given_name) => {
-        var re = /^[A-Za-z\s]+$/;
-        if(re.test(given_name) === false) {
+        var re = /^[A-Za-z ]+$/;
+        if(re.test(given_name) === false || given_name.trim().length === 0) {
             console.log("invalid given name");
             document.getElementById("givenNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
@@ -95,8 +95,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         }
     }
     const checkFamilyName = (family_name) => {
-        var re = /^[A-Za-z\s]+$/;
-        if(re.test(family_name) === false) {
+        var re = /^[A-Za-z ]+$/;
+        if(re.test(family_name) === false || given_name.trim().length === 0) {
             console.log("invalid family name");
             document.getElementById("familyNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
@@ -110,7 +110,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         // setEmail(email);
         var re = /\S+@\S+\.\S+/;
         console.log("checking email");
-        if(re.test(email) === false) {
+        if(re.test(email) === false || email.trim().length === 0) {
             console.log("invalid email");
             document.getElementById("emailSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
