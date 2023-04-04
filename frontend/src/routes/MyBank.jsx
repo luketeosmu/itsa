@@ -3,7 +3,6 @@ import NavBar from './NavBar'
 import BankUsers from './BankUsers'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import axios from 'axios';
 const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [role, setRole] = useState('');
@@ -80,6 +79,7 @@ const MyBank = () => {
             //     "id": "0042e904-0473-48d3-8175-f1fd06db0b64",
             //     "status": "pending"
             // }
+            console.log("get 1 user:");
             console.log(data);
             // let user = {
             //     "email": data.email,
@@ -147,6 +147,8 @@ const MyBank = () => {
             //         "status": "pending"
             //     },
             // ]
+            console.log("get all users: ");
+            console.log(data);
             const newUsers = data.map(user => {
                 return {
                     "email": user.email,
