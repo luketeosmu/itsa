@@ -7,9 +7,9 @@ const EditProfile = () => {
     const [given_name, setGivenName] = useState(localStorage.getItem("currentUser_given_name"));
     const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     const [id, setId] = useState(localStorage.getItem("currentUser_id"));
-    const [originalEmail, setOriginalEmail] = useState(user.email);
-    const [originalGivenName, setOriginalGivenName] = useState(user.given_name);
-    const [originalFamilyName, setOriginalFamilyName] = useState(user.family_name);
+    const [originalEmail, setOriginalEmail] = useState(localStorage.getItem("currentUser_email"));
+    const [originalGivenName, setOriginalGivenName] = useState(localStorage.getItem("currentUser_given_name"));
+    const [originalFamilyName, setOriginalFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     const [validEmail, setValidEmail] = useState(true);
     const [validFamilyName, setValidFamilyName] = useState(true);
     const [validGivenName, setValidGivenName] = useState(true);
