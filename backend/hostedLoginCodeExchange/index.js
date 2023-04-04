@@ -8,7 +8,6 @@ exports.handler = async (event) => {
     }
     const { code_verifier, client_id, client_secret, auth_code } = JSON.parse(event.body);
     // const { code_verifier, client_id, client_secret, auth_code } = event;
-    console.log("auth_code", auth_code)
     // get code_challenge and code_challenge_method using auth_code
     let secretName = "prod/rds-client-credentials";
     let config = { region : "ap-southeast-1" }
@@ -21,9 +20,7 @@ exports.handler = async (event) => {
         password: secretObject.password,
         database: secretObject.dbname
     });
-    console.log("hello1")
     const [rows1] = await connection.execute("SELECT * FROM auth where auth_code=?", [auth_code]);
-    console.log("hello2")
     const { code_challenge, code_challenge_method, access_token, id_token, refresh_token } = rows1[0];
     // validate code_verifier
     if (code_challenge_method == 'S256') {
