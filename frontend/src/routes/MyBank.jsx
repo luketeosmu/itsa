@@ -324,17 +324,17 @@ const MyBank = () => {
             </div>
         : users.length > 0 ?
             <div className="overflow-x-auto h-screen ">
-                <table className="table table-compact w-3/4 mx-auto">
+                <table className="table table-compact w-3/4 mx-auto relative">
                     <thead>
                     <tr>
-                        <th classname="sticky">Email</th> 
-                        <th classname="sticky">First Name</th> 
-                        <th classname="sticky">Last Name</th> 
-                        <th classname="sticky">User ID</th> 
-                        <th classname="sticky">Status</th> 
+                        <th classname="sticky top-0">Email</th> 
+                        <th classname="sticky top-0">First Name</th> 
+                        <th classname="sticky top-0">Last Name</th> 
+                        <th classname="sticky top-0">User ID</th> 
+                        <th classname="sticky top-0">Status</th> 
                         {
                             role === "superadmin" 
-                            ?<th classname="sticky">Actions</th>
+                            ?<th classname="sticky top-0">Actions</th>
                             :<th></th>
                         } 
                     </tr>
