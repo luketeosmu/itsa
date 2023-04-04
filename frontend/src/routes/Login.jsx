@@ -61,7 +61,7 @@ const Login = () => {
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
               <div className='text-2xl'>
-                <button onClick={callKang} className="btn btn-xs">Chin Shen Kang</button>
+                {/* <button onClick={callKang} className="btn btn-xs">Chin Shen Kang</button> */}
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
