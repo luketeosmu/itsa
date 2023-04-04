@@ -204,7 +204,7 @@ const EditProfile = () => {
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">Changes saved successfully!</h3>
                                 <div class="modal-action justify-center text-center items-center">
-                                    <label for="save-changes-modal" class="btn" onClick={reloadPage}>Close!</label>
+                                    <label for="save-changes-modal" class="btn">Close!</label>
                                 </div>
                             </div>
                         </div>
