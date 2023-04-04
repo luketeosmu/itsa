@@ -3,10 +3,18 @@ import React, { useState } from 'react';
 
 const Validate = () => {
   const [otp, setOtp] = useState('')
-
-
   //handleRegister
-  const handleRegisterPart2NicoleFault = async () => {
+
+  //HERE ARE THE STATUS CODES
+//   
+// 200: Good
+// 401: Invalid OTP
+// 402: Expired OTP
+// 403: Email not inside DB
+// 500: Other untold errors 
+//    
+  
+  const handleResubmitOTP = async () => {
     try {
       console.log("HELLO")
       const email = localStorage.getItem("email");
@@ -19,24 +27,24 @@ const Validate = () => {
           email: email,
         })
       }).then(response => {
-        console.log(response);
+       // console.log(response);
         response.json()
       }).then(data => console.log(data))
         .catch(err => console.log(err));
       //console.log("EMAIL HERE");
       //console.log(e)
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       // handle success or error
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       // handle error
     }
   };
 
   const handleSubmitOTP = async () => {
     try {
-      console.log("HELLO")
+      //console.log("HELLO")
       const email = localStorage.getItem("email");    //This returns the email as an email variable!
       const response = await fetch('https://mbpzjhq32b.execute-api.ap-southeast-1.amazonaws.com/val_OTP/otp_validator', {
         method: 'POST',
@@ -49,29 +57,41 @@ const Validate = () => {
         })   //PUT THE OTP HERE 
       })
       .then(response => {
-        console.log(response)
+        //console.log(response)
         return response.json();
-        console.log("BEfore u enter data")
+        //console.log("BEfore u enter data")
       }).then(data => {
         // console.log("Trying Data")
         // console.log(data)
-        console.log("Entered Data Read")
+        //console.log("Entered Data Read")
 
-        console.log("Printing status")
+        //console.log("Printing status")
   
         //added if responses here
         if (data.status === 200) {
-          console.log("GOOD WORK");
+          //console.log("GOOD WORK");
           window.location.href = "#my-modal-2";
         }
-        else {
-          console.log("BAD NEVER WORK");
+        //ExpiredOTP (No Time Liao)
+        else if (data.status === 402) {
+          window.location.href = '#my-modal-4';
+        }
+        //Email is not found
+        else if (data.status === 403) {
+          window.location.href = '#my-modal-3';
+        }
+        //Entered Wrong OTP BUT still have time 
+        else if (data.status === 401) {
+          //console.log("BAD NEVER WORK");
           window.location.href = "#my-modal-1";
         }
+        else {
+          //console.log("BAD NEVER WORK");
+  
+          window.location.href = "#my-modal-1";     //TODO: This is error 500: Maybe something diff?
+        }
       }) .catch(err => console.log(err));
-
-
-      console.log("These nutes");
+      
       console.log(otp);
       // const data = await response.json();
       // console.log(data);
@@ -104,15 +124,33 @@ const Validate = () => {
             </div>
             <div className="modal" id="my-modal-1">
               <div className="modal-box text-center">
-                <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
+                <h3 className="font-bold text-2xl">OTP Validation Unsuccessful, WRONG OTP!</h3>
                 <p className="py-4 font-medium">Please try again.</p>
                 <div className="modal-action flex justify-center items-center space-x-10">
                   <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
                 </div>
               </div>
             </div>
+            <div className="modal" id="my-modal-3">
+              <div className="modal-box text-center">
+                <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
+                <p className="py-4 font-medium">Your Email seems wrong. Did you enter it wrongly, or are you even a partner?</p>
+                <div className="modal-action flex justify-center items-center space-x-10">
+                  <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
+                </div>
+              </div>
+            </div>
+            <div className="modal" id="my-modal-4">
+              <div className="modal-box text-center">
+                <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
+                <p className="py-4 font-medium">Your OTP has EXPIRED</p>
+                <div className="modal-action flex justify-center items-center space-x-10">
+                  <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
+                </div>
+              </div>
+            </div>
             <br />
-            <button onClick={handleRegisterPart2NicoleFault} className='text-sm my-2 font-medium'>Resend OTP</button>
+            <button onClick={handleResubmitOTP} className='text-sm my-2 font-medium'>Resend OTP</button>
               <a href="/validate" ></a>
           </div>
         </div>

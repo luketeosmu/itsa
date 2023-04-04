@@ -20,7 +20,7 @@ const Register = () => {
   //handleRegister
   const handleRegister = async () => {
     try {
-      console.log("HELLO")
+      //console.log("HELLO")
       localStorage.setItem("email", email)
       const response = await fetch('https://ppzp0z6kh1.execute-api.ap-southeast-1.amazonaws.com/test', {
         method: 'POST',
@@ -31,17 +31,17 @@ const Register = () => {
           email: email,
         })
       }).then(response => {
-        console.log(response);
+       // console.log(response);
         response.json()
       }).then(data => console.log(data))
         .catch(err => console.log(err));
-      console.log("EMAIL HERE");
+     // console.log("EMAIL HERE");
       //console.log(e)
       const data = await response.json();
-      console.log(data);
+     // console.log(data);
       // handle success or error
     } catch (error) {
-      console.error(error);
+        console.error(error);
       // handle error
     }
   };
