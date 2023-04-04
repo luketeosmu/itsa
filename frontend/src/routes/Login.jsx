@@ -60,7 +60,7 @@ const Login = () => {
       <div className='container mx-auto'>
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
-              <div className='text-2xl'>
+              <div className='text-2xl absolute z-10'>
                 {/* <button onClick={callKang} className="btn btn-xs">Chin Shen Kang</button> */}
                 <span className='text-5xl font-bold'>Login to</span>
                 <br />
@@ -72,7 +72,7 @@ const Login = () => {
                 <br />
                 <a className='text-indigo-600 text-xl font-medium' href='/register'>Register here!</a>
               </div>
-              <div className='absolute left-1/2 bottom-28'>
+              <div className='absolute left-1/2 bottom-24 z-0'>
                 <img src={man} alt="man" className='w-64'/>
               </div>
           </div>
@@ -96,6 +96,7 @@ const Login = () => {
                 <input className="btn w-80 bg-indigo-600 mt-6" type='submit' value='Hosted Login'/>
               </form>
               <br />
+              <div className="divider before:bg-black after:bg-black text-black mx-auto">OR</div>
               <a className="btn w-full bg-black-600 mt-6" href='https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/bank/oauth/authorize'>Bank SSO Login </a>
               {/* <a className='text-sm my-2 ml-20' href='http://localhost:4000/get-auth-code'>or continue with Bank SSO</a> */}
             </div>
