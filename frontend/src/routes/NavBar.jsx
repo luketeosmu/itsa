@@ -20,7 +20,7 @@ const NavBar = ({ loginFlow }) => {
             {loginFlow === "hosted_login" ?
             <li><button onClick={editProfile} className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
             :
-            <li><button onClick={editProfile} className='btn btn-ghost' disabled>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
+            <li><button onClick={editProfile} disabled>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
             }
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
             <li><a href='/login' className='btn btn-ghost' onClick={handleLogout}>Logout</a></li>
