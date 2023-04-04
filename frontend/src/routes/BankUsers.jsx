@@ -83,7 +83,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         })
     }
     const checkGivenName = (given_name) => {
-        var re = /^[A-Za-z ]+$/;
+        var re = /^[a-zA-Z]*$/
         if(re.test(given_name) === false || given_name.trim().length === 0) {
             console.log("invalid given name");
             document.getElementById("givenNameSpan" + user.id).style.display = "block";
@@ -95,7 +95,7 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         }
     }
     const checkFamilyName = (family_name) => {
-        var re = /^[A-Za-z ]+$/;
+        var re = /^[a-zA-Z]*$/
         if(re.test(family_name) === false || given_name.trim().length === 0) {
             console.log("invalid family name");
             document.getElementById("familyNameSpan" + user.id).style.display = "block";
