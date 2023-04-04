@@ -14,7 +14,7 @@ import Validate from "./routes/Validate";
 import AccessToken from "./routes/AccessToken";
 import AuthToken from "./routes/AuthToken";
 import InvalidLogin from "./routes/InvalidLogin";
-
+import InvalidAccess from "./routes/InvalidAccess";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "invalidlogin",
     element: <InvalidLogin />,
+  },
+  {
+    path: "invalidaccess",
+    element: <InvalidAccess />,
   },
   {
     path: "mybank",
