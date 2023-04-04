@@ -203,8 +203,9 @@ const MyBank = () => {
                 
                 let parts = bankIdToken.split(".");
                 let payload = JSON.parse(atob(parts[1]));
-                fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'bank');
+                setLoginFlow('bank');
                 setRole(payload.role);
+                fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'bank');
                 // localStorage.setItem("username", payload.username);
             } else if (searchParams.get('code')) {
                 const postUrl = "https://3qhkw6bpzk.execute-api.ap-southeast-1.amazonaws.com/default/hosted_login/oauth/token";
@@ -247,6 +248,7 @@ const MyBank = () => {
                         console.log(header);
                         console.log(payload.role);
                         setRole(payload.role);
+                        setLoginFlow('hosted_login');
                         fetchUserInfoBasedOnRoleAndLoginFlow(payload.role, 'hosted_login');
                     })
                     .catch((err) => {
