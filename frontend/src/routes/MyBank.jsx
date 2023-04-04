@@ -8,6 +8,7 @@ const MyBank = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [role, setRole] = useState('');
     const [error, setError] = useState(true);
+    const [loginFlow, setLoginFlow] = useState('');
     const [personalInfo, setPersonalInfo] = useState({
         "sub": "0042e904-0473-48d3-8175-f1fd06db0b64",
         "email": "nicolas.kihn@dietrich.net",
@@ -92,13 +93,24 @@ const MyBank = () => {
             localStorage.setItem("currentUser_email", data.email);
             localStorage.setItem("currentUser_id", data.id);
             // console.log("user info from local storage: " + localStorage.getItem("currentUser"));
-            if(role === "user") {
+            if(role === "user" && loginFlow === "hosted_login") {
                 setUsers([{
                     "email": data.email,
                     "given_name": data.given_name,
                     "family_name": data.family_name,
                     "id": data.id,
                     "status": data.status,
+                }]);
+            } else if(role === "user" && loginFlow === "bank") {
+                setUsers([{
+                    "email": data.email,
+                    "given_name": data.given_name,
+                    "family_name": data.family_name,
+                    "id": data.sub,
+                    "status": "pending",
+                    "phone_number" : data.phone_number,
+                    "gender" : data.gender,
+                    "birthdate" : data.birthdate
                 }]);
             }
         })
@@ -251,6 +263,7 @@ const MyBank = () => {
                 console.log("role: " + role);
                 setRole(role);
                 const loginFlow = localStorage.getItem("refresh_token") ? 'hosted_login' : 'bank';
+                setLoginFlow(loginFlow);
                 fetchUserInfoBasedOnRoleAndLoginFlow(role, loginFlow);
             }
         } catch (err) {
@@ -265,7 +278,7 @@ const MyBank = () => {
         <h1 className='text-3xl mb-10 ml-56 font-bold'>
             My Bank
         </h1>
-        {users.length > 0 ?
+        {users.length > 0 && loginFlow === "hosted_login" ?
             <div className="overflow-x-auto h-screen ">
                 <table className="table table-compact w-3/4 mx-auto">
                     <thead>
@@ -284,13 +297,39 @@ const MyBank = () => {
                     </thead> 
                     <tbody>
                         {users.map(function(user, i){
-                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role}/>;
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role} loginFlow={loginFlow}/>;
                         })}
                     </tbody>
                 </table>
             </div>
-        :
-            <div className="flex items-center justify-center text-center text-2xl font-medium">
+        : users.length > 0 && loginFlow === "bank" ?
+            <div className="overflow-x-auto h-screen ">
+                <table className="table table-compact w-3/4 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>Email</th> 
+                        <th>First Name</th> 
+                        <th>Last Name</th> 
+                        <th>User ID</th> 
+                        <th>Status</th> 
+                        <th>Gender</th> 
+                        <th>Birthdate</th> 
+                        <th>Phone Number</th> 
+                        {
+                            role === "superadmin" 
+                            ?<th>Actions</th>
+                            :<th></th>
+                        } 
+                    </tr>
+                    </thead> 
+                    <tbody>
+                        {users.map(function(user, i){
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.id} role={role} loginFlow={loginFlow}/>;
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        :    <div className="flex items-center justify-center text-center text-2xl font-medium">
                 <button className="btn btn-ghost btn-xl loading text-xl">Loading bank users..</button>
             </div>
         }
