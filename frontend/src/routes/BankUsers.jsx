@@ -9,7 +9,9 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     const [email, setEmail] = useState(user.email);
     const [given_name, setGivenName] = useState(user.given_name);
     const [family_name, setFamilyName] = useState(user.family_name);
-    const [validChanges, setValidChanges] = useState(true);
+    const [validEmail, setValidEmail] = useState(true);
+    const [validFamilyName, setValidFamilyName] = useState(true);
+    const [validGivenName, setValidGivenName] = useState(true);
     // useEffect (() => {
     // }, [])
     // const upperCase = (name) => {
@@ -42,6 +44,9 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         setEmail(originalEmail);
         setGivenName(originalGivenName);
         setFamilyName(originalFamilyName);
+        setValidEmail(true);
+        setValidFamilyName(true);
+        setValidGivenName(true);
         document.getElementById("emailSpan" + user.id).style.display = "none";
         document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
     }
@@ -89,31 +94,33 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         console.log("trim: " + given_name.trim().length);
         if(re.test(given_name) === false || given_name.trim().length === 0) {
             console.log("invalid given name");
-            setValidChanges(false);
+            setValidGivenName(false);
             document.getElementById("givenNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
         } else {
+            setValidGivenName(true);
             console.log("valid given name");
             document.getElementById("givenNameSpan" + user.id).style.display = "none";
+            if(validEmail === true && validFamilyName === true) {
+                document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+            }
         }
-        
-        if(validChanges === true) {
-            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
-        }
+
     }
     const checkFamilyName = (family_name) => {
         var re = /^[a-zA-Z ]*$/
         if(re.test(family_name) === false || family_name.trim().length === 0) {
             console.log("invalid family name");
-            setValidChanges(false);
+            setValidFamilyName(false);
             document.getElementById("familyNameSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
         } else {
+            setValidFamilyName(true);
             console.log("valid family name");
             document.getElementById("familyNameSpan" + user.id).style.display = "none";
-        }
-        if(validChanges === true) {
-            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+            if(validGivenName === true && validEmail == true) {
+                document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+            }
         }
     }
     const checkEmail = (email) => {
@@ -122,15 +129,16 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         console.log("checking email");
         if(re.test(email) === false || email.trim().length === 0) {
             console.log("invalid email");
-            setValidChanges(false);
+            setValidEmail(false);
             document.getElementById("emailSpan" + user.id).style.display = "block";
             document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
         } else {
+            setValidEmail(true);
             console.log("valid email");
             document.getElementById("emailSpan" + user.id).style.display = "none";
-        }
-        if(validChanges === true) {
-            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+            if(validFamilyName === true && validGivenName === true) {
+                document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+            }
         }
     }
     // const confirmChange = () => {
