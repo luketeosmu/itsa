@@ -14,6 +14,7 @@ const Validate = () => {
 // 500: Other untold errors 
 //    
   useEffect = (() => {
+    console.log(!localStorage.getItem("access_token") && !localStorage("id_token"));
     if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
         window.location.href="/invalidaccess";
     }
