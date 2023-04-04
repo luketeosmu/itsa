@@ -126,20 +126,16 @@ def validate(email, first_name, last_name):
     # Check email
     email_regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if (re.search(email_regex,email) is None):
-        print(email)
         return False
     
     # Check name
     name_regex = "^[A-Z][a-z]+$"
     if (re.search(name_regex,first_name) is not None):
-        print(first_name)
     else:
-        print(first_name)
         return False
     
     # Check name
     if (re.search(name_regex, last_name) is not None):
-        print(last_name)
     else:
         return False
     return True
