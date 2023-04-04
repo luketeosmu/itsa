@@ -82,6 +82,30 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             })
         })
     }
+    const checkGivenName = (given_name) => {
+        var re = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        if(re.test(given_name) === false) {
+            console.log("invalid given name");
+            document.getElementById("givenNameSpan" + user.id).style.display = "block";
+            document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
+        } else{
+            console.log("valid given name");
+            document.getElementById("givenNameSpan" + user.id).style.display = "none";
+            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+        }
+    }
+    const checkFamilyName = (family_name) => {
+        var re = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        if(re.test(family_name) === false) {
+            console.log("invalid family name");
+            document.getElementById("familyNameSpan" + user.id).style.display = "block";
+            document.getElementById("confirmChange" + user.id).setAttribute("disabled", "disabled");
+        } else{
+            console.log("valid family name");
+            document.getElementById("familyNameSpan" + user.id).style.display = "none";
+            document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
+        }
+    }
     const checkEmail = (email) => {
         // setEmail(email);
         var re = /\S+@\S+\.\S+/;
@@ -152,13 +176,19 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                                         <label class="label">
                                             <span class="label-text">Given Name:</span>
                                         </label>
-                                        <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setGivenName(e.target.value)}} />
+                                        <input type="text" value={given_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
+                                            setGivenName(e.target.value);
+                                            checkGivenName(given_name);}} />
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"givenNameSpan" + user.id}>Invalid Email</span>
                                     </div>
                                     <div class="form-control w-full mb-5 col-span-1">
                                         <label class="label">
                                             <span class="label-text">Family Name:</span>
                                         </label>
-                                        <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {setFamilyName(e.target.value)}} />
+                                        <input type="text" value={family_name} class="input input-bordered w-full max-w-xs" onChange={(e) => {
+                                            setFamilyName(e.target.value);
+                                            checkFamilyName(family_name);}} />
+                                        <span className="text-red-700 font-light text-xs" style={{ display: "none" }} id={"familyNameSpan" + user.id}>Invalid Email</span>
                                     </div>
                                 </div>
                                 <label for={'modal-edit-user' + user.id} id={"confirmChange" + user.id} className="btn bg-indigo-600 mx-auto flex" onClick={editUser}>Confirm Changes</label>
