@@ -149,11 +149,15 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
             : 
                 loginFlow === "bank"
             ?   
-                <div>
-                    <td>{user.gender} </td>
-                    <td>{user.birthdate} </td>
-                    <td>{user.phone_number} </td>
-                </div>
+            <td>{user.gender} </td>
+            : 
+                loginFlow === "bank"
+            ?   
+            <td>{user.birthdate} </td>
+            : 
+                loginFlow === "bank"
+            ?   
+            <td>{user.phone_number} </td>
             :<td></td>
             }
         </tr>
