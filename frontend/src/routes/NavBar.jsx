@@ -5,11 +5,6 @@ const NavBar = ({ loginFlow }) => {
     localStorage.clear();
     window.location.href = "/login";
   }
-  const editProfile = () => {
-    if(loginFlow === "hosted_login") {
-      window.location.href="/editprofile";
-    }
-  }
   return (
     <div className="navbar bg-base-100 mb-10">
         <div className="flex-1 ml-48">
@@ -18,9 +13,9 @@ const NavBar = ({ loginFlow }) => {
         <div className="flex-none mr-56">
             <ul className="menu menu-horizontal px-1">
             {loginFlow === "hosted_login" ?
-            <li><button onClick={editProfile} className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
+            <li><a href="/editprofile" className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</a></li>
             :
-            <li><span>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</span></li>
+            <li></li>
             }
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
             <li><a href='/login' className='btn btn-ghost' onClick={handleLogout}>Logout</a></li>
