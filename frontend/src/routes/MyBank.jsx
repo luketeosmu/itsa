@@ -281,31 +281,7 @@ const MyBank = () => {
         <h1 className='text-3xl mb-10 ml-56 font-bold'>
             My Bank
         </h1>
-        {users.length > 0 && loginFlow === "hosted_login" ?
-            <div className="overflow-x-auto h-screen ">
-                <table className="table table-compact w-3/4 mx-auto">
-                    <thead>
-                    <tr>
-                        <th>Email</th> 
-                        <th>First Name</th> 
-                        <th>Last Name</th> 
-                        <th>User ID</th> 
-                        <th>Status</th> 
-                        {
-                            role === "superadmin" 
-                            ?<th>Actions</th>
-                            :<th></th>
-                        } 
-                    </tr>
-                    </thead> 
-                    <tbody>
-                        {users.map(function(user, i){
-                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role} loginFlow={loginFlow}/>;
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        : users.length > 0 && loginFlow === "bank" && role === "user"?
+        {users.length > 0 && loginFlow === "bank" && role === "user"?
             <div className="overflow-x-auto h-screen ">
                 <table className="table table-compact w-3/4 mx-auto">
                     <thead>
@@ -328,6 +304,30 @@ const MyBank = () => {
                     <tbody>
                         {users.map(function(user, i){
                             return <BankUsers user={user} setUsers={setUsers} users={users} key={user.id} role={role} loginFlow={loginFlow}/>;
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        : users.length > 0 ?
+            <div className="overflow-x-auto h-screen ">
+                <table className="table table-compact w-3/4 mx-auto">
+                    <thead>
+                    <tr>
+                        <th>Email</th> 
+                        <th>First Name</th> 
+                        <th>Last Name</th> 
+                        <th>User ID</th> 
+                        <th>Status</th> 
+                        {
+                            role === "superadmin" 
+                            ?<th>Actions</th>
+                            :<th></th>
+                        } 
+                    </tr>
+                    </thead> 
+                    <tbody>
+                        {users.map(function(user, i){
+                            return <BankUsers user={user} setUsers={setUsers} users={users} key={user.uid} role={role} loginFlow={loginFlow}/>;
                         })}
                     </tbody>
                 </table>
