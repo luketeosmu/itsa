@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
+
 
 const Validate = () => {
   const [otp, setOtp] = useState('')
   //handleRegister
 
-  //HERE ARE THE STATUS CODES
+//HERE ARE THE STATUS CODES
 //   
 // 200: Good
 // 401: Invalid OTP
@@ -13,12 +13,7 @@ const Validate = () => {
 // 403: Email not inside DB
 // 500: Other untold errors 
 //    
-  useEffect = (() => {
-    if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
-        window.location.href="/invalidaccess";
-    }
-  }, []);
-
+  
 //this is for resendOTP
   const handleResubmitOTP = async () => {
     try {
@@ -38,8 +33,6 @@ const Validate = () => {
         response.json()
       }).then(data => console.log(data))
         .catch(err => console.log(err));
-      //console.log("EMAIL HERE");
-      //console.log(e)
       const data = await response.json();
       //console.log(data);
       // handle success or error
@@ -50,11 +43,13 @@ const Validate = () => {
     window.location.href = "#resendOTPMOdal"; 
   };
 
+  //THis is for first submission
   const handleSubmitOTP = async () => {
     try {
-      //console.log("HELLO")
       const email = localStorage.getItem("email");    //This returns the email as an email variable!
       const password = localStorage.getItem("password");
+      // console.log("THIS IS PASSWROD")
+      // console.log(password)
       const response = await fetch('https://mbpzjhq32b.execute-api.ap-southeast-1.amazonaws.com/val_OTP/otp_validator', {
         method: 'POST',
         headers: {
@@ -72,8 +67,8 @@ const Validate = () => {
         return response.json();
         //console.log("BEfore u enter data")
       }).then(data => {
-        // console.log("Trying Data")
-        // console.log(data)
+        //console.log("Trying Dxta")
+        //console.log(data)
         //console.log("Entered Data Read")
 
         //console.log("Printing status")
@@ -121,18 +116,9 @@ const Validate = () => {
           <div>
             <input onChange={e => setOtp(e.target.value)} value={otp} type="text" placeholder="Enter OTP" className="input input-bordered w-64 my-5 bg-indigo-100 text-indigo-600 placeholder-indigo-400 text-sm" />
           </div>
+
           <div className='text-center'>
-            <button onClick={handleSubmitOTP} className="btn w-64 bg-indigo-600">Validate</button>
-            {/* <a href="my-modal-2" className="btn w-64 bg-indigo-600">Validate</a> */}
-            <div className="modal" id="my-modal-2">
-              <div className="modal-box text-center">
-                <h3 className="font-bold text-2xl">OTP Validation Successful!</h3>
-                <p className="py-4 font-medium">You will be redirected to the login page.</p>
-                <div className="modal-action flex justify-center items-center space-x-10">
-                  <a href="/login" className="btn w-48 bg-indigo-600">Close</a>
-                </div>
-              </div>
-            </div>
+           <button onClick={handleSubmitOTP} className="btn w-64 bg-indigo-600">Validate</button>
             <div className="modal" id="my-modal-1">
               <div className="modal-box text-center">
                 <h3 className="font-bold text-2xl">OTP Validation Unsuccessful, WRONG OTP!</h3>
@@ -142,6 +128,17 @@ const Validate = () => {
                 </div>
               </div>
             </div>
+
+            <div className="modal" id="my-modal-2">
+              <div className="modal-box text-center">
+                <h3 className="font-bold text-2xl">OTP Validation Successful!</h3>
+                <p className="py-4 font-medium">You will be redirected to the login page.</p>
+                <div className="modal-action flex justify-center items-center space-x-10">
+                  <a href="/login" className="btn w-48 bg-indigo-600">Close</a>
+                </div>
+              </div>
+            </div>
+
             <div className="modal" id="my-modal-3">
               <div className="modal-box text-center">
                 <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
@@ -151,15 +148,17 @@ const Validate = () => {
                 </div>
               </div>
             </div>
+
             <div className="modal" id="my-modal-4">
               <div className="modal-box text-center">
                 <h3 className="font-bold text-2xl">OTP Validation Unsuccessful!</h3>
-                <p className="py-4 font-medium">Your OTP has EXPIRED</p>
+                <p className="py-4 font-medium">Your OTP has EXPIRED. Please RESEND Your OTP</p>
                 <div className="modal-action flex justify-center items-center space-x-10">
                   <a href="/validate" className="btn w-48 bg-indigo-600">Close</a>
                 </div>
               </div>
             </div>
+
             <div className="modal" id="resendOTPMOdal">
               <div className="modal-box text-center">
                 <h3 className="font-bold text-2xl">You have been resent an OTP!</h3>
@@ -170,8 +169,11 @@ const Validate = () => {
               </div>
             </div>
             <br />
+
+
             <button onClick={handleResubmitOTP} className='text-sm my-2 font-medium'>Resend OTP</button>
-              <a href="/validate" ></a>
+                <a href="/validate" ></a> 
+                {/* This recalls the page */}
           </div>
         </div>
       </div>

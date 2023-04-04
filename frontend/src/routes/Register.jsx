@@ -22,6 +22,9 @@ const Register = () => {
     try {
       //console.log("HELLO")
       localStorage.setItem("email", email)
+      localStorage.setItem("password", password) //set password so can access in validate 
+      console.log("THIS IS PASSWORD")
+      console.log(password)
       const response = await fetch('https://ppzp0z6kh1.execute-api.ap-southeast-1.amazonaws.com/test', {
         method: 'POST',
         headers: {
@@ -29,6 +32,7 @@ const Register = () => {
         },
         body: JSON.stringify({
           email: email,
+    
         })
       }).then(response => {
        // console.log(response);
