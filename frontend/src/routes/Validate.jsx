@@ -13,7 +13,7 @@ const Validate = () => {
 // 403: Email not inside DB
 // 500: Other untold errors 
 //    
-  useEffect = (() => {
+  useEffect(() => {
     console.log(!localStorage.getItem("access_token") && !localStorage("id_token"));
     if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
         window.location.href="/invalidaccess";

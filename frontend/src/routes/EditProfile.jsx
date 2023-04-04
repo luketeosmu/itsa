@@ -6,19 +6,13 @@ const EditProfile = () => {
     const [email, setEmail] = useState(localStorage.getItem("currentUser_email"));
     const [given_name, setGivenName] = useState(localStorage.getItem("currentUser_given_name"));
     const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
-    useEffect = (() => {
-        console.log(!localStorage.getItem("access_token") && !localStorage("id_token"));
-        if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
-            window.location.href="/invalidaccess";
-        }
-    }, []);
-
+    
     const editUser = () => {
         // console.log(id);
         localStorage.setItem("currentUser_email", email);
         localStorage.setItem("currentUser_given_name", given_name);
         localStorage.setItem("currentUser_last_name", family_name);
-    
+        
         console.log(email);
         console.log(given_name);
         console.log(family_name);
@@ -45,12 +39,18 @@ const EditProfile = () => {
             })
         })
     }
-
+    
     const reloadPage = () => {
         window.location.reload(false);
     }
-  return (
-      <div>
+    useEffect(() => {
+        console.log(!localStorage.getItem("access_token") && !localStorage("id_token"));
+        if(!localStorage.getItem("access_token") && !localStorage("id_token") ) {
+            window.location.href="/invalidaccess";
+        }
+    }, []);
+    return (
+        <div>
         <NavBar />
         <div className='flex relative w-1/2 mx-auto'>
             {/* <div className=''>
