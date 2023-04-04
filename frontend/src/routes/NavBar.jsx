@@ -1,9 +1,14 @@
 import React from 'react'
 import logo from '../ascenda.png';
-const NavBar = () => {
+const NavBar = ({ loginFlow }) => {
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/login";
+  }
+  const editProfile = () => {
+    if(loginFlow === "hosted_login") {
+      window.location.href="/editprofile";
+    }
   }
   return (
     <div className="navbar bg-base-100 mb-10">
@@ -12,7 +17,11 @@ const NavBar = () => {
         </div>
         <div className="flex-none mr-56">
             <ul className="menu menu-horizontal px-1">
-            <li><a href='/editprofile' className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</a></li>
+            {loginFlow === "hosted_login" ?
+            <li><button onClick={editProfile} className='btn btn-ghost'>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
+            :
+            <li><button onClick={editProfile} className='btn btn-ghost' disabled>{localStorage.getItem("currentUser_given_name")} {localStorage.getItem("currentUser_family_name")}</button></li>
+            }
             <li><a href='/mybank' className='btn btn-ghost'>My Bank</a></li>
             <li><a href='/login' className='btn btn-ghost' onClick={handleLogout}>Logout</a></li>
             </ul>

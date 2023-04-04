@@ -279,7 +279,7 @@ const MyBank = () => {
 
   return (
     <div>
-        <NavBar />
+        <NavBar loginFlow={loginFlow}/>
         <h1 className='text-3xl mb-10 ml-56 font-bold'>
             My Bank
         </h1>
