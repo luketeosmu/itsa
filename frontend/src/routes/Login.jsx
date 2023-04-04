@@ -48,7 +48,7 @@ const Login = () => {
     fetch(url, {
       method: 'POST',
       headers: {
-        cookie: cookies.refresh_token,
+        Cookie: `refresh-token=${cookies.refresh_token}`,
       },
     })
     .then((response) => response.json())
