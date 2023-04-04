@@ -7,24 +7,24 @@ const EditProfile = () => {
     const [given_name, setGivenName] = useState(localStorage.getItem("currentUser_given_name"));
     const [family_name, setFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     const [id, setId] = useState(localStorage.getItem("currentUser_id"));
-    const [originalEmail, setOriginalEmail] = useState(localStorage.getItem("currentUser_email"));
-    const [originalGivenName, setOriginalGivenName] = useState(localStorage.getItem("currentUser_given_name"));
-    const [originalFamilyName, setOriginalFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
+    // const [originalEmail, setOriginalEmail] = useState(localStorage.getItem("currentUser_email"));
+    // const [originalGivenName, setOriginalGivenName] = useState(localStorage.getItem("currentUser_given_name"));
+    // const [originalFamilyName, setOriginalFamilyName] = useState(localStorage.getItem("currentUser_family_name"));
     const [validEmail, setValidEmail] = useState(true);
     const [validFamilyName, setValidFamilyName] = useState(true);
     const [validGivenName, setValidGivenName] = useState(true);
     // useEffect (() => {
 
-    const revertChanges = () => {
-        setEmail(originalEmail);
-        setGivenName(originalGivenName);
-        setFamilyName(originalFamilyName);
-        setValidEmail(true);
-        setValidFamilyName(true);
-        setValidGivenName(true);
-        document.getElementById("emailSpan" + id).style.display = "none";
-        document.getElementById("confirmChange" + id).removeAttribute("disabled");
-    }
+    // const revertChanges = () => {
+    //     setEmail(originalEmail);
+    //     setGivenName(originalGivenName);
+    //     setFamilyName(originalFamilyName);
+    //     setValidEmail(true);
+    //     setValidFamilyName(true);
+    //     setValidGivenName(true);
+    //     document.getElementById("emailSpan" + id).style.display = "none";
+    //     document.getElementById("confirmChange" + id).removeAttribute("disabled");
+    // }
 
     const checkGivenName = (given_name) => {
         var re = /^[a-zA-Z ]*$/
@@ -85,9 +85,7 @@ const EditProfile = () => {
         localStorage.setItem("currentUser_email", email);
         localStorage.setItem("currentUser_given_name", given_name);
         localStorage.setItem("currentUser_last_name", family_name);
-        setOriginalEmail(email);
-        setOriginalGivenName(given_name);
-        setOriginalFamilyName(family_name);
+
         console.log(email);
         console.log(given_name);
         console.log(family_name);
