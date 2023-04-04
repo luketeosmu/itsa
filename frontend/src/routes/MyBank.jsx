@@ -199,6 +199,9 @@ const MyBank = () => {
     useEffect(() => {
         try {
             checkExpiry();
+            if(!searchParams.get('bankAccessToken') && !searchParams.get('code') && !localStorage.getItem("id_token")) {
+                console.log("unauthorized");
+            }
             // console.log(localStorage.getItem('code_verifier: ' + code_verifier));
             if (searchParams.get('bankAccessToken')) {
                 const bankAccessToken = searchParams.get('bankAccessToken');
