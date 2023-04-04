@@ -308,11 +308,6 @@ const MyBank = () => {
                         <th classname="sticky">Gender</th> 
                         <th classname="sticky">Birthdate</th> 
                         <th classname="sticky">Phone Number</th> 
-                        {
-                            role === "superadmin" 
-                            ?<th classname="sticky">Actions</th>
-                            :<th></th>
-                        } 
                     </tr>
                     </thead> 
                     <tbody>
@@ -327,14 +322,14 @@ const MyBank = () => {
                 <table className="table table-compact w-3/4 mx-auto relative">
                     <thead>
                     <tr>
-                        <th classname="sticky top-0">Email</th> 
-                        <th classname="sticky top-0">First Name</th> 
-                        <th classname="sticky top-0">Last Name</th> 
-                        <th classname="sticky top-0">User ID</th> 
-                        <th classname="sticky top-0">Status</th> 
+                        <th classname="sticky top-0 absolute">Email</th> 
+                        <th classname="sticky top-0 absolute">First Name</th> 
+                        <th classname="sticky top-0 absolute">Last Name</th> 
+                        <th classname="sticky top-0 absolute">User ID</th> 
+                        <th classname="sticky top-0 absolute">Status</th> 
                         {
                             role === "superadmin" 
-                            ?<th classname="sticky top-0">Actions</th>
+                            ?<th classname="sticky top-0 absolute">Actions</th>
                             :<th></th>
                         } 
                     </tr>
