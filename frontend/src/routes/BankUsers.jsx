@@ -37,8 +37,6 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
                 "id" : user.id
             })
         })
-        localStorage.clear();
-        window.location.href="/login";
     }
     const revertChanges = () => {
         setEmail(originalEmail);

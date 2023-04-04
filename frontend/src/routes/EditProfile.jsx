@@ -113,6 +113,8 @@ const EditProfile = () => {
                 "id" : localStorage.getItem("currentUser_id")
             })
         })
+        localStorage.clear();
+        window.location.href="/login";
     }
     
     const reloadPage = () => {
