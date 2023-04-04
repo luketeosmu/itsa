@@ -201,6 +201,7 @@ const MyBank = () => {
             checkExpiry();
             if(!searchParams.get('bankAccessToken') && !searchParams.get('code') && !localStorage.getItem("id_token")) {
                 console.log("unauthorized");
+                window.location.href="/invalidLogin";
             }
             // console.log(localStorage.getItem('code_verifier: ' + code_verifier));
             if (searchParams.get('bankAccessToken')) {
