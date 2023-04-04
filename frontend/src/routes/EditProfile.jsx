@@ -116,9 +116,10 @@ const EditProfile = () => {
         window.location.href="/login";
     }
     
-    // const reloadPage = () => {
-    //     window.location.reload(false);
-    // }
+    const reloadPage = () => {
+        window.location.reload(false);
+    }
+
     useEffect(() => {
         console.log(!localStorage.getItem("access_token") && !localStorage.getItem("id_token"));
         if(!localStorage.getItem("access_token") && !localStorage.getItem("id_token") ) {
@@ -205,7 +206,7 @@ const EditProfile = () => {
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">Changes saved successfully!</h3>
                                 <div class="modal-action justify-center text-center items-center">
-                                    <label for="save-changes-modal" class="btn">Close!</label>
+                                    <label for="save-changes-modal" class="btn" onClick={reloadPage}>Close!</label>
                                 </div>
                             </div>
                         </div>
