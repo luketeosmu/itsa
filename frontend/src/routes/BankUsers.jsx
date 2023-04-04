@@ -40,9 +40,11 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         console.log(email);
         console.log(given_name);
         console.log(family_name);
-        localStorage.setItem("currentUser_email", email);
-        localStorage.setItem("currentUser_given_name", given_name);
-        localStorage.setItem("currentUser_last_name", family_name);
+        if(localStorage.getItem("currentUser_id") === user.id) {
+            localStorage.setItem("currentUser_email", email);
+            localStorage.setItem("currentUser_given_name", given_name);
+            localStorage.setItem("currentUser_last_name", family_name);
+        }
         let editedUser = 
             {
                 'email' : email,
