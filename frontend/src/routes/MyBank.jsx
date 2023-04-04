@@ -305,7 +305,7 @@ const MyBank = () => {
                     </tbody>
                 </table>
             </div>
-        : users.length > 0 && loginFlow === "bank" ?
+        : users.length > 0 && loginFlow === "bank" && role === "user"?
             <div className="overflow-x-auto h-screen ">
                 <table className="table table-compact w-3/4 mx-auto">
                     <thead>
