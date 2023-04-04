@@ -1,5 +1,5 @@
 import React from 'react'
-import man from '../man.jpg';
+import man from '../man.png';
 import Nav from './Nav';
 import { useState } from 'react';
 const Register = () => {

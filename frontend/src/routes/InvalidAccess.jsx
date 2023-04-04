@@ -1,5 +1,5 @@
 import React from 'react'
-import unauthorized from '../unauthorized.jpg';
+import unauthorized from '../unauthorized.png';
 const InvalidLogin = () => {
     return (
         <div className="min-h-screen">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import man from '../man.jpg';
+import man from '../man.png';
 import Nav from './Nav';
 import sha256 from 'crypto-js/sha256'; 
 import Base64 from 'crypto-js/enc-base64';
