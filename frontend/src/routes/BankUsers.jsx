@@ -4,6 +4,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     // const [currentUser, setCurrentUser] = useState(user);
     const [currentUser, setCurrentUser] = useState();
     const [originalEmail, setOriginalEmail] = useState(user.email);
+    const [originalGivenName, setOriginalGivenName] = useState(user.given_name);
+    const [originalLastName, setOriginalLastName] = useState(user.last_name);
     const [email, setEmail] = useState(user.email);
     const [given_name, setGivenName] = useState(user.given_name);
     const [family_name, setFamilyName] = useState(user.family_name);
@@ -37,6 +39,10 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
     }
     const revertChanges = () => {
         setEmail(originalEmail);
+        setGivenName(originalGivenName);
+        setOriginalLastName(originalLastName);
+        document.getElementById("emailSpan" + user.id).style.display = "none";
+        document.getElementById("confirmChange" + user.id).removeAttribute("disabled");
     }
     const editUser = () => {
         // console.log(id);
@@ -44,6 +50,8 @@ const BankUsers = ({ user, setUsers, users, role, loginFlow }) => {
         console.log(given_name);
         console.log(family_name);
         setOriginalEmail(email);
+        setOriginalEmail(given_name);
+        setOriginalEmail(last_name);
         if(localStorage.getItem("currentUser_id") === user.id) {
             localStorage.setItem("currentUser_email", email);
             localStorage.setItem("currentUser_given_name", given_name);
