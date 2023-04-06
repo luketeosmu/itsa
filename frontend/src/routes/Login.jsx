@@ -47,7 +47,7 @@ const Login = () => {
         <div className='flex'>
           <div className='w-3/5 h-screen flex items-center justify-center relative'>
               <div className='text-2xl absolute z-10'>
-                <span className='text-5xl font-bold'>Login to</span>
+                <span className='text-5xl font-bold'>Login from</span>
                 <br />
                 <span className='font-medium'>manage your resources today.</span>
                 <br />
